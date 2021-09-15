@@ -31,7 +31,7 @@ public class UserDAL extends AbstractDAL<User> implements IUserDAL {
 
     @Override
     public Long save(User user) {
-        String sql = "INSERT INTO user(first_name, last_name, dob, gender, address, phone, email, password, enabled) VALUES(?)";
+        String sql = "INSERT INTO user(first_name, last_name, dob, gender, address, phone, email, password, enabled) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         return insert(sql, user.getFirstName(), user.getLastName(), user.getDob(), user.getGender(), user.getAddress(), user.getPhone(), user.getEmail(), user.getPassword(), user.isEnabled());
     }
 

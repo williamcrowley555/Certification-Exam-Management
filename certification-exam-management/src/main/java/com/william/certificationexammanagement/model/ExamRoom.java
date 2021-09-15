@@ -27,7 +27,7 @@ public class ExamRoom {
     private int quantity = 0;
 
     @Column(name = "exam_date", nullable = false)
-    private Date examDate = new Date(System.currentTimeMillis());
+    private Date examDate;
 
     @ManyToOne
     @JoinColumn(name = "proctor_id")

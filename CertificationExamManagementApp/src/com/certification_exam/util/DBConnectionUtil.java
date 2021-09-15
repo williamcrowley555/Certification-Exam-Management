@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class DBConnectionUtil {
     
-    private static final String URL = "jdbc:postgresql://localhost:5432/tour_du_lich";
+    private static final String URL = "jdbc:mysql://localhost:3306/certification_exam";
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "admin123";
     private static Connection connection = null;

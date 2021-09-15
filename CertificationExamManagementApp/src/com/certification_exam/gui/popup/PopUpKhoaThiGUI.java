@@ -51,6 +51,8 @@ public class PopUpKhoaThiGUI extends javax.swing.JFrame {
     private TourDTO tour;
     private ITourBLL tourBLL;
     private ILoaiDuLichBLL loaiDuLichBLL;
+    private LocalDate today;
+    private LocalDate createDate;
     public PopUpKhoaThiGUI(String action) {
         initComponents();
       
@@ -58,7 +60,6 @@ public class PopUpKhoaThiGUI extends javax.swing.JFrame {
         tourBLL = new TourBLL();
         loaiDuLichBLL = new LoaiDuLichBLL();
         CustomWindow();
-     
         setComboBox(comboBoxTrinhDo, getLoaiDuLichItems());
         comboBoxTrinhDo = myComboBox(comboBoxTrinhDo, new Color(14,142,233));
         
@@ -95,22 +96,22 @@ public class PopUpKhoaThiGUI extends javax.swing.JFrame {
    public void setCurrentDate(){
    
    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  
-   LocalDate now = LocalDate.now();  
-   System.out.println(dtf.format(now));
-   DCNgayThi.setDate(now);
+   this.today = LocalDate.now();  
+   System.out.println(dtf.format(this.today));
+   lblPopupTitle.setText("Tạo Khóa Thi Tháng "+ String.valueOf(this.today.getMonthValue()) + "/"+ this.today.getYear());
    }
    
    public void toNextMonth(){
-       if (DCNgayThi.getDate().getDayOfMonth() > 20)
+       if (this.today.getDayOfMonth() > 20)
        {
         int reply = JOptionPane.showConfirmDialog(null, "Ngày hiện tại lớn hơn 20 bạn có muốn dời khóa thi sang tháng sau", "Xác nhận", JOptionPane.YES_NO_OPTION);
              if (reply == JOptionPane.YES_OPTION) {
-             LocalDate now = LocalDate.now();  
-             LocalDate firstDayOfNextMonth = now.with(TemporalAdjusters.firstDayOfNextMonth());
-             DCNgayThi.setDate(firstDayOfNextMonth);
-             JOptionPane.showMessageDialog(null, "Ngay khoa thi da duoc doi sang dau thang sau");
+             LocalDate firstDayOfNextMonth = this.today.with(TemporalAdjusters.firstDayOfNextMonth());
+             this.createDate = firstDayOfNextMonth;
+             JOptionPane.showMessageDialog(null, "Khoa thi da duoc doi sang dau thang sau");
          } else {
-             JOptionPane.showMessageDialog(null, "Luu voi ngay thi hien tai");
+             this.createDate = this.today;    
+             JOptionPane.showMessageDialog(null, "Luu voi thang hien tai");
              }
        }
    }
@@ -243,6 +244,7 @@ public class PopUpKhoaThiGUI extends javax.swing.JFrame {
         panelHeader = new javax.swing.JPanel();
         lblMinimize = new javax.swing.JLabel();
         lblExit = new javax.swing.JLabel();
+        lblPopupTitle = new javax.swing.JLabel();
         pnlBody = new javax.swing.JPanel();
         txtTenTour = new javax.swing.JTextField();
         lblTrinhDo = new javax.swing.JLabel();
@@ -252,8 +254,6 @@ public class PopUpKhoaThiGUI extends javax.swing.JFrame {
         lblValidateDacDiem = new javax.swing.JLabel();
         comboBoxTrinhDo = new javax.swing.JComboBox<>();
         lblTenKhoaThi = new javax.swing.JLabel();
-        DCNgayThi = new com.github.lgooddatepicker.components.DatePicker();
-        lblNgayThi = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -266,32 +266,37 @@ public class PopUpKhoaThiGUI extends javax.swing.JFrame {
             }
         });
 
+        lblMinimize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMinimize.setBackground(new java.awt.Color(255, 255, 255));
         lblMinimize.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblMinimize.setForeground(new java.awt.Color(255, 255, 255));
-        lblMinimize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblMinimizeMouseClicked(evt);
             }
         });
 
+        lblExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExit.setBackground(new java.awt.Color(255, 255, 255));
         lblExit.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblExit.setForeground(new java.awt.Color(255, 255, 255));
-        lblExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblExitMouseClicked(evt);
             }
         });
 
+        lblPopupTitle.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblPopupTitle.setForeground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout panelHeaderLayout = new javax.swing.GroupLayout(panelHeader);
         panelHeader.setLayout(panelHeaderLayout);
         panelHeaderLayout.setHorizontalGroup(
             panelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHeaderLayout.createSequentialGroup()
-                .addContainerGap(238, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(lblPopupTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(lblExit, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -300,20 +305,21 @@ public class PopUpKhoaThiGUI extends javax.swing.JFrame {
             panelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblMinimize, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
             .addComponent(lblExit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblPopupTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pnlBody.setBackground(new java.awt.Color(255, 255, 255));
 
-        txtTenTour.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtTenTour.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(204, 204, 204)));
+        txtTenTour.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtTenTour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTenTourActionPerformed(evt);
             }
         });
 
-        lblTrinhDo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblTrinhDo.setText("Trình Độ:");
+        lblTrinhDo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         btnLuu.setBackground(new java.awt.Color(14, 142, 233));
         btnLuu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -347,42 +353,16 @@ public class PopUpKhoaThiGUI extends javax.swing.JFrame {
 
         lblValidateTenTour.setPreferredSize(new java.awt.Dimension(24, 24));
 
-        comboBoxTrinhDo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         comboBoxTrinhDo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
+        comboBoxTrinhDo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         comboBoxTrinhDo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxTrinhDoActionPerformed(evt);
             }
         });
 
-        lblTenKhoaThi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblTenKhoaThi.setText("Tên Khóa Thi:");
-
-        DCNgayThi.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                DCNgayThiFocusLost(evt);
-            }
-        });
-        DCNgayThi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                DCNgayThiMouseExited(evt);
-            }
-        });
-        DCNgayThi.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                DCNgayThiInputMethodTextChanged(evt);
-            }
-        });
-        DCNgayThi.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                DCNgayThiPropertyChange(evt);
-            }
-        });
-
-        lblNgayThi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblNgayThi.setText("Ngày Thi:");
+        lblTenKhoaThi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout pnlBodyLayout = new javax.swing.GroupLayout(pnlBody);
         pnlBody.setLayout(pnlBodyLayout);
@@ -392,8 +372,7 @@ public class PopUpKhoaThiGUI extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pnlBodyLayout.createSequentialGroup()
-                        .addComponent(lblNgayThi, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(97, 97, 97)
                         .addComponent(lblValidateDacDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlBodyLayout.createSequentialGroup()
                         .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -405,9 +384,8 @@ public class PopUpKhoaThiGUI extends javax.swing.JFrame {
                         .addComponent(lblValidateTenTour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtTenTour)
                     .addComponent(comboBoxTrinhDo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblTrinhDo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DCNgayThi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(lblTrinhDo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 20, Short.MAX_VALUE))
         );
         pnlBodyLayout.setVerticalGroup(
             pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -423,12 +401,8 @@ public class PopUpKhoaThiGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(comboBoxTrinhDo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblValidateDacDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNgayThi))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(DCNgayThi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                .addComponent(lblValidateDacDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -524,22 +498,6 @@ public class PopUpKhoaThiGUI extends javax.swing.JFrame {
     private void txtTenTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenTourActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTenTourActionPerformed
-
-    private void DCNgayThiFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DCNgayThiFocusLost
-
-    }//GEN-LAST:event_DCNgayThiFocusLost
-
-    private void DCNgayThiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DCNgayThiMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DCNgayThiMouseExited
-
-    private void DCNgayThiInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_DCNgayThiInputMethodTextChanged
-
-    }//GEN-LAST:event_DCNgayThiInputMethodTextChanged
-
-    private void DCNgayThiPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_DCNgayThiPropertyChange
-
-    }//GEN-LAST:event_DCNgayThiPropertyChange
 
     /**
      * @param args the command line arguments
@@ -640,14 +598,13 @@ public class PopUpKhoaThiGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.github.lgooddatepicker.components.DatePicker DCNgayThi;
     private javax.swing.ButtonGroup btnGroupGioiTinh;
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnLuu;
     private javax.swing.JComboBox<String> comboBoxTrinhDo;
     private javax.swing.JLabel lblExit;
     private javax.swing.JLabel lblMinimize;
-    private javax.swing.JLabel lblNgayThi;
+    private javax.swing.JLabel lblPopupTitle;
     private javax.swing.JLabel lblTenKhoaThi;
     private javax.swing.JLabel lblTrinhDo;
     private javax.swing.JLabel lblValidateDacDiem;

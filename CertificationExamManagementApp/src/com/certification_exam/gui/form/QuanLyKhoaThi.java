@@ -18,7 +18,7 @@ import com.certification_exam.bll.ILoaiDuLichBLL;
 import com.certification_exam.bll.impl.TourBLL;
 import com.certification_exam.bll.impl.LoaiDuLichBLL;
 import com.certification_exam.gui.popup.PopUpTableDiaDiemGUI;
-import com.certification_exam.gui.popup.PopUpTourGUI;
+import com.certification_exam.gui.popup.PopUpKhoaThiGUI;
 import com.certification_exam.util.TableSetupUtil;
 import com.certification_exam.util.TourTableLoaderUtil;
 import javax.swing.JOptionPane;
@@ -43,7 +43,7 @@ public class QuanLyKhoaThi extends javax.swing.JPanel {
     
     private ITourBLL tourBLL;
     private ILoaiDuLichBLL loaiDuLichBLL;
-    private PopUpTourGUI popUp;
+    private PopUpKhoaThiGUI popUp;
     private PopUpTableDiaDiemGUI popUpDiaDiem;
     TableRowSorter<TableModel> rowSorter = null;
     
@@ -68,7 +68,7 @@ public class QuanLyKhoaThi extends javax.swing.JPanel {
          
 //        model.addRow(row);
 //        tblTour.setModel(model);
-        headerColor(14,142,233,tblTour);
+        headerColor(14,142,233,tblKhoaThi);
         scroll.getVerticalScrollBar().setUI(new MyScrollBarUI());
         
     }
@@ -97,9 +97,9 @@ public class QuanLyKhoaThi extends javax.swing.JPanel {
     }
     
     public void loadTableData() {
-        tblTour.setModel(new TourTableLoaderUtil().setTable(tourBLL.findAll(), this.columnNames)) ;
-        this.rowSorter = TableSetupUtil.setTableFilter(tblTour, txtTimKiem);
-        headerColor(14,142,233,tblTour);
+        tblKhoaThi.setModel(new TourTableLoaderUtil().setTable(tourBLL.findAll(), this.columnNames)) ;
+        this.rowSorter = TableSetupUtil.setTableFilter(tblKhoaThi, txtTimKiem);
+        headerColor(14,142,233,tblKhoaThi);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -116,11 +116,11 @@ public class QuanLyKhoaThi extends javax.swing.JPanel {
         btnThem = new javax.swing.JButton();
         txtTimKiem = new javax.swing.JTextField();
         lblTitle = new javax.swing.JLabel();
-        btnDanhSachDiaDiem = new javax.swing.JButton();
+        btnDsThiSinh = new javax.swing.JButton();
         lblTimKiem = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         scroll = new javax.swing.JScrollPane();
-        tblTour = new javax.swing.JTable();
+        tblKhoaThi = new javax.swing.JTable();
 
         itemSua.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         itemSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/certification_exam/img/edit_icon.png"))); // NOI18N
@@ -167,21 +167,21 @@ public class QuanLyKhoaThi extends javax.swing.JPanel {
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("Quản Lý Khóa Thi");
 
-        btnDanhSachDiaDiem.setBackground(new java.awt.Color(14, 142, 233));
-        btnDanhSachDiaDiem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnDanhSachDiaDiem.setForeground(new java.awt.Color(255, 255, 255));
-        btnDanhSachDiaDiem.setText("Danh sách thí sinh");
-        btnDanhSachDiaDiem.setContentAreaFilled(false);
-        btnDanhSachDiaDiem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnDanhSachDiaDiem.setOpaque(true);
-        btnDanhSachDiaDiem.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnDsThiSinh.setBackground(new java.awt.Color(14, 142, 233));
+        btnDsThiSinh.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnDsThiSinh.setForeground(new java.awt.Color(255, 255, 255));
+        btnDsThiSinh.setText("Danh sách thí sinh");
+        btnDsThiSinh.setContentAreaFilled(false);
+        btnDsThiSinh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDsThiSinh.setOpaque(true);
+        btnDsThiSinh.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnDanhSachDiaDiemMousePressed(evt);
+                btnDsThiSinhMousePressed(evt);
             }
         });
-        btnDanhSachDiaDiem.addActionListener(new java.awt.event.ActionListener() {
+        btnDsThiSinh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDanhSachDiaDiemActionPerformed(evt);
+                btnDsThiSinhActionPerformed(evt);
             }
         });
 
@@ -195,7 +195,7 @@ public class QuanLyKhoaThi extends javax.swing.JPanel {
                 .addGap(30, 30, 30)
                 .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnDanhSachDiaDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnDsThiSinh, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 238, Short.MAX_VALUE)
                 .addComponent(lblTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -213,7 +213,7 @@ public class QuanLyKhoaThi extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnDanhSachDiaDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnDsThiSinh, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(32, 32, 32))
         );
@@ -222,7 +222,7 @@ public class QuanLyKhoaThi extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        tblTour.setModel(new javax.swing.table.DefaultTableModel(
+        tblKhoaThi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -233,15 +233,15 @@ public class QuanLyKhoaThi extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblTour.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblKhoaThi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tblTourMousePressed(evt);
+                tblKhoaThiMousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tblTourMouseReleased(evt);
+                tblKhoaThiMouseReleased(evt);
             }
         });
-        scroll.setViewportView(tblTour);
+        scroll.setViewportView(tblKhoaThi);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -272,7 +272,7 @@ public class QuanLyKhoaThi extends javax.swing.JPanel {
 
     private void btnThemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMousePressed
            if (this.popUp == null) {
-            this.popUp = new PopUpTourGUI("POST");
+            this.popUp = new PopUpKhoaThiGUI("POST");
             
         } else {
             this.popUp.toFront();
@@ -287,33 +287,33 @@ public class QuanLyKhoaThi extends javax.swing.JPanel {
     });
     }//GEN-LAST:event_btnThemMousePressed
 
-    private void tblTourMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTourMousePressed
+    private void tblKhoaThiMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhoaThiMousePressed
         // TODO add your handling code here:
-        int r = tblTour.rowAtPoint(evt.getPoint());
-        if (r >= 0 && r < tblTour.getRowCount()) {
-            tblTour.setRowSelectionInterval(r, r);
+        int r = tblKhoaThi.rowAtPoint(evt.getPoint());
+        if (r >= 0 && r < tblKhoaThi.getRowCount()) {
+            tblKhoaThi.setRowSelectionInterval(r, r);
         } else {
-           tblTour.clearSelection();
+           tblKhoaThi.clearSelection();
         }
-        int rowindex = tblTour.getSelectedRow();
+        int rowindex = tblKhoaThi.getSelectedRow();
         if (rowindex < 0)
             return;
         if (evt.isPopupTrigger() && evt.getComponent() instanceof JTable ) {
             
             rightClickMenu.show(evt.getComponent(), evt.getX(), evt.getY());
         }
-    }//GEN-LAST:event_tblTourMousePressed
+    }//GEN-LAST:event_tblKhoaThiMousePressed
 
-    private void btnDanhSachDiaDiemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDanhSachDiaDiemMousePressed
+    private void btnDsThiSinhMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDsThiSinhMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnDanhSachDiaDiemMousePressed
+    }//GEN-LAST:event_btnDsThiSinhMousePressed
 
-    private void btnDanhSachDiaDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachDiaDiemActionPerformed
-        int selectedRow = tblTour.getSelectedRow();
+    private void btnDsThiSinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDsThiSinhActionPerformed
+        int selectedRow = tblKhoaThi.getSelectedRow();
         if (this.popUpDiaDiem == null) {
             if(selectedRow >=0)
             {
-            this.popUpDiaDiem = new PopUpTableDiaDiemGUI(tblTour.getModel().getValueAt(tblTour.getSelectedRow(), 0).toString());
+            this.popUpDiaDiem = new PopUpTableDiaDiemGUI(tblKhoaThi.getModel().getValueAt(tblKhoaThi.getSelectedRow(), 0).toString());
             popUpDiaDiem.center();
             popUpDiaDiem.setVisible(true);
             popUpDiaDiem.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -330,30 +330,30 @@ public class QuanLyKhoaThi extends javax.swing.JPanel {
             this.popUpDiaDiem.toFront();
             this.popUpDiaDiem.center();
         }
-    }//GEN-LAST:event_btnDanhSachDiaDiemActionPerformed
+    }//GEN-LAST:event_btnDsThiSinhActionPerformed
 
-    private void tblTourMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTourMouseReleased
+    private void tblKhoaThiMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhoaThiMouseReleased
         // TODO add your handling code here:
-        int r = tblTour.rowAtPoint(evt.getPoint());
-        if (r >= 0 && r < tblTour.getRowCount()) {
-            tblTour.setRowSelectionInterval(r, r);
+        int r = tblKhoaThi.rowAtPoint(evt.getPoint());
+        if (r >= 0 && r < tblKhoaThi.getRowCount()) {
+            tblKhoaThi.setRowSelectionInterval(r, r);
         } else {
-           tblTour.clearSelection();
+           tblKhoaThi.clearSelection();
         }
-        int rowindex = tblTour.getSelectedRow();
+        int rowindex = tblKhoaThi.getSelectedRow();
         if (rowindex < 0)
             return;
         if (evt.isPopupTrigger() && evt.getComponent() instanceof JTable ) {
             
             rightClickMenu.show(evt.getComponent(), evt.getX(), evt.getY());
         }
-    }//GEN-LAST:event_tblTourMouseReleased
+    }//GEN-LAST:event_tblKhoaThiMouseReleased
 
     private void itemSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSuaActionPerformed
-        int rowindex = tblTour.getSelectedRow();
-        Long id = Long.parseLong(tblTour.getValueAt(rowindex,0).toString());
+        int rowindex = tblKhoaThi.getSelectedRow();
+        Long id = Long.parseLong(tblKhoaThi.getValueAt(rowindex,0).toString());
         if (this.popUp == null) {
-            popUp = new PopUpTourGUI("PUT", tourBLL.findById(id));
+            popUp = new PopUpKhoaThiGUI("PUT", tourBLL.findById(id));
         } else {
             this.popUp.toFront();
             this.popUp.center();
@@ -369,7 +369,7 @@ public class QuanLyKhoaThi extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDanhSachDiaDiem;
+    private javax.swing.JButton btnDsThiSinh;
     private javax.swing.JButton btnThem;
     private javax.swing.JMenuItem itemSua;
     private javax.swing.JPanel jPanel1;
@@ -378,7 +378,7 @@ public class QuanLyKhoaThi extends javax.swing.JPanel {
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPopupMenu rightClickMenu;
     private javax.swing.JScrollPane scroll;
-    private javax.swing.JTable tblTour;
+    private javax.swing.JTable tblKhoaThi;
     private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
 }

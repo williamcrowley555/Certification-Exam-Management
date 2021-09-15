@@ -14,7 +14,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import com.certification_exam.gui.menu.MyScrollBarUI;
-import com.certification_exam.gui.popup.PopUpLoaiDuLichGUI;
+import com.certification_exam.gui.popup.PopUpTrinhDoGUI;
 import com.certification_exam.util.LoaiDuLichTableLoaderUtil;
 import com.certification_exam.util.TableSetupUtil;
 import javax.swing.JOptionPane;
@@ -37,7 +37,7 @@ public class QuanLyTrinhDo extends javax.swing.JPanel {
                             };
          
     private ILoaiDuLichBLL loaiDuLichBLL;
-    private PopUpLoaiDuLichGUI popUp;
+    private PopUpTrinhDoGUI popUp;
    // private popUpLoaiDuLich popUp = null;
     TableRowSorter<TableModel> rowSorter = null;
     
@@ -111,7 +111,7 @@ public class QuanLyTrinhDo extends javax.swing.JPanel {
         tblLoaiDuLich = new javax.swing.JTable();
 
         itemSua.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        itemSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/img/edit_icon.png"))); // NOI18N
+        itemSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/certification_exam/img/edit_icon.png"))); // NOI18N
         itemSua.setText("Sửa");
         itemSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,7 +155,7 @@ public class QuanLyTrinhDo extends javax.swing.JPanel {
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("Quản Lý Trình Độ");
 
-        lblTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/img/search_icon.png"))); // NOI18N
+        lblTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/certification_exam/img/search_icon.png"))); // NOI18N
 
         javax.swing.GroupLayout pnlHeadLayout = new javax.swing.GroupLayout(pnlHead);
         pnlHead.setLayout(pnlHeadLayout);
@@ -229,7 +229,7 @@ public class QuanLyTrinhDo extends javax.swing.JPanel {
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
         if (this.popUp == null) {
-            this.popUp = new PopUpLoaiDuLichGUI("POST");
+            this.popUp = new PopUpTrinhDoGUI("POST");
             this.popUp.center();
             
         } else {
@@ -274,7 +274,7 @@ public class QuanLyTrinhDo extends javax.swing.JPanel {
         int rowindex = tblLoaiDuLich.getSelectedRow();
         Long id = Long.parseLong(tblLoaiDuLich.getValueAt(rowindex,0).toString());
         if (this.popUp == null) {
-            popUp = new PopUpLoaiDuLichGUI("PUT", loaiDuLichBLL.findById(id));
+            popUp = new PopUpTrinhDoGUI("PUT", loaiDuLichBLL.findById(id));
         } else {
             this.popUp.toFront();
             this.popUp.center();

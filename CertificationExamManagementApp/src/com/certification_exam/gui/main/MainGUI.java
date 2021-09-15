@@ -12,7 +12,7 @@ import com.certification_exam.gui.form.QuanLyBaiThiGUI;
 import com.certification_exam.gui.others.ComponentResizer;
 import com.certification_exam.gui.form.QuanLyDiaDiemGUI;
 import com.certification_exam.gui.form.QuanLyDichVuGUI;
-import com.certification_exam.gui.form.QuanLyDoanGUI;
+import com.certification_exam.gui.form.QuanLyPhongThi;
 import com.certification_exam.gui.form.QuanLyGiaTourGUI;
 import com.certification_exam.gui.form.QuanLyThiSinhGUI;
 import com.certification_exam.gui.form.QuanLyTrinhDo;
@@ -126,7 +126,7 @@ public class MainGUI extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 panelBody.removeAll();
-                panelBody.add(new QuanLyDoanGUI());
+                panelBody.add(new QuanLyPhongThi());
                 panelBody.repaint();
                 panelBody.revalidate();
                 Selected(menuPhongThi);

@@ -70,7 +70,7 @@ public class PopUpTableChonGiaGUI extends javax.swing.JFrame {
     Long idTour;
     LocalDate startDate;
     LocalDate endDate;
-    PopUpDoanGUI popUpDoan;
+    PopUpPhongThiGUI popUpDoan;
     String[] columnNames = {
                             "Id",
                             "Id Tour",
@@ -78,7 +78,7 @@ public class PopUpTableChonGiaGUI extends javax.swing.JFrame {
                             "Ngày Kết Thúc",
                             "Giá Tiền"
                             };
-    public PopUpTableChonGiaGUI(PopUpDoanGUI popUpDoan, Long idTour, LocalDate startDate, LocalDate endDate) {
+    public PopUpTableChonGiaGUI(PopUpPhongThiGUI popUpDoan, Long idTour, LocalDate startDate, LocalDate endDate) {
         initComponents();
         this.popUpDoan = popUpDoan;
         

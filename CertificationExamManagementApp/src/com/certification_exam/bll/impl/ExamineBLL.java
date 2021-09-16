@@ -34,6 +34,11 @@ public class ExamineBLL implements IExamineBLL {
     }
 
     @Override
+    public String getGreatestOrdinalNumber(String englishLevelName) {
+        return examineDAL.getGreatestOrdinalNumber(englishLevelName);
+    }
+
+    @Override
     public Long save(Examine examine) {
         return examineDAL.save(examine);
     }
@@ -48,5 +53,14 @@ public class ExamineBLL implements IExamineBLL {
         examineDAL.delete(id);
     }
     
-    
+    private String generateExamineId(String englishLevelName) {
+        String name = englishLevelName + "001";
+        String number = getGreatestOrdinalNumber(englishLevelName);
+        if (number != null) {
+            Integer nextNumber = Integer.valueOf(number) + 1;
+            String strNumber = nextNumber > 99 ? String.valueOf(nextNumber) : "00" + nextNumber;
+            name = englishLevelName + strNumber;
+        }
+        return name;
+    }
 }

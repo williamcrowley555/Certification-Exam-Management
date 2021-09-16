@@ -89,7 +89,7 @@ CREATE TABLE `exam_course` (
   UNIQUE KEY `exam_course_name_unique` (`name`),
   KEY `FKldcd13826uj9h70sxyoo24ipp` (`english_level_id`),
   CONSTRAINT `FKldcd13826uj9h70sxyoo24ipp` FOREIGN KEY (`english_level_id`) REFERENCES `english_level` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +98,7 @@ CREATE TABLE `exam_course` (
 
 LOCK TABLES `exam_course` WRITE;
 /*!40000 ALTER TABLE `exam_course` DISABLE KEYS */;
-INSERT INTO `exam_course` VALUES (1,9,'A2K092021',2021,1),(2,9,'B1K092021',2021,2),(3,10,'A2K102021',2021,1);
+INSERT INTO `exam_course` VALUES (1,9,'A2K092021',2021,1),(2,9,'B1K092021',2021,2),(3,10,'A2K102021',2021,1),(7,9,'B1K112021',2021,2);
 /*!40000 ALTER TABLE `exam_course` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -125,6 +125,7 @@ CREATE TABLE `exam_course_examine` (
 
 LOCK TABLES `exam_course_examine` WRITE;
 /*!40000 ALTER TABLE `exam_course_examine` DISABLE KEYS */;
+INSERT INTO `exam_course_examine` VALUES (2,1);
 /*!40000 ALTER TABLE `exam_course_examine` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -201,16 +202,16 @@ CREATE TABLE `examine` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `address` varchar(255) NOT NULL,
   `dob` date NOT NULL,
-  `examine_id` varchar(30) NOT NULL,
+  `examine_id` varchar(30) DEFAULT NULL,
   `first_name` varchar(255) NOT NULL,
   `gender` int(11) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `phone` varchar(255) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `examine_examine_id_unique` (`examine_id`),
-  UNIQUE KEY `examine_phone_unique` (`phone`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `examine_phone_unique` (`phone`),
+  UNIQUE KEY `examine_examine_id_unique` (`examine_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -219,6 +220,7 @@ CREATE TABLE `examine` (
 
 LOCK TABLES `examine` WRITE;
 /*!40000 ALTER TABLE `examine` DISABLE KEYS */;
+INSERT INTO `examine` VALUES (1,'Nha Trang','2001-06-14',NULL,'Quốc Tuấn',1,'Trần','0776521474',1);
 /*!40000 ALTER TABLE `examine` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -319,4 +321,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-16 22:01:32
+-- Dump completed on 2021-09-16 23:33:39

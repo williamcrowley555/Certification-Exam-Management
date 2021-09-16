@@ -14,6 +14,9 @@ import java.util.List;
  */
 public interface IExamCourseBLL {
     List<ExamCourse> findAll();
+    List<ExamCourse> findByEnglishLevelId(Long englishLevelId);
+    List<ExamCourse> findByMonthAndYear(Integer month, Integer year);
+    List<ExamCourse> findFromMonthAndYear(Integer month, Integer year);
     ExamCourse findById(Long id);
     ExamCourse findByMonthAndYearAndEnglishLevelId(Integer month, Integer year, Long englishLevelId);
     Long save(ExamCourse examCourse);

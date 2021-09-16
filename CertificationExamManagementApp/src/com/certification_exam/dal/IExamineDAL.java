@@ -15,6 +15,7 @@ import java.util.List;
 public interface IExamineDAL extends GenericDAL<Examine>{
     List<Examine> findAll();
     Examine findById(Long id);
+    String getGreatestOrdinalNumber(String englishLevelName);
     Long save(Examine examine);
     void update(Examine examine);
     void delete(Long id); 

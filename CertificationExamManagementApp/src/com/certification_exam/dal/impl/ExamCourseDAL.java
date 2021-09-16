@@ -25,6 +25,24 @@ public class ExamCourseDAL extends AbstractDAL<ExamCourse> implements IExamCours
     }
 
     @Override
+    public List<ExamCourse> findByEnglishLevelId(Long englishLevelId) {
+        String sql = "SELECT * FROM exam_course WHERE english_level_id = ?";
+        return query(sql, new ExamCourseMapper(), englishLevelId);
+    }
+
+    @Override
+    public List<ExamCourse> findByMonthAndYear(Integer month, Integer year) {
+        String sql = "SELECT * FROM exam_course WHERE month = ? AND year = ?";
+        return query(sql, new ExamCourseMapper(), month, year);
+    }
+
+    @Override
+    public List<ExamCourse> findByEnglishLevelIdAndFromMonthAndYear(Long englishLevelId, Integer month, Integer year) {
+        String sql = "SELECT * FROM exam_course WHERE english_level_id = ? AND month >= ? AND year >= ?";
+        return query(sql, new ExamCourseMapper(), englishLevelId, month, year);
+    }
+
+    @Override
     public ExamCourse findById(Long id) {
         String sql = "SELECT * FROM exam_course WHERE id = ?";
         List<ExamCourse> examCourse = query(sql, new ExamCourseMapper(), id);

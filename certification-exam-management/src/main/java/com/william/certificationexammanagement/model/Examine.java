@@ -20,7 +20,7 @@ public class Examine {
     private Long id;
 
     @Size(min = 5)
-    @Column(nullable = false, length = 30)
+    @Column(length = 30)
     private String examineId;
 
     @Column(name = "first_name", nullable = false)

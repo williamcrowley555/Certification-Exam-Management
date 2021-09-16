@@ -30,6 +30,18 @@ public class ExamineDAL extends AbstractDAL<Examine> implements IExamineDAL {
     }
 
     @Override
+    public String getGreatestOrdinalNumber(String englishLevelName) {
+        String sql = "SELECT * \n" +
+                        "FROM exam_room\n" +
+                        "WHERE examine_id LIKE CONCAT(?,'%')\n" +
+                        "ORDER BY name DESC\n" +
+                        "LIMIT 1;";
+        List<Examine> examRooms = query(sql, new ExamineMapper(), englishLevelName);
+        Examine examRoom = examRooms.isEmpty() ? null : examRooms.get(0);
+        return examRoom == null ? null : examRoom.getExamineId().substring(2);
+    }
+
+    @Override
     public Long save(Examine examine) {
         String sql = "INSERT INTO examine(examine_id, first_name, last_name, dob, gender, address, phone, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
         return insert(sql, examine.getExamineId(), examine.getFirstName(), examine.getLastName(), examine.getDob(), examine.getGender(), examine.getAddress(), examine.getPhone(), examine.getStatus());

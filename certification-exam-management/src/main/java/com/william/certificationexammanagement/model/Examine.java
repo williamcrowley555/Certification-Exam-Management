@@ -19,7 +19,6 @@ public class Examine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
     @Size(min = 5)
     @Column(nullable = false, length = 30)
     private String examineId;

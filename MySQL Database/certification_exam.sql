@@ -27,7 +27,7 @@ CREATE TABLE `english_level` (
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `english_level_name_unique` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,6 +36,7 @@ CREATE TABLE `english_level` (
 
 LOCK TABLES `english_level` WRITE;
 /*!40000 ALTER TABLE `english_level` DISABLE KEYS */;
+INSERT INTO `english_level` VALUES (1,'A2'),(2,'B1');
 /*!40000 ALTER TABLE `english_level` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -80,14 +81,15 @@ DROP TABLE IF EXISTS `exam_course`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `exam_course` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `date_created` date NOT NULL,
+  `month` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
+  `year` int(11) NOT NULL,
   `english_level_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `exam_course_name_unique` (`name`),
   KEY `FKldcd13826uj9h70sxyoo24ipp` (`english_level_id`),
   CONSTRAINT `FKldcd13826uj9h70sxyoo24ipp` FOREIGN KEY (`english_level_id`) REFERENCES `english_level` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,6 +98,7 @@ CREATE TABLE `exam_course` (
 
 LOCK TABLES `exam_course` WRITE;
 /*!40000 ALTER TABLE `exam_course` DISABLE KEYS */;
+INSERT INTO `exam_course` VALUES (1,9,'A2K092021',2021,1),(2,9,'B1K092021',2021,2),(3,10,'A2K102021',2021,1);
 /*!40000 ALTER TABLE `exam_course` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -148,7 +151,7 @@ CREATE TABLE `exam_room` (
   CONSTRAINT `FK6i5hgfvu1p37p8ht7a6l643hg` FOREIGN KEY (`examiner_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FKah73e5vfgy3bm7eld48h4kd0b` FOREIGN KEY (`proctor_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FKca524x1ealnr5ved1twn5tr77` FOREIGN KEY (`exam_course_id`) REFERENCES `exam_course` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -157,6 +160,7 @@ CREATE TABLE `exam_room` (
 
 LOCK TABLES `exam_room` WRITE;
 /*!40000 ALTER TABLE `exam_room` DISABLE KEYS */;
+INSERT INTO `exam_room` VALUES (2,'2021-11-15 07:30:00','A2P01',0,1,3,2),(3,'2021-11-15 09:30:00','A2P02',0,1,2,3),(6,'2021-11-15 09:30:00','B1P01',0,2,2,3),(10,'2021-10-15 09:30:00','B1P02',0,2,2,3);
 /*!40000 ALTER TABLE `exam_room` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -232,7 +236,7 @@ CREATE TABLE `role` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `role_name_unique` (`name`),
   UNIQUE KEY `role_normalized_name_unique` (`normalized_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -241,6 +245,7 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
+INSERT INTO `role` VALUES (1,'ROLE_ADMIN','Quản trị viên'),(2,'ROLE_OFFICER','Nhân viên văn phòng'),(3,'ROLE_TEACHER','Giáo viên');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -265,7 +270,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_email_unique` (`email`),
   UNIQUE KEY `user_phone_unique` (`phone`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -274,6 +279,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (2,'TP.HCM','1986-03-22','ngocha123@gmail.com',1,'Ngọc Hà',1,'Phạm','$2a$10$YCW10ls/rakZnb806GplDO0jUb4708AcWoyq/unUIENjx/MOOyw5q','0905412231'),(3,'TP.HCM','1980-08-05','tuandung123@gmail.com',1,'Tuấn Dũng',1,'Nguyễn','$2a$10$sZrZnaQjipAACEPk4cz23uWozXr9.7pvHwkfaukxbCbnqcqCEi62O','0905632511'),(4,'TP.HCM','1976-02-15','admin@gmail.com',1,'Ren',1,'Lucifer','$2a$10$olz3wulouTRHbATTSBf4IeYiPzUjnL5QERW6UIaSHe4LQqu/DKGKK','0905632123');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -300,6 +306,7 @@ CREATE TABLE `user_role` (
 
 LOCK TABLES `user_role` WRITE;
 /*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
+INSERT INTO `user_role` VALUES (4,1),(2,3),(3,3);
 /*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -312,4 +319,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-15 11:00:07
+-- Dump completed on 2021-09-16 22:01:32

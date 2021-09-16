@@ -19,7 +19,6 @@ public class ExamRoom {
     private Long id;
 
     @Column(name = "name", nullable = false)
-    @NotBlank
     @Pattern(regexp = "^[\\p{L}A-Za-z ]+$")
     private String name;
 
@@ -27,7 +26,7 @@ public class ExamRoom {
     private int quantity = 0;
 
     @Column(name = "exam_date", nullable = false)
-    private Date examDate = new Date(System.currentTimeMillis());
+    private Date examDate;
 
     @ManyToOne
     @JoinColumn(name = "proctor_id")

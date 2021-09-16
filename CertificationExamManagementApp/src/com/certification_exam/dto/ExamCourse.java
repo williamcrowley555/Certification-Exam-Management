@@ -14,15 +14,18 @@ import java.time.LocalDate;
 public class ExamCourse {
     private Long id;
     private String name;
-    private LocalDate dateCreated = LocalDate.now();
+    private Integer month = LocalDate.now().getMonthValue();
+    private Integer year = LocalDate.now().getYear();
     private Long englishLevelId;
 
     public ExamCourse() {
     }
 
-    public ExamCourse(Long id, String name, Long englishLevelId) {
+    public ExamCourse(Long id, String name, Integer month, Integer year, Long englishLevelId) {
         this.id = id;
         this.name = name;
+        this.month = month;
+        this.year = year;
         this.englishLevelId = englishLevelId;
     }
 
@@ -42,12 +45,20 @@ public class ExamCourse {
         this.name = name;
     }
 
-    public LocalDate getDateCreated() {
-        return dateCreated;
+    public Integer getMonth() {
+        return month;
     }
 
-    public void setDateCreated(LocalDate dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setMonth(Integer month) {
+        this.month = month;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
     }
 
     public Long getEnglishLevelId() {
@@ -60,6 +71,6 @@ public class ExamCourse {
 
     @Override
     public String toString() {
-        return "ExamCourse{" + "id=" + id + ", name=" + name + ", dateCreated=" + dateCreated + ", englishLevelId=" + englishLevelId + '}';
+        return "ExamCourse{" + "id=" + id + ", name=" + name + ", month=" + month + ", year=" + year + ", englishLevelId=" + englishLevelId + '}';
     }
 }

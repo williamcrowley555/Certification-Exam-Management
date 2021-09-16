@@ -30,6 +30,20 @@ public class UserDAL extends AbstractDAL<User> implements IUserDAL {
     }
 
     @Override
+    public User findByPhone(String phone) {
+        String sql = "SELECT * FROM user WHERE phone = ?";
+        List<User> user = query(sql, new UserMapper(), phone);
+        return user.isEmpty() ? null : user.get(0);
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        String sql = "SELECT * FROM user WHERE email = ?";
+        List<User> user = query(sql, new UserMapper(), email);
+        return user.isEmpty() ? null : user.get(0);
+    }
+
+    @Override
     public Long save(User user) {
         String sql = "INSERT INTO user(first_name, last_name, dob, gender, address, phone, email, password, enabled) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         return insert(sql, user.getFirstName(), user.getLastName(), user.getDob(), user.getGender(), user.getAddress(), user.getPhone(), user.getEmail(), user.getPassword(), user.isEnabled());
@@ -43,8 +57,8 @@ public class UserDAL extends AbstractDAL<User> implements IUserDAL {
 
     @Override
     public void delete(Long id) {
-        String sql = "DELETE FROM user WHERE id = ?";
-        update(sql, id);
+        String sql = "UPDATE user SET enabled = ? WHERE id = ?";
+        update(sql, false, id);
     }
     
 }

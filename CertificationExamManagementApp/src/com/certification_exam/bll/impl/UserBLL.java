@@ -10,6 +10,7 @@ import com.certification_exam.dal.IUserDAL;
 import com.certification_exam.dal.impl.UserDAL;
 import com.certification_exam.dto.User;
 import java.util.List;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -34,12 +35,56 @@ public class UserBLL implements IUserBLL {
     }
 
     @Override
+    public User findByPhone(String phone) {
+        return userDAL.findByPhone(phone);
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        return userDAL.findByEmail(email);
+    }
+
+    @Override
     public Long save(User user) {
+        User existedUser = findByPhone(user.getPhone());
+        
+        if (existedUser != null) {
+            return null;
+        }
+        
+        existedUser = findByEmail(user.getEmail());
+        
+        if (existedUser != null) {
+            return null;
+        }
+        
+        String encryptedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(10));
+        user.setPassword(encryptedPassword);
         return userDAL.save(user);
     }
 
     @Override
     public void update(User user) {
+        User existedUser = findByPhone(user.getPhone());
+        
+        if (existedUser != null && existedUser.getId() == user.getId()) {
+            return;
+        }
+        
+        existedUser = findByEmail(user.getEmail());
+        
+        if (existedUser != null && existedUser.getId() == user.getId()) {
+            return;
+        }
+        
+        User oldUser = findById(user.getId());
+        boolean valuate = BCrypt.checkpw(user.getPassword(), oldUser.getPassword());
+        
+        if (!valuate) {
+            String encryptedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(10));
+            user.setPassword(encryptedPassword);
+        }
+        
         userDAL.update(user);
     }
 

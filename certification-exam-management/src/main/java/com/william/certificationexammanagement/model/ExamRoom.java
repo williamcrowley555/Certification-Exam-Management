@@ -19,7 +19,6 @@ public class ExamRoom {
     private Long id;
 
     @Column(name = "name", nullable = false)
-    @NotBlank
     @Pattern(regexp = "^[\\p{L}A-Za-z ]+$")
     private String name;
 

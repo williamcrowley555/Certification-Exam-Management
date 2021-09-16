@@ -15,6 +15,8 @@ import java.util.List;
 public interface IUserDAL extends GenericDAL<User> {
     List<User> findAll();
     User findById(Long id);
+    User findByPhone(String phone);
+    User findByEmail(String email);
     Long save(User user);
     void update(User user);
     void delete(Long id);  

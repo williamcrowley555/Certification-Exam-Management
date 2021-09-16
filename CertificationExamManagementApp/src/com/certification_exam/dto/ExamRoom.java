@@ -5,7 +5,7 @@
  */
 package com.certification_exam.dto;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  *

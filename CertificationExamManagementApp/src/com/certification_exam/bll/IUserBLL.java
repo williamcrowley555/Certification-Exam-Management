@@ -15,6 +15,8 @@ import java.util.List;
 public interface IUserBLL {
     List<User> findAll();
     User findById(Long id);
+    User findByPhone(String phone);
+    User findByEmail(String email);
     Long save(User user);
     void update(User user);
     void delete(Long id);

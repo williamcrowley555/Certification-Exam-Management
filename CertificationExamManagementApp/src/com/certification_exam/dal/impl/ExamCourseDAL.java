@@ -8,6 +8,7 @@ package com.certification_exam.dal.impl;
 import com.certification_exam.dal.IExamCourseDAL;
 import com.certification_exam.dto.ExamCourse;
 import com.certification_exam.mapper.impl.ExamCourseMapper;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -31,15 +32,22 @@ public class ExamCourseDAL extends AbstractDAL<ExamCourse> implements IExamCours
     }
 
     @Override
+    public ExamCourse findByMonthAndYearAndEnglishLevelId(Integer month, Integer year, Long englishLevelId) {
+        String sql = "SELECT * FROM exam_course WHERE month = ? AND year = ? AND english_level_id = ?";
+        List<ExamCourse> examCourse = query(sql, new ExamCourseMapper(), month, year, englishLevelId);
+        return examCourse.isEmpty() ? null : examCourse.get(0);
+    }
+
+    @Override
     public Long save(ExamCourse examCourse) {
-        String sql = "INSERT INTO exam_course(name, english_level_id, date_created) VALUES(?, ?, ?)";
-        return insert(sql, examCourse.getName(), examCourse.getEnglishLevelId(), examCourse.getDateCreated());
+        String sql = "INSERT INTO exam_course(name, month, year, english_level_id) VALUES(?, ?, ?, ?)";
+        return insert(sql, examCourse.getName(), examCourse.getMonth(), examCourse.getYear(), examCourse.getEnglishLevelId());
     }
 
     @Override
     public void update(ExamCourse examCourse) {
-        String sql = "UPDATE exam_course SET name = ?, english_level_id = ?, date_created = ? WHERE id = ?";
-        update(sql, examCourse.getName(), examCourse.getEnglishLevelId(), examCourse.getDateCreated(), examCourse.getId());
+        String sql = "UPDATE exam_course SET name = ?, month = ?, year = ?, english_level_id = ? WHERE id = ?";
+        update(sql, examCourse.getName(), examCourse.getMonth(), examCourse.getYear(), examCourse.getEnglishLevelId(), examCourse.getId());
     }
 
     @Override

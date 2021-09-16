@@ -15,6 +15,7 @@ import java.util.List;
 public interface IExamCourseBLL {
     List<ExamCourse> findAll();
     ExamCourse findById(Long id);
+    ExamCourse findByMonthAndYearAndEnglishLevelId(Integer month, Integer year, Long englishLevelId);
     Long save(ExamCourse examCourse);
     void update(ExamCourse examCourse);
     void delete(Long id);

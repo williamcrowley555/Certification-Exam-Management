@@ -4,6 +4,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
@@ -22,13 +24,17 @@ public class ExamCourse {
         private Long id;
 
         @Column(name = "name", nullable = false)
-        @NotBlank
         @Pattern(regexp = "^[\\\\p{L}A-Za-z0-9.,\\\\s]+$")
         private String name;
 
-        @Column(name = "date_created", nullable = false)
-        @DateTimeFormat(pattern = "yyyy-MM-dd")
-        private LocalDate dateCreated = LocalDate.now();
+        @Column(name = "month", nullable = false)
+        @Min(value = 1)
+        @Max(value = 12)
+        private Integer month = LocalDate.now().getMonthValue();
+
+        @Column(name = "year", nullable = false)
+        @Min(value = 1)
+        private Integer year = LocalDate.now().getYear();
 
         @ManyToOne
         @JoinColumn(name = "english_level_id")
@@ -46,10 +52,11 @@ public class ExamCourse {
         public ExamCourse() {
         }
 
-        public ExamCourse(Long id, String name, LocalDate dateCreated, EnglishLevel englishLevel, Set<Examine> examines) {
+        public ExamCourse(Long id, String name, Integer month, Integer year, EnglishLevel englishLevel, Set<Examine> examines) {
                 this.id = id;
                 this.name = name;
-                this.dateCreated = dateCreated;
+                this.month = month;
+                this.year = year;
                 this.englishLevel = englishLevel;
                 this.examines = examines;
         }
@@ -70,12 +77,20 @@ public class ExamCourse {
                 this.name = name;
         }
 
-        public LocalDate getDateCreated() {
-                return dateCreated;
+        public Integer getMonth() {
+                return month;
         }
 
-        public void setDateCreated(LocalDate dateCreated) {
-                this.dateCreated = dateCreated;
+        public void setMonth(Integer month) {
+                this.month = month;
+        }
+
+        public Integer getYear() {
+                return year;
+        }
+
+        public void setYear(Integer year) {
+                this.year = year;
         }
 
         public EnglishLevel getEnglishLevel() {
@@ -99,8 +114,10 @@ public class ExamCourse {
                 return "ExamCourse{" +
                         "id=" + id +
                         ", name='" + name + '\'' +
-                        ", dateCreated=" + dateCreated +
+                        ", month=" + month +
+                        ", year=" + year +
                         ", englishLevel=" + englishLevel +
+                        ", examines=" + examines +
                         '}';
         }
 }

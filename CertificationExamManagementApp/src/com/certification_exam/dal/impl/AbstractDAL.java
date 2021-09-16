@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,9 +45,10 @@ public class AbstractDAL<T> implements GenericDAL<T>{
                 }else if(parameter instanceof Boolean) {
                         statement.setBoolean(index, (Boolean) parameter);
                 } else if(parameter instanceof Date) {
-                        statement.setDate(index, (Date) parameter);
+                        Date date = (Date) parameter;
+                        statement.setTimestamp(index, new java.sql.Timestamp(date.getTime()));
                 } else if(parameter instanceof LocalDate) {
-                        statement.setObject(index, (LocalDate) parameter);
+                        statement.setDate(index, java.sql.Date.valueOf((LocalDate) parameter));
                 } else if(parameter instanceof byte[]) {
                         statement.setBytes(index, (byte[]) parameter);
                 } else if(parameter == null) {

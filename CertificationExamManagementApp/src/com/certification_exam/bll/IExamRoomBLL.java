@@ -15,6 +15,7 @@ import java.util.List;
 public interface IExamRoomBLL {
     List<ExamRoom> findAll();
     ExamRoom findById(Long id);
+    String getGreatestOrdinalNumber(String englishLevelName);
     Long save(ExamRoom examRoom);
     void update(ExamRoom examRoom);
     void delete(Long id);

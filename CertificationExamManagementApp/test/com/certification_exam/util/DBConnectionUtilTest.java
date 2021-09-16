@@ -40,7 +40,7 @@ public class DBConnectionUtilTest {
     }
 
     @Test
-    public void testGetConnection() {
+    public void testGetConnection() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         System.out.println("getConnection");
         Connection result = DBConnectionUtil.getConnection();
         assertNotNull(result);

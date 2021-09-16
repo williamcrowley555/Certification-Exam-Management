@@ -22,8 +22,9 @@ public class ExamCourseMapper implements RowMapper<ExamCourse>{
             ExamCourse examCourse = new ExamCourse();
             examCourse.setId(rs.getLong("id"));
             examCourse.setName(rs.getString("name"));
+            examCourse.setMonth(rs.getInt("month"));
+            examCourse.setYear(rs.getInt("year"));
             examCourse.setEnglishLevelId(rs.getLong("english_level_id"));
-            examCourse.setDateCreated(rs.getDate("date_created").toLocalDate());
           
             return examCourse;
         } catch(SQLException e) {

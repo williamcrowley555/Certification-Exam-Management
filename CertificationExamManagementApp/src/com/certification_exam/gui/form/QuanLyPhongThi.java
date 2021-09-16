@@ -65,7 +65,7 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
     }
     
     public void loadTableData() {
-        tblDoan.setModel(new DoanTableLoaderUtil().setTable(doanBLL.findAll(), this.columnNames)) ;
+       // tblDoan.setModel(new DoanTableLoaderUtil().setTable(doanBLL.findAll(), this.columnNames)) ;
         this.rowSorter = TableSetupUtil.setTableFilter(tblDoan, txtTimKiem);
         headerColor(14,142,233,tblDoan);
     }

@@ -73,41 +73,41 @@ public class MainGUI extends javax.swing.JFrame {
     
    
         
-        //--submenu loai du lich--
-                MenuItem menuTrinhDo = new MenuItem(iconTrinhDo, "Quản Lý Trình Độ", new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent ae) {     
-                        panelBody.removeAll();
-                        panelBody.add(new QuanLyTrinhDo());
-                        panelBody.repaint();
-                        panelBody.revalidate();
-                        Selected(menuKhoaThi);
-                    }
-                });
-        
-        //--submenu gia tour--
-                MenuItem menuGiaTour = new MenuItem(iconGiaTour, "Quản Lý Giá Tour", new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent ae) {     
-                        panelBody.removeAll();
-                        panelBody.add(new QuanLyGiaTourGUI());
-                        panelBody.repaint();
-                        panelBody.revalidate();
-                        Selected(menuKhoaThi);
-                    }
-                });
-        
-        MenuItem menuKhoaThi = new MenuItem(iconTour, "Quản Lý Khóa Thi", new ActionListener() {
+       
+        MenuItem menuTrinhDo = new MenuItem(iconTrinhDo, "Quản Lý Trình Độ", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {     
                 panelBody.removeAll();
-                panelBody.add(new QuanLyKhoaThi());
+                panelBody.add(new QuanLyTrinhDo());
                 panelBody.repaint();
                 panelBody.revalidate();
-              
-                Selected(menuKhoaThi);
+                Selected(menuTrinhDo);
             }
-        }, menuTrinhDo, menuGiaTour);
+        });
+        
+//        //--submenu gia tour--
+//                MenuItem menuGiaTour = new MenuItem(iconGiaTour, "Quản Lý Giá Tour", new ActionListener() {
+//                    @Override
+//                    public void actionPerformed(ActionEvent ae) {     
+//                        panelBody.removeAll();
+////                        panelBody.add(new QuanLyGiaTourGUI());
+//                        panelBody.repaint();
+//                        panelBody.revalidate();
+//                        Selected(menuKhoaThi);
+//                    }
+//                });
+        
+//        MenuItem menuKhoaThi = new MenuItem(iconTour, "Quản Lý Khóa Thi", new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent ae) {     
+//                panelBody.removeAll();
+//                panelBody.add(new QuanLyKhoaThi());
+//                panelBody.repaint();
+//                panelBody.revalidate();
+//              
+//                Selected(menuKhoaThi);
+//            }
+//        }, menuTrinhDo, menuGiaTour);
      
         
         //--submenu doan--
@@ -138,7 +138,7 @@ public class MainGUI extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 panelBody.removeAll();
-                panelBody.add(new QuanLyDichVuGUI());
+               // panelBody.add(new QuanLyDichVuGUI());
                 panelBody.repaint();
                 panelBody.revalidate();
               
@@ -150,7 +150,7 @@ public class MainGUI extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 panelBody.removeAll();
-                panelBody.add(new QuanLyDiaDiemGUI());
+               // panelBody.add(new QuanLyDiaDiemGUI());
                 panelBody.repaint();
                 panelBody.revalidate();
                 Selected(menuDiaDiem);
@@ -200,7 +200,7 @@ public class MainGUI extends javax.swing.JFrame {
                   @Override
                     public void actionPerformed(ActionEvent ae) {
                     panelBody.removeAll();
-                    panelBody.add(new ThongKeTheoTourGUI());
+                   // panelBody.add(new ThongKeTheoTourGUI());
                     panelBody.repaint();
                     panelBody.revalidate();
                     Selected(menuThongKe);
@@ -211,7 +211,7 @@ public class MainGUI extends javax.swing.JFrame {
                   @Override
                     public void actionPerformed(ActionEvent ae) {
                     panelBody.removeAll();
-                    panelBody.add(new ThongKeTheoDoanGUI());
+                   // panelBody.add(new ThongKeTheoDoanGUI());
                     panelBody.repaint();
                     panelBody.revalidate();
                     Selected(menuThongKe);
@@ -231,12 +231,12 @@ public class MainGUI extends javax.swing.JFrame {
         initComponents();
        
         invisibleMenuScrollBar(8);
-        panelBody.add(new QuanLyKhoaThi());
+        panelBody.add(new QuanLyPhongThi());
         panelBody.repaint();
         panelBody.revalidate();
         CustomWindow();
-        addMenu(menuKhoaThi, menuPhongThi, menuDichVu,menuDiaDiem,menuThiSinh,menuGiaoVien,menuThongKe);
-        Selected(menuKhoaThi);
+        addMenu(menuPhongThi, menuTrinhDo,menuThiSinh,menuGiaoVien);
+        Selected(menuPhongThi);
         
 //        TESTING
 //        INhanVienBLL nhanVienBLL = new NhanVienBLL();
@@ -314,13 +314,10 @@ public class MainGUI extends javax.swing.JFrame {
     public void resetSelect()
     {
        Color lightGray = new Color(240,240,240);
-       menuKhoaThi.setColor(lightGray);
+       menuTrinhDo.setColor(lightGray);
        menuPhongThi.setColor(lightGray);
-       menuDichVu.setColor(lightGray);
-       menuDiaDiem.setColor(lightGray);
        menuThiSinh.setColor(lightGray);
        menuGiaoVien.setColor(lightGray);
-       menuThongKe.setColor(lightGray);
     }
    
     public void Selected(MenuItem item)

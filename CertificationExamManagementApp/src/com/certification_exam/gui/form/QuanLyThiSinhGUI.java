@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import com.certification_exam.gui.menu.MyScrollBarUI;
-import com.certification_exam.gui.popup.PopUpKhachHangGUI;
+import com.certification_exam.gui.popup.PopUpThiSinhGUI;
 import com.certification_exam.gui.popup.PopUpGiaoVienGUI;
 import com.certification_exam.bll.IKhachHangBLL;
 import com.certification_exam.bll.impl.KhachHangBLL;
@@ -43,7 +43,7 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
                             "Địa Chỉ",
                             "Sđt"};
     private IKhachHangBLL khachHangBLL;
-    private PopUpKhachHangGUI popUp = null;
+    private PopUpThiSinhGUI popUp = null;
     TableRowSorter<TableModel> rowSorter = null;
     
     public QuanLyThiSinhGUI() {
@@ -235,7 +235,7 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
         int rowindex = tblKhachHang.getSelectedRow();
         Long id = Long.parseLong(tblKhachHang.getValueAt(rowindex,0).toString());
         if (this.popUp == null) {
-        popUp = new PopUpKhachHangGUI("PUT", khachHangBLL.findById(id));
+        popUp = new PopUpThiSinhGUI("PUT", khachHangBLL.findById(id));
         } else {
             this.popUp.toFront();
             this.popUp.center();
@@ -275,7 +275,7 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
     private void btnThemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMousePressed
         // TODO add your handling code here:
         if (this.popUp == null) {
-            this.popUp = new PopUpKhachHangGUI("POST");
+            this.popUp = new PopUpThiSinhGUI("POST");
             
         } else {
             this.popUp.toFront();

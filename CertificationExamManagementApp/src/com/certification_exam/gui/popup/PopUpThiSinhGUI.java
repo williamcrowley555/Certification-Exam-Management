@@ -39,13 +39,13 @@ import javax.swing.JTextField;
  *
  * @author Hi
  */
-public class PopUpKhachHangGUI extends javax.swing.JFrame {
+public class PopUpThiSinhGUI extends javax.swing.JFrame {
     private File selectedImg = null;
     private String action;
     private KhachHangDTO khachHang = null;
     private IKhachHangBLL khachHangBLL;
     
-    public PopUpKhachHangGUI(String action) {
+    public PopUpThiSinhGUI(String action) {
         initComponents();
         
         this.action = action;    
@@ -59,7 +59,7 @@ public class PopUpKhachHangGUI extends javax.swing.JFrame {
         this.setVisible(true);    
     }
     
-    public PopUpKhachHangGUI(String action, KhachHangDTO khachHang) {
+    public PopUpThiSinhGUI(String action, KhachHangDTO khachHang) {
         initComponents();
         this.action = action;  
         this.khachHang = khachHang;
@@ -222,7 +222,7 @@ public class PopUpKhachHangGUI extends javax.swing.JFrame {
         comboBox.setModel(new DefaultComboBoxModel<>(listItems));
     } 
     
-    public PopUpKhachHangGUI() {
+    public PopUpThiSinhGUI() {
         initComponents();
         CustomWindow();
     }
@@ -663,7 +663,7 @@ public class PopUpKhachHangGUI extends javax.swing.JFrame {
             try {
                 newKhachHang = getFormInfo();
             } catch (IOException ex) {
-                Logger.getLogger(PopUpKhachHangGUI.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(PopUpThiSinhGUI.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             if(this.action.equals("POST")) {           
@@ -719,13 +719,13 @@ public class PopUpKhachHangGUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PopUpKhachHangGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PopUpThiSinhGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PopUpKhachHangGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PopUpThiSinhGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PopUpKhachHangGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PopUpThiSinhGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PopUpKhachHangGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PopUpThiSinhGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -739,7 +739,7 @@ public class PopUpKhachHangGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PopUpKhachHangGUI().setVisible(true);
+                new PopUpThiSinhGUI().setVisible(true);
             }
         });
     }

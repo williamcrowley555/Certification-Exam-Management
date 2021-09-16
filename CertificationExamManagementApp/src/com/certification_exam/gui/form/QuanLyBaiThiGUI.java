@@ -29,7 +29,7 @@ import javax.swing.table.DefaultTableModel;
 import com.certification_exam.gui.menu.MyScrollBarUI;
 import com.certification_exam.gui.popup.PopUpChiPhiGUI;
 import com.certification_exam.gui.popup.PopUpDiaDiemGUI;
-import com.certification_exam.gui.popup.PopUpKhachHangGUI;
+import com.certification_exam.gui.popup.PopUpThiSinhGUI;
 import com.certification_exam.util.ChiPhiTableLoaderUtil;
 import com.certification_exam.util.DiaDiemTableLoaderUtil;
 import com.certification_exam.util.TableSetupUtil;

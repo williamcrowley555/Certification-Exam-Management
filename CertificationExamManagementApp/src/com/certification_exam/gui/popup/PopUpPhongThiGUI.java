@@ -98,7 +98,7 @@ public class PopUpPhongThiGUI extends javax.swing.JFrame {
         tourBLL = new TourBLL();
         giaTourBLL = new GiaTourBLL();        
         CustomWindow();
-        setComboBox(comboBoxKhoaThi, getTourItems());
+       // setComboBox(comboBoxKhoaThi, getTourItems());
         comboBoxKhoaThi = myComboBox(comboBoxKhoaThi, new Color(14,142,233));
         disableEditorDateChooser();
         this.setVisible(true);    

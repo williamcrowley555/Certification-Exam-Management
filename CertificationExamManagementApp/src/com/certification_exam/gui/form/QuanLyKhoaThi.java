@@ -97,7 +97,7 @@ public class QuanLyKhoaThi extends javax.swing.JPanel {
     }
     
     public void loadTableData() {
-        tblKhoaThi.setModel(new TourTableLoaderUtil().setTable(tourBLL.findAll(), this.columnNames)) ;
+       // tblKhoaThi.setModel(new TourTableLoaderUtil().setTable(tourBLL.findAll(), this.columnNames)) ;
         this.rowSorter = TableSetupUtil.setTableFilter(tblKhoaThi, txtTimKiem);
         headerColor(14,142,233,tblKhoaThi);
     }

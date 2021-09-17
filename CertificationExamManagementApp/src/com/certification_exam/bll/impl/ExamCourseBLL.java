@@ -43,8 +43,8 @@ public class ExamCourseBLL implements IExamCourseBLL {
     }
 
     @Override
-    public List<ExamCourse> findFromMonthAndYear(Integer month, Integer year) {
-        return examCourseDAL.findByMonthAndYear(month, year);
+    public List<ExamCourse> findByEnglishLevelIdAndMonthAndYearStartOn(Long englishLevelId, Integer month, Integer year) {
+        return examCourseDAL.findByEnglishLevelIdAndMonthAndYearStartOn(englishLevelId, month, year);
     }
 
     @Override

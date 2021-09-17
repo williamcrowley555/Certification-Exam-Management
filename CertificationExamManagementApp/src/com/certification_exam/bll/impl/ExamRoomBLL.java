@@ -37,6 +37,11 @@ public class ExamRoomBLL implements IExamRoomBLL {
     }
 
     @Override
+    public List<ExamRoom> findByExamCourseId(Long examCourseId) {
+        return examRoomDAL.findByExamCourseId(examCourseId);
+    }
+
+    @Override
     public ExamRoom findById(Long id) {
         return examRoomDAL.findById(id);
     }

@@ -115,6 +115,7 @@ public class PopUpPhongThiGUI extends javax.swing.JFrame {
         CustomWindow();
         setComboBox(comboBoxKhoaThi, getKhoaThiItems());
         comboBoxKhoaThi = myComboBox(comboBoxKhoaThi, new Color(14,142,233));
+        showGeneratedName();
         disableEditorDateChooser();
         this.setVisible(true);    
     }
@@ -152,6 +153,27 @@ public class PopUpPhongThiGUI extends javax.swing.JFrame {
     {
         dateTimePicker.getDatePicker().getComponentDateTextField().setEditable(false);
         dateTimePicker.getTimePicker().getComponentTimeTextField().setEditable(false);
+    }
+    
+    public void showGeneratedName()
+    {
+        IExamRoomBLL examRoomBLL = new ExamRoomBLL();
+        IExamCourseBLL examCourseBLL = new ExamCourseBLL();
+        IEnglishLevelBLL englishLevelBLL = new EnglishLevelBLL();
+        Long selectedCourseId = Long.parseLong(comboBoxKhoaThi.getSelectedItem().toString().substring(0,1));
+        Long selectedCourseEnglishLevelId = examCourseBLL.findById(selectedCourseId).getEnglishLevelId();
+        String selectedCourseEnglishLevelName = englishLevelBLL.findById(selectedCourseEnglishLevelId).getName();
+        String stt = examRoomBLL.getGreatestOrdinalNumber(selectedCourseEnglishLevelName);
+        
+        String name = selectedCourseEnglishLevelName + "P" + "01";
+       
+        if (stt != null) {
+            Integer nextNumber = Integer.valueOf(stt) + 1;
+            String strNumber = nextNumber > 9 ? String.valueOf(nextNumber) : "0" + nextNumber;
+            name = selectedCourseEnglishLevelName + "P" + strNumber;
+        }
+        
+        txtTenPhongThi.setText(name);
     }
     
     
@@ -565,26 +587,7 @@ public class PopUpPhongThiGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLuuActionPerformed
 
     private void comboBoxKhoaThiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxKhoaThiActionPerformed
-        IExamRoomBLL examRoomBLL = new ExamRoomBLL();
-        IExamCourseBLL examCourseBLL = new ExamCourseBLL();
-        IEnglishLevelBLL englishLevelBLL = new EnglishLevelBLL();
-        Long selectedCourseId = Long.parseLong(comboBoxKhoaThi.getSelectedItem().toString().substring(0,1));
-        Long selectedCourseEnglishLevelId = examCourseBLL.findById(selectedCourseId).getEnglishLevelId();
-        String selectedCourseEnglishLevelName = englishLevelBLL.findById(selectedCourseEnglishLevelId).getName();
-        String stt = examRoomBLL.getGreatestOrdinalNumber(selectedCourseEnglishLevelName);
-        
-        String name = selectedCourseEnglishLevelName + "P" + "01";
-       
-        if (stt != null) {
-            Integer nextNumber = Integer.valueOf(stt) + 1;
-            String strNumber = nextNumber > 9 ? String.valueOf(nextNumber) : "0" + nextNumber;
-            name = selectedCourseEnglishLevelName + "P" + strNumber;
-        }
-        
-        txtTenPhongThi.setText(name);
-        
-        
-
+         showGeneratedName();
     }//GEN-LAST:event_comboBoxKhoaThiActionPerformed
 
     private void txtTenPhongThiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenPhongThiActionPerformed

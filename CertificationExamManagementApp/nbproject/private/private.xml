@@ -10,13 +10,9 @@
             <file>file:/D:/codeXayDungPhanLop/Certification-Exam-Management/CertificationExamManagementApp/src/com/certification_exam/dal/IExamRoomDAL.java</file>
             <file>file:/D:/codeXayDungPhanLop/Certification-Exam-Management/CertificationExamManagementApp/src/com/certification_exam/dto/ExamRoom.java</file>
             <file>file:/D:/codeXayDungPhanLop/Certification-Exam-Management/CertificationExamManagementApp/src/com/certification_exam/gui/form/QuanLyPhongThi.java</file>
+            <file>file:/D:/codeXayDungPhanLop/Certification-Exam-Management/CertificationExamManagementApp/src/com/certification_exam/gui/popup/PopUpGiaTourGUI.java</file>
             <file>file:/D:/codeXayDungPhanLop/Certification-Exam-Management/CertificationExamManagementApp/src/com/certification_exam/util/InputValidatorUtil.java</file>
             <file>file:/D:/codeXayDungPhanLop/Certification-Exam-Management/CertificationExamManagementApp/src/com/certification_exam/gui/popup/PopUpDiaDiemGUI.java</file>
-            <file>file:/D:/Project/Java%20Project/Certification-Exam-Management/CertificationExamManagementApp/src/com/certification_exam/dal/IExamineDAL.java</file>
-            <file>file:/D:/Project/Java%20Project/Certification-Exam-Management/CertificationExamManagementApp/src/com/certification_exam/dal/impl/ExamineDAL.java</file>
-            <file>file:/D:/Project/Java%20Project/Certification-Exam-Management/CertificationExamManagementApp/src/com/certification_exam/bll/IExamineBLL.java</file>
-            <file>file:/D:/Project/Java%20Project/Certification-Exam-Management/CertificationExamManagementApp/src/com/certification_exam/bll/impl/ExamineBLL.java</file>
-            <file>file:/D:/Project/Java%20Project/Certification-Exam-Management/CertificationExamManagementApp/test/com/certification_exam/bll/impl/ExamineBLLTest.java</file>
         </group>
     </open-files>
 </project-private>

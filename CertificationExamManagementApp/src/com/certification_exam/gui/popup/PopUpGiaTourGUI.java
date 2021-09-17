@@ -174,29 +174,9 @@ public class PopUpGiaTourGUI extends javax.swing.JFrame {
             lblValidateGiaTien.setToolTipText(InputValidatorUtil.isVailidNumber(txtGiaTien.getText(), 1000, 1000000000));
         }
         
-        if (InputValidatorUtil.isValidStartDate(DCNgayBatDau.getDate()).isEmpty())  
-        {
-            StartDate = true;
-            lblValidateNgayKhoiHanh.setIcon(iconCheck);
-            lblValidateNgayKhoiHanh.setToolTipText(null);
-        } else {
-            StartDate = false;
-            lblValidateNgayKhoiHanh.setIcon(iconError);
-            lblValidateNgayKhoiHanh.setToolTipText(InputValidatorUtil.isValidStartDate(DCNgayBatDau.getDate()));
-        }
+       
         
-        if (InputValidatorUtil.isValidEndDate(DCNgayBatDau.getDate(),DCNgayKetThuc.getDate()).isEmpty())  
-        {
-            EndDate = true;
-            lblValidateNgayKetThuc.setIcon(iconCheck);
-            lblValidateNgayKetThuc.setToolTipText(null);
-        } else {
-            EndDate = false;
-            lblValidateNgayKetThuc.setIcon(iconError);
-            lblValidateNgayKetThuc.setToolTipText(InputValidatorUtil.isValidEndDate(DCNgayBatDau.getDate(),DCNgayKetThuc.getDate()));
-        }
-        
-        if (TenDoan && StartDate && EndDate)
+        if (TenDoan )
         return true;
         else return false;
        

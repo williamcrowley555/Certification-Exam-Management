@@ -41,6 +41,11 @@ public class ExamineBLL implements IExamineBLL {
     }
 
     @Override
+    public List<Examine> findByExamCourseIdNotInExamRoomId(Long examCourseId, Long examRoomId) {
+        return examineDAL.findByExamCourseIdNotInExamRoomId(examCourseId, examRoomId);
+    }
+
+    @Override
     public Examine findById(Long id) {
         return examineDAL.findById(id);
     }

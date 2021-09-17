@@ -78,21 +78,21 @@ public class ExamineBLLTest {
     @Test
     public void testSave() {
         System.out.println("save");
-        LocalDate dob = LocalDate.of(2001, Month.JUNE, 14);
+        LocalDate dob = LocalDate.of(2000, Month.SEPTEMBER, 6);
         Examine examine = new Examine();
-        examine.setFirstName("Quốc Tuấn");
-        examine.setLastName("Trần");
+        examine.setFirstName("Hoàng Minh");
+        examine.setLastName("Nguyễn");
         examine.setDob(dob);
         examine.setGender(1);
-        examine.setAddress("Nha Trang");
-        examine.setPhone("0776521474");
+        examine.setAddress("TP.HCM");
+        examine.setPhone("0908822128");
         
         ExamineBLL instance = new ExamineBLL();
         Long result = instance.save(examine);
         
-        ExamCourseExamine examCourseExamine = new ExamCourseExamine(2L, result);
-        IExamCourseExamineBLL instance1 = new ExamCourseExamineBLL();
-        instance1.save(examCourseExamine);
+//        ExamCourseExamine examCourseExamine = new ExamCourseExamine(2L, result);
+//        IExamCourseExamineBLL instance1 = new ExamCourseExamineBLL();
+//        instance1.save(examCourseExamine);
     }
 
     @Test

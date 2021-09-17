@@ -23,6 +23,16 @@ public class ExamineDAL extends AbstractDAL<Examine> implements IExamineDAL {
     }
 
     @Override
+    public List<Examine> findByExamCourseIdNotInExamRoomId(Long examCourseId, Long examRoomId) {
+        String sql = "SELECT examine_id " +
+                    "FROM certification_exam.exam_course_examine " +
+                    "WHERE exam_course_id = ? AND examine_id NOT IN " +
+                    "(SELECT examine_id FROM certification_exam.exam_room_examine WHERE exam_room_id = ?);";
+        List<Examine> examines = query(sql, new ExamineMapper(), examCourseId, examRoomId);
+        return examines.isEmpty() ? null : examines;
+    }
+
+    @Override
     public Examine findById(Long id) {
         String sql = "SELECT * FROM examine WHERE id = ?";
         List<Examine> examine = query(sql, new ExamineMapper(), id);

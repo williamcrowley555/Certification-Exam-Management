@@ -14,7 +14,7 @@ import com.certification_exam.dto.TourDTO;
 import com.certification_exam.gui.menu.MyComboBoxEditor;
 import com.certification_exam.gui.menu.MyComboBoxRenderer;
 import com.certification_exam.gui.menu.MyScrollBarUI;
-import com.certification_exam.util.DoanTableLoaderUtil;
+import com.certification_exam.util.PhongThiTableLoaderUtil;
 import com.certification_exam.util.TableSetupUtil;
 import com.certification_exam.util.ThongKeDoanTableLoaderUtil;
 import java.awt.Color;

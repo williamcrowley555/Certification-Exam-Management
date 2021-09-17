@@ -7,6 +7,7 @@ package com.certification_exam.util;
 
 import com.certification_exam.bll.IVaiTroBLL;
 import com.certification_exam.bll.impl.VaiTroBLL;
+import com.certification_exam.dto.Examine;
 import com.certification_exam.dto.KhachHangDTO;
 import java.util.List;
 import java.util.Vector;
@@ -16,9 +17,9 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Hi
  */
-public class KhachHangTableLoaderUtil implements ITableLoaderUtil<KhachHangDTO>{
+public class ThiSinhTableLoaderUtil implements ITableLoaderUtil<Examine>{
     @Override
-    public DefaultTableModel setTable(List<KhachHangDTO> listItems, String[] listColumns) {
+    public DefaultTableModel setTable(List<Examine> listItems, String[] listColumns) {
         Vector header = new Vector();
         for(Object colName : listColumns){
             header.add(colName);
@@ -27,17 +28,21 @@ public class KhachHangTableLoaderUtil implements ITableLoaderUtil<KhachHangDTO>{
         DefaultTableModel model = new DefaultTableModel(header, 0);
         
         Vector row = null;
-        for(KhachHangDTO khachHang : listItems) {
+        for(Examine examine : listItems) {
             row = new Vector();
-            row.add(khachHang.getId());
-            row.add(khachHang.getHo());
-            row.add(khachHang.getTen());
-            row.add(khachHang.getGioiTinh() ? "Nam" : "Nữ");
-            row.add(khachHang.getCmnd());
-            row.add(khachHang.getNgaySinh());
-            row.add(khachHang.getDiaChi());
-            row.add(khachHang.getSdt());
+            row.add(examine.getId());
+            row.add(examine.getLastName());
+            row.add(examine.getFirstName());
             
+            if (examine.getGender() == 1) row.add("Nam");
+            else if (examine.getGender() == 2) row.add("Nữ");
+            else row.add("Không xác định");
+            
+            row.add(examine.getExamineId());
+            row.add(examine.getDob());
+            row.add(examine.getAddress());
+            row.add(examine.getPhone());
+            row.add(examine.getStatus() ? "Kích hoạt" : "Vô hiệu");
             model.addRow(row);
         }
         

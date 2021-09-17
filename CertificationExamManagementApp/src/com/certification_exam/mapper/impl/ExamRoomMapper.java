@@ -23,7 +23,7 @@ public class ExamRoomMapper implements RowMapper<ExamRoom>{
             examRoom.setId(rs.getLong("id"));
             examRoom.setName(rs.getString("name"));
             examRoom.setQuantity(rs.getInt("quantity"));
-            examRoom.setExamDate(rs.getDate("exam_date"));
+            examRoom.setExamDate(rs.getTimestamp("exam_date"));
             examRoom.setProctorId(rs.getLong("proctor_id"));
             examRoom.setExaminerId(rs.getLong("examiner_id"));
             examRoom.setExamCourseId(rs.getLong("exam_course_id"));

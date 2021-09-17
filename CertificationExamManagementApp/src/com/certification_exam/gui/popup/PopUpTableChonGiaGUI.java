@@ -27,7 +27,7 @@ import com.certification_exam.gui.menu.MyComboBoxEditor;
 import com.certification_exam.gui.menu.MyComboBoxRenderer;
 import com.certification_exam.util.DiaDiemTableLoaderUtil;
 import com.certification_exam.util.GiaTourTableLoaderUtil;
-import com.certification_exam.util.KhachHangTableLoaderUtil;
+import com.certification_exam.util.ThiSinhTableLoaderUtil;
 import com.certification_exam.util.NhanVienTableLoaderUtil;
 import java.awt.Color;
 import java.awt.Dimension;

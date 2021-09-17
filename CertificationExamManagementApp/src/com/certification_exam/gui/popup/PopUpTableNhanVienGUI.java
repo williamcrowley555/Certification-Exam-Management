@@ -14,7 +14,7 @@ import com.certification_exam.bll.impl.KhachHangBLL;
 import com.certification_exam.bll.impl.NhanVienBLL;
 import com.certification_exam.dto.KhachHangDTO;
 import com.certification_exam.dto.NhanVienDTO;
-import com.certification_exam.util.KhachHangTableLoaderUtil;
+import com.certification_exam.util.ThiSinhTableLoaderUtil;
 import com.certification_exam.util.NhanVienTableLoaderUtil;
 import java.awt.Color;
 import java.awt.Dimension;

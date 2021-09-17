@@ -20,7 +20,7 @@ import com.certification_exam.dto.KhachHangDTO;
 import com.certification_exam.dto.NhanVienDTO;
 import com.certification_exam.dto.VaiTroDTO;
 import com.certification_exam.dto.VaiTroNhanVienDoanDTO;
-import com.certification_exam.util.KhachHangTableLoaderUtil;
+import com.certification_exam.util.ThiSinhTableLoaderUtil;
 import com.certification_exam.util.NhanVienTableLoaderUtil;
 import com.certification_exam.util.TableSetupUtil;
 import com.certification_exam.util.VaiTroTableLoaderUtil;

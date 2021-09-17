@@ -10,7 +10,7 @@ import com.certification_exam.bll.IKhachHangBLL;
 import com.certification_exam.bll.impl.DsKhachDoanBLL;
 import com.certification_exam.bll.impl.KhachHangBLL;
 import com.certification_exam.dto.KhachHangDTO;
-import com.certification_exam.util.KhachHangTableLoaderUtil;
+import com.certification_exam.util.ThiSinhTableLoaderUtil;
 import com.certification_exam.util.TableSetupUtil;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -58,7 +58,7 @@ public class PopUpTableKhachGUI extends javax.swing.JFrame {
         initEmptyTableKhachDoan();
         setTableKhachDoan(this.khachHangList);
         IKhachHangBLL khachHangBLL = new KhachHangBLL();
-        modelKhach = new KhachHangTableLoaderUtil().setTable(dsKhachDoanBLL.getFreeKhach(doanStartDate), columnNames);
+       // modelKhach = new ThiSinhTableLoaderUtil().setTable(dsKhachDoanBLL.getFreeKhach(doanStartDate), columnNames);
         tblKhachHang.setModel(modelKhach);
         if (deletedKhachHangList == null)
             deletedKhachHangList = new ArrayList<>();

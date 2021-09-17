@@ -56,7 +56,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Hi
  */
-public class PopUpTableChonGiaGUI extends javax.swing.JFrame {
+public class PopUpTableChonKhoaThiGUI extends javax.swing.JFrame {
 
     /**
      * Creates new form popUpTableNhanVien
@@ -67,10 +67,9 @@ public class PopUpTableChonGiaGUI extends javax.swing.JFrame {
     IGiaTourBLL giaTourBLL;
     List<DiaDiemDTO> diaDiemList = null;
     DefaultTableModel model;
-    Long idTour;
+    Long examine_id;
     LocalDate startDate;
     LocalDate endDate;
-    PopUpPhongThiGUI popUpDoan;
     String[] columnNames = {
                             "Id",
                             "Id Tour",
@@ -78,35 +77,35 @@ public class PopUpTableChonGiaGUI extends javax.swing.JFrame {
                             "Ngày Kết Thúc",
                             "Giá Tiền"
                             };
-    public PopUpTableChonGiaGUI(PopUpPhongThiGUI popUpDoan, Long idTour, LocalDate startDate, LocalDate endDate) {
+    public PopUpTableChonKhoaThiGUI(Long examine_id, LocalDate startDate, LocalDate endDate) {
         initComponents();
-        this.popUpDoan = popUpDoan;
+       
         
         tinhBLL = new TinhBLL();
         diaDiemBLL = new DiaDiemBLL();
         dsDiaDiemTourBLL = new DsDiaDiemTourBLL();
         giaTourBLL = new GiaTourBLL();
-        this.idTour = idTour;
+        this.examine_id = examine_id;
         this.startDate = startDate;
         this.endDate = endDate;
-        loadTableGiaTour();
+        loadTableKhoaThi();
         
-        tblGiaTour.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tblKhoaThi.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         //setTableDiaDiem_Tour(this.nhanVienList);
        
-        headerColor(14,142,233,tblGiaTour);
+        headerColor(14,142,233,tblKhoaThi);
         
     }
 
-    public PopUpTableChonGiaGUI() {
+    public PopUpTableChonKhoaThiGUI() {
         initComponents();     
         
     }
 
-    public void loadTableGiaTour()
+    public void loadTableKhoaThi()
     {      
-        tblGiaTour.setModel(new GiaTourTableLoaderUtil().setTable(giaTourBLL.findByIdTourAndDatesBetween(idTour, startDate, endDate), columnNames));
-        headerColor(14,142,233,tblGiaTour);
+        tblKhoaThi.setModel(new GiaTourTableLoaderUtil().setTable(giaTourBLL.findByIdTourAndDatesBetween(idTour, startDate, endDate), columnNames));
+        headerColor(14,142,233,tblKhoaThi);
     }
     
     
@@ -182,7 +181,7 @@ public class PopUpTableChonGiaGUI extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblGiaTour = new javax.swing.JTable();
+        tblKhoaThi = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         btnLuu = new javax.swing.JButton();
         btnHuy = new javax.swing.JButton();
@@ -192,7 +191,7 @@ public class PopUpTableChonGiaGUI extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        tblGiaTour.setModel(new javax.swing.table.DefaultTableModel(
+        tblKhoaThi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -203,7 +202,7 @@ public class PopUpTableChonGiaGUI extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(tblGiaTour);
+        jScrollPane2.setViewportView(tblKhoaThi);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setPreferredSize(new java.awt.Dimension(400, 50));
@@ -219,14 +218,14 @@ public class PopUpTableChonGiaGUI extends javax.swing.JFrame {
             .addGap(0, 50, Short.MAX_VALUE)
         );
 
+        btnLuu.setBackground(new java.awt.Color(14, 142, 233));
+        btnLuu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnLuu.setForeground(new java.awt.Color(255, 255, 255));
         btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/certification_exam/gui/popup/save_icon.png"))); // NOI18N
         btnLuu.setText(" Lưu");
-        btnLuu.setBackground(new java.awt.Color(14, 142, 233));
         btnLuu.setBorder(null);
         btnLuu.setContentAreaFilled(false);
         btnLuu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnLuu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnLuu.setForeground(new java.awt.Color(255, 255, 255));
         btnLuu.setOpaque(true);
         btnLuu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -234,14 +233,14 @@ public class PopUpTableChonGiaGUI extends javax.swing.JFrame {
             }
         });
 
+        btnHuy.setBackground(new java.awt.Color(14, 142, 233));
+        btnHuy.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnHuy.setForeground(new java.awt.Color(255, 255, 255));
         btnHuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/certification_exam/gui/popup/cancel_icon.png"))); // NOI18N
         btnHuy.setText(" Hủy");
-        btnHuy.setBackground(new java.awt.Color(14, 142, 233));
         btnHuy.setBorder(null);
         btnHuy.setContentAreaFilled(false);
         btnHuy.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnHuy.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnHuy.setForeground(new java.awt.Color(255, 255, 255));
         btnHuy.setOpaque(true);
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -249,9 +248,9 @@ public class PopUpTableChonGiaGUI extends javax.swing.JFrame {
             }
         });
 
-        lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitle.setText("Chọn Giá Tour");
         lblTitle.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitle.setText("Chọn Khóa Thi");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -305,11 +304,11 @@ public class PopUpTableChonGiaGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-        int rowindex = tblGiaTour.getSelectedRow();
+        int rowindex = tblKhoaThi.getSelectedRow();
         if (rowindex >= 0) 
         {
-        Long id = Long.parseLong(tblGiaTour.getValueAt(rowindex,0).toString());
-        popUpDoan.setGiaTour(giaTourBLL.findById(id));       
+        Long id = Long.parseLong(tblKhoaThi.getValueAt(rowindex,0).toString());
+       // popUpDoan.setGiaTour(giaTourBLL.findById(id));       
         this.dispose();
         } else JOptionPane.showMessageDialog(this, "Vui lòng chọn giá để lưu", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnLuuActionPerformed
@@ -336,14 +335,78 @@ public class PopUpTableChonGiaGUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PopUpTableChonGiaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PopUpTableChonKhoaThiGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PopUpTableChonGiaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PopUpTableChonKhoaThiGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PopUpTableChonGiaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PopUpTableChonKhoaThiGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PopUpTableChonGiaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PopUpTableChonKhoaThiGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -412,7 +475,7 @@ public class PopUpTableChonGiaGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PopUpTableChonGiaGUI().setVisible(true);
+                new PopUpTableChonKhoaThiGUI().setVisible(true);
             }
         });
     }
@@ -424,6 +487,6 @@ public class PopUpTableChonGiaGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblTitle;
-    private javax.swing.JTable tblGiaTour;
+    private javax.swing.JTable tblKhoaThi;
     // End of variables declaration//GEN-END:variables
 }

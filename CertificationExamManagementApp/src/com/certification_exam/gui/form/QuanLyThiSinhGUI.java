@@ -5,6 +5,7 @@
  */
 package com.certification_exam.gui.form;
 
+import com.certification_exam.bll.IExamineBLL;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.Vector;
@@ -16,9 +17,10 @@ import com.certification_exam.gui.menu.MyScrollBarUI;
 import com.certification_exam.gui.popup.PopUpThiSinhGUI;
 import com.certification_exam.gui.popup.PopUpGiaoVienGUI;
 import com.certification_exam.bll.IKhachHangBLL;
+import com.certification_exam.bll.impl.ExamineBLL;
 import com.certification_exam.bll.impl.KhachHangBLL;
 import com.certification_exam.bll.impl.NhanVienBLL;
-import com.certification_exam.util.KhachHangTableLoaderUtil;
+import com.certification_exam.util.ThiSinhTableLoaderUtil;
 import com.certification_exam.util.TableSetupUtil;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
@@ -38,11 +40,14 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
                             "Họ",
                             "Tên",
                             "Giới Tính",
-                            "CMND",
+                            "Số Báo Danh",
                             "Ngày Sinh",
                             "Địa Chỉ",
-                            "Sđt"};
+                            "Sđt",
+                            "Trạng Thái"
+    };
     private IKhachHangBLL khachHangBLL;
+    private IExamineBLL examineBLL;
     private PopUpThiSinhGUI popUp = null;
     TableRowSorter<TableModel> rowSorter = null;
     
@@ -50,17 +55,17 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
         initComponents();
         // Ghi chu
         khachHangBLL = new KhachHangBLL();
-        
+        examineBLL = new ExamineBLL();
         loadTableData();
         
-        headerColor(14,142,233,tblKhachHang);
+        headerColor(14,142,233,tblThiSinh);
         scroll.getVerticalScrollBar().setUI(new MyScrollBarUI());
     }
     
     public void loadTableData() {
-        tblKhachHang.setModel(new KhachHangTableLoaderUtil().setTable(khachHangBLL.findAll(), this.columnNames)) ;
-        this.rowSorter = TableSetupUtil.setTableFilter(tblKhachHang, txtTimKiem);
-        headerColor(14,142,233,tblKhachHang);
+        tblThiSinh.setModel(new ThiSinhTableLoaderUtil().setTable(examineBLL.findAll(), this.columnNames)) ;
+        this.rowSorter = TableSetupUtil.setTableFilter(tblThiSinh, txtTimKiem);
+        headerColor(14,142,233,tblThiSinh);
     }
     
     public Vector createHeader(Object[] columnNames){
@@ -96,6 +101,7 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
 
         rightClickMenu = new javax.swing.JPopupMenu();
         itemSua = new javax.swing.JMenuItem();
+        itemDangKyKhoaThi = new javax.swing.JMenuItem();
         pnlHeader = new javax.swing.JPanel();
         btnThem = new javax.swing.JButton();
         txtTimKiem = new javax.swing.JTextField();
@@ -103,7 +109,7 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
         lblTimKiem = new javax.swing.JLabel();
         pnlBody = new javax.swing.JPanel();
         scroll = new javax.swing.JScrollPane();
-        tblKhachHang = new javax.swing.JTable();
+        tblThiSinh = new javax.swing.JTable();
 
         itemSua.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         itemSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/certification_exam/img/edit_icon.png"))); // NOI18N
@@ -114,6 +120,16 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
             }
         });
         rightClickMenu.add(itemSua);
+
+        itemDangKyKhoaThi.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        itemDangKyKhoaThi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/certification_exam/img/edit_icon.png"))); // NOI18N
+        itemDangKyKhoaThi.setText("Đăng Ký Khóa Thi");
+        itemDangKyKhoaThi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemDangKyKhoaThiActionPerformed(evt);
+            }
+        });
+        rightClickMenu.add(itemDangKyKhoaThi);
 
         setLayout(new java.awt.BorderLayout());
 
@@ -185,7 +201,7 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
 
         pnlBody.setBackground(new java.awt.Color(255, 255, 255));
 
-        tblKhachHang.setModel(new javax.swing.table.DefaultTableModel(
+        tblThiSinh.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -196,12 +212,12 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblThiSinh.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tblKhachHangMouseReleased(evt);
+                tblThiSinhMouseReleased(evt);
             }
         });
-        scroll.setViewportView(tblKhachHang);
+        scroll.setViewportView(tblThiSinh);
 
         javax.swing.GroupLayout pnlBodyLayout = new javax.swing.GroupLayout(pnlBody);
         pnlBody.setLayout(pnlBodyLayout);
@@ -232,10 +248,10 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
     private void itemSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSuaActionPerformed
-        int rowindex = tblKhachHang.getSelectedRow();
-        Long id = Long.parseLong(tblKhachHang.getValueAt(rowindex,0).toString());
+        int rowindex = tblThiSinh.getSelectedRow();
+        Long id = Long.parseLong(tblThiSinh.getValueAt(rowindex,0).toString());
         if (this.popUp == null) {
-        popUp = new PopUpThiSinhGUI("PUT", khachHangBLL.findById(id));
+        popUp = new PopUpThiSinhGUI("PUT", examineBLL.findById(id));
         } else {
             this.popUp.toFront();
             this.popUp.center();
@@ -249,20 +265,21 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
     });
     }//GEN-LAST:event_itemSuaActionPerformed
 
-    private void tblKhachHangMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhachHangMouseReleased
+    private void tblThiSinhMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblThiSinhMouseReleased
         // TODO add your handling code here:
         // TODO add your handling code here:
-        int r = tblKhachHang.rowAtPoint(evt.getPoint());
-        if (r >= 0 && r < tblKhachHang.getRowCount()) {
-            tblKhachHang.setRowSelectionInterval(r, r);
+        int r = tblThiSinh.rowAtPoint(evt.getPoint());
+        if (r >= 0 && r < tblThiSinh.getRowCount()) {
+            tblThiSinh.setRowSelectionInterval(r, r);
         } else {
-           tblKhachHang.clearSelection();
+           tblThiSinh.clearSelection();
         }
 
-        int rowindex = tblKhachHang.getSelectedRow();
-        Vector currentRow = new Vector();
-        for (int i = 0; i < tblKhachHang.getColumnCount(); i++)
-        currentRow.add(tblKhachHang.getValueAt(rowindex,i).toString());
+        int rowindex = tblThiSinh.getSelectedRow();
+        
+//        Vector currentRow = new Vector();
+//        for (int i = 0; i < tblThiSinh.getColumnCount(); i++)
+//        currentRow.add(tblThiSinh.getValueAt(rowindex,i).toString());
        
         if (rowindex < 0)
             return;
@@ -270,7 +287,7 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
             
             rightClickMenu.show(evt.getComponent(), evt.getX(), evt.getY());
         }
-    }//GEN-LAST:event_tblKhachHangMouseReleased
+    }//GEN-LAST:event_tblThiSinhMouseReleased
 
     private void btnThemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMousePressed
         // TODO add your handling code here:
@@ -285,14 +302,33 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
         @Override
         public void windowClosed(java.awt.event.WindowEvent windowEvent) {
             popUp = null;
-           // loadTableData();
+            loadTableData();
         }
     });
     }//GEN-LAST:event_btnThemMousePressed
 
+    private void itemDangKyKhoaThiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemDangKyKhoaThiActionPerformed
+       int rowindex = tblThiSinh.getSelectedRow();
+        Long id = Long.parseLong(tblThiSinh.getValueAt(rowindex,0).toString());
+        if (this.popUp == null) {
+        popUp = new PopUpThiSinhGUI("PUT", examineBLL.findById(id));
+        } else {
+            this.popUp.toFront();
+            this.popUp.center();
+        }
+        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+            popUp = null;
+            loadTableData();
+        }
+    });
+    }//GEN-LAST:event_itemDangKyKhoaThiActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnThem;
+    private javax.swing.JMenuItem itemDangKyKhoaThi;
     private javax.swing.JMenuItem itemSua;
     private javax.swing.JLabel lblTimKiem;
     private javax.swing.JLabel lblTitle;
@@ -300,7 +336,7 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
     private javax.swing.JPanel pnlHeader;
     private javax.swing.JPopupMenu rightClickMenu;
     private javax.swing.JScrollPane scroll;
-    private javax.swing.JTable tblKhachHang;
+    private javax.swing.JTable tblThiSinh;
     private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
 }

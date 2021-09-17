@@ -59,7 +59,7 @@ import com.certification_exam.gui.menu.MyComboBoxRenderer;
 import com.certification_exam.gui.others.TableRowTransferHandler;
 import com.certification_exam.util.ImageUtil;
 import com.certification_exam.util.InputValidatorUtil;
-import com.certification_exam.util.KhachHangTableLoaderUtil;
+import com.certification_exam.util.ThiSinhTableLoaderUtil;
 import java.awt.Font;
 import java.io.File;
 import java.io.IOException;

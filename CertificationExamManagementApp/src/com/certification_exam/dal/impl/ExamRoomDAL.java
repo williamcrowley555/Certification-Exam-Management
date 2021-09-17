@@ -24,7 +24,7 @@ public class ExamRoomDAL extends AbstractDAL<ExamRoom> implements IExamRoomDAL {
 
     @Override
     public List<ExamRoom> findByExamCourseId(Long examCourseId) {
-        String sql = "SELECT * FROM exam_room WHEREE exam_course_id = ?";
+        String sql = "SELECT * FROM exam_room WHERE exam_course_id = ?";
         return query(sql, new ExamRoomMapper(), examCourseId);
     }
 

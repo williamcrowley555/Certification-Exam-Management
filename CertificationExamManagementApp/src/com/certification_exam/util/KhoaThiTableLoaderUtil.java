@@ -5,8 +5,11 @@
  */
 package com.certification_exam.util;
 
+import com.certification_exam.bll.IEnglishLevelBLL;
 import com.certification_exam.bll.IVaiTroBLL;
+import com.certification_exam.bll.impl.EnglishLevelBLL;
 import com.certification_exam.bll.impl.VaiTroBLL;
+import com.certification_exam.dto.ExamCourse;
 import com.certification_exam.dto.GiaTourDTO;
 import com.certification_exam.dto.KhachHangDTO;
 import java.util.List;
@@ -17,10 +20,11 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Hi
  */
-public class GiaTourTableLoaderUtil implements ITableLoaderUtil<GiaTourDTO>{
+public class KhoaThiTableLoaderUtil implements ITableLoaderUtil<ExamCourse>{
     @Override
-    public DefaultTableModel setTable(List<GiaTourDTO> listItems, String[] listColumns) {
+    public DefaultTableModel setTable(List<ExamCourse> listItems, String[] listColumns) {
         Vector header = new Vector();
+        IEnglishLevelBLL englishLevelBLL = new EnglishLevelBLL();
         for(Object colName : listColumns){
             header.add(colName);
         }
@@ -28,13 +32,14 @@ public class GiaTourTableLoaderUtil implements ITableLoaderUtil<GiaTourDTO>{
         DefaultTableModel model = new DefaultTableModel(header, 0);
         
         Vector row = null;
-        for(GiaTourDTO giaTour : listItems) {
+        for(ExamCourse course : listItems) {
             row = new Vector();
-            row.add(giaTour.getId());
-            row.add(giaTour.getIdTour());
-            row.add(giaTour.getNgayBatDau());
-            row.add(giaTour.getNgayKetThuc());
-            row.add(giaTour.getGiaTien());
+            row.add(course.getId());
+            row.add(course.getName());
+            row.add(course.getMonth());
+            row.add(course.getYear());
+            row.add(englishLevelBLL.findById(course.getEnglishLevelId()).getName());
+           
             model.addRow(row);
         }
         

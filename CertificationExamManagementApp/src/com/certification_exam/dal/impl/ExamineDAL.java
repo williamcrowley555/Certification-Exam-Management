@@ -8,6 +8,7 @@ package com.certification_exam.dal.impl;
 import com.certification_exam.dal.IExamineDAL;
 import com.certification_exam.dto.Examine;
 import com.certification_exam.mapper.impl.ExamineMapper;
+import com.certification_exam.mapper.impl.Examine_idMapper;
 import java.util.List;
 
 /**
@@ -23,13 +24,13 @@ public class ExamineDAL extends AbstractDAL<Examine> implements IExamineDAL {
     }
 
     @Override
-    public List<Examine> findByExamCourseIdNotInExamRoomId(Long examCourseId, Long examRoomId) {
+    public List<Long> findByExamCourseIdNotInExamRoomId(Long examCourseId, Long examRoomId) {
         String sql = "SELECT examine_id " +
                     "FROM certification_exam.exam_course_examine " +
                     "WHERE exam_course_id = ? AND examine_id NOT IN " +
                     "(SELECT examine_id FROM certification_exam.exam_room_examine WHERE exam_room_id = ?);";
-        List<Examine> examines = query(sql, new ExamineMapper(), examCourseId, examRoomId);
-        return examines.isEmpty() ? null : examines;
+        List<Long> examine_ids = query(sql, new Examine_idMapper(), examCourseId, examRoomId);
+        return examine_ids.isEmpty() ? null : examine_ids;
     }
 
     @Override

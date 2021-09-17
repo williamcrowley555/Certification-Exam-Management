@@ -52,7 +52,12 @@ public class ExamineBLL implements IExamineBLL {
 
     @Override
     public List<Examine> findByExamCourseIdNotInExamRoomId(Long examCourseId, Long examRoomId) {
-        return examineDAL.findByExamCourseIdNotInExamRoomId(examCourseId, examRoomId);
+        List<Long> examine_ids= examineDAL.findByExamCourseIdNotInExamRoomId(examCourseId, examRoomId);
+        List<Examine> examines = new ArrayList<>();
+        for (int i = 0; i < examine_ids.size(); i++){
+            examines.add(examineDAL.findById(examine_ids.get(i)));
+        }
+        return examines;
     }
 
     @Override

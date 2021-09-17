@@ -33,6 +33,24 @@ public class ExamineDAL extends AbstractDAL<Examine> implements IExamineDAL {
     }
 
     @Override
+    public List<Examine> findByFullName(String fullName) {
+        String sql = "SELECT * " +
+                    "FROM examine " +
+                    "WHERE CONCAT(first_name, last_name) LIKE CONCAT('%', ?, '%')";
+        List<Examine> examines = query(sql, new ExamineMapper(), fullName);
+        return examines.isEmpty() ? null : examines;
+    }
+
+    @Override
+    public List<Examine> findByFullNameAndPhone(String fullName, String phone) {
+        String sql = "SELECT * " +
+                    "FROM examine " +
+                    "WHERE CONCAT(first_name, last_name) LIKE CONCAT('%', ?, '%') AND phone = ?";
+        List<Examine> examines = query(sql, new ExamineMapper(), fullName, phone);
+        return examines.isEmpty() ? null : examines;
+    }
+
+    @Override
     public Examine findById(Long id) {
         String sql = "SELECT * FROM examine WHERE id = ?";
         List<Examine> examine = query(sql, new ExamineMapper(), id);

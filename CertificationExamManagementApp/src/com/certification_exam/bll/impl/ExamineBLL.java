@@ -88,6 +88,16 @@ public class ExamineBLL implements IExamineBLL {
     }
 
     @Override
+    public List<Examine> findByFullName(String fullName) {
+        return examineDAL.findByFullName(fullName);
+    }
+
+    @Override
+    public List<Examine> findByFullNameAndPhone(String fullName, String phone) {
+        return examineDAL.findByFullNameAndPhone(fullName, phone);
+    }
+
+    @Override
     public Examine findById(Long id) {
         return examineDAL.findById(id);
     }

@@ -6,8 +6,10 @@
 package com.certification_exam.gui.form;
 
 import com.certification_exam.bll.IDoanBLL;
+import com.certification_exam.bll.IExamRoomBLL;
 import com.certification_exam.bll.ITourBLL;
 import com.certification_exam.bll.impl.DoanBLL;
+import com.certification_exam.bll.impl.ExamRoomBLL;
 import com.certification_exam.bll.impl.TourBLL;
 import java.awt.Color;
 import java.awt.Font;
@@ -20,7 +22,7 @@ import com.certification_exam.gui.popup.PopUpCapVaiTroGUI;
 import com.certification_exam.gui.popup.PopUpPhongThiGUI;
 import com.certification_exam.gui.popup.PopUpDsNguoiDiGUI;
 import com.certification_exam.gui.popup.PopUpKhoaThiGUI;
-import com.certification_exam.util.DoanTableLoaderUtil;
+import com.certification_exam.util.PhongThiTableLoaderUtil;
 import com.certification_exam.util.TableSetupUtil;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
@@ -43,7 +45,6 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
                             "Id",
                             "Tên Phòng Thi",
                             "Ngày Thi",
-                            "Trình Độ",
                             "Khóa Thi",
                             "Số Lượng",
                             "Giám Khảo",
@@ -52,22 +53,24 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
     
     private IDoanBLL doanBLL;
     private ITourBLL tourBLL;
+    private IExamRoomBLL examRoomBLL;
     TableRowSorter<TableModel> rowSorter = null;
     
     public QuanLyPhongThi() {
         initComponents();
         doanBLL = new DoanBLL();
         tourBLL = new TourBLL();
+        examRoomBLL = new ExamRoomBLL();
         loadTableData();
         
-        headerColor(14,142,233,tblDoan);
+        headerColor(14,142,233,tblPhongThi);
         scroll.getVerticalScrollBar().setUI(new MyScrollBarUI());
     }
     
     public void loadTableData() {
-       // tblDoan.setModel(new DoanTableLoaderUtil().setTable(doanBLL.findAll(), this.columnNames)) ;
-        this.rowSorter = TableSetupUtil.setTableFilter(tblDoan, txtTimKiem);
-        headerColor(14,142,233,tblDoan);
+        tblPhongThi.setModel(new PhongThiTableLoaderUtil().setTable(examRoomBLL.findAll(), this.columnNames)) ;
+        this.rowSorter = TableSetupUtil.setTableFilter(tblPhongThi, txtTimKiem);
+        headerColor(14,142,233,tblPhongThi);
     }
     
     public Vector createHeader(Object[] columnNames){
@@ -113,7 +116,7 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
         btnTaoKhoaThiNhanh = new javax.swing.JButton();
         pnlBody = new javax.swing.JPanel();
         scroll = new javax.swing.JScrollPane();
-        tblDoan = new javax.swing.JTable();
+        tblPhongThi = new javax.swing.JTable();
 
         itemSua.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         itemSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/certification_exam/img/edit_icon.png"))); // NOI18N
@@ -130,12 +133,12 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
         pnlHead.setBackground(new java.awt.Color(255, 255, 255));
         pnlHead.setPreferredSize(new java.awt.Dimension(808, 150));
 
-        btnThem.setText("Thêm");
         btnThem.setBackground(new java.awt.Color(14, 142, 233));
-        btnThem.setContentAreaFilled(false);
-        btnThem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnThem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnThem.setForeground(new java.awt.Color(255, 255, 255));
+        btnThem.setText("Thêm");
+        btnThem.setContentAreaFilled(false);
+        btnThem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnThem.setOpaque(true);
         btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -163,12 +166,12 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
         lblTitle.setText("Quản Lý Phòng Thi");
         lblTitle.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
-        btnTaoDSNguoiDi.setText("Tạo DS Thí Sinh");
         btnTaoDSNguoiDi.setBackground(new java.awt.Color(14, 142, 233));
-        btnTaoDSNguoiDi.setContentAreaFilled(false);
-        btnTaoDSNguoiDi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnTaoDSNguoiDi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnTaoDSNguoiDi.setForeground(new java.awt.Color(255, 255, 255));
+        btnTaoDSNguoiDi.setText("Tạo DS Thí Sinh");
+        btnTaoDSNguoiDi.setContentAreaFilled(false);
+        btnTaoDSNguoiDi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnTaoDSNguoiDi.setOpaque(true);
         btnTaoDSNguoiDi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -184,12 +187,12 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
             }
         });
 
-        btnCapVaiTro.setText("Cấp Vai Trò Giáo Viên");
         btnCapVaiTro.setBackground(new java.awt.Color(14, 142, 233));
-        btnCapVaiTro.setContentAreaFilled(false);
-        btnCapVaiTro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCapVaiTro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCapVaiTro.setForeground(new java.awt.Color(255, 255, 255));
+        btnCapVaiTro.setText("Cấp Vai Trò Giáo Viên");
+        btnCapVaiTro.setContentAreaFilled(false);
+        btnCapVaiTro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCapVaiTro.setOpaque(true);
         btnCapVaiTro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -273,7 +276,7 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
 
         pnlBody.setBackground(new java.awt.Color(255, 255, 255));
 
-        tblDoan.setModel(new javax.swing.table.DefaultTableModel(
+        tblPhongThi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -284,12 +287,12 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblDoan.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblPhongThi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tblDoanMouseReleased(evt);
+                tblPhongThiMouseReleased(evt);
             }
         });
-        scroll.setViewportView(tblDoan);
+        scroll.setViewportView(tblPhongThi);
 
         javax.swing.GroupLayout pnlBodyLayout = new javax.swing.GroupLayout(pnlBody);
         pnlBody.setLayout(pnlBodyLayout);
@@ -342,10 +345,10 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemMousePressed
 
     private void itemSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSuaActionPerformed
-        int rowindex = tblDoan.getSelectedRow();
-        Long id = Long.parseLong(tblDoan.getValueAt(rowindex,0).toString());
+        int rowindex = tblPhongThi.getSelectedRow();
+        Long id = Long.parseLong(tblPhongThi.getValueAt(rowindex,0).toString());
         if (this.popUp == null) {
-            popUp = new PopUpPhongThiGUI("PUT", doanBLL.findById(id));
+            popUp = new PopUpPhongThiGUI("PUT", examRoomBLL.findById(id));
         } else {
             this.popUp.toFront();
             this.popUp.center();
@@ -359,22 +362,22 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
         });
     }//GEN-LAST:event_itemSuaActionPerformed
 
-    private void tblDoanMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDoanMouseReleased
+    private void tblPhongThiMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPhongThiMouseReleased
         // TODO add your handling code here:
-        int r = tblDoan.rowAtPoint(evt.getPoint());
-        if (r >= 0 && r < tblDoan.getRowCount()) {
-            tblDoan.setRowSelectionInterval(r, r);
+        int r = tblPhongThi.rowAtPoint(evt.getPoint());
+        if (r >= 0 && r < tblPhongThi.getRowCount()) {
+            tblPhongThi.setRowSelectionInterval(r, r);
         } else {
-           tblDoan.clearSelection();
+           tblPhongThi.clearSelection();
         }
-        int rowindex = tblDoan.getSelectedRow();
+        int rowindex = tblPhongThi.getSelectedRow();
         if (rowindex < 0)
             return;
         if (evt.isPopupTrigger() && evt.getComponent() instanceof JTable ) {
             
             rightClickMenu.show(evt.getComponent(), evt.getX(), evt.getY());
         }
-    }//GEN-LAST:event_tblDoanMouseReleased
+    }//GEN-LAST:event_tblPhongThiMouseReleased
 
     private void btnTaoDSNguoiDiMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTaoDSNguoiDiMousePressed
         // TODO add your handling code here:
@@ -469,7 +472,7 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
     private javax.swing.JPanel pnlHead;
     private javax.swing.JPopupMenu rightClickMenu;
     private javax.swing.JScrollPane scroll;
-    private javax.swing.JTable tblDoan;
+    private javax.swing.JTable tblPhongThi;
     private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
 }

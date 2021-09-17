@@ -105,18 +105,18 @@ public class InputValidatorUtil {
            
     }
     
-    public static String isValidStartDate(LocalDate startDate) {     
+    public static String isValidStartDate(LocalDate startDate, String message) {     
         if (startDate == null) return " không được để trống";
         LocalDate toDay = LocalDate.now();
             if (startDate.isBefore(toDay))
-            return "Ngày bắt đầu không hợp lệ";
+            return message;
             else return "";         
     }
     
-    public static String isValidEndDate(LocalDate startDate, LocalDate endDate) {     
+    public static String isValidEndDate(LocalDate startDate, LocalDate endDate, String message) {     
         if (endDate == null) return " không được để trống";
         if (endDate.isBefore(startDate))
-            return "Ngày kết thúc phải sau ngày khởi hành";
+            return message;
             else return "";         
     }
     

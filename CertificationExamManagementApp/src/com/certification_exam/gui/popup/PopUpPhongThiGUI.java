@@ -10,6 +10,9 @@ import com.toedter.calendar.JTextFieldDateEditor;
 import com.certification_exam.bll.IDiaDiemBLL;
 import com.certification_exam.bll.IDiaDiemBLL;
 import com.certification_exam.bll.IDoanBLL;
+import com.certification_exam.bll.IEnglishLevelBLL;
+import com.certification_exam.bll.IExamCourseBLL;
+import com.certification_exam.bll.IExamRoomBLL;
 import com.certification_exam.bll.IGiaTourBLL;
 import com.certification_exam.bll.IKhachHangBLL;
 import com.certification_exam.bll.ITinhBLL;
@@ -19,6 +22,9 @@ import com.certification_exam.bll.IVaiTroBLL;
 import com.certification_exam.bll.impl.DiaDiemBLL;
 import com.certification_exam.bll.impl.DiaDiemBLL;
 import com.certification_exam.bll.impl.DoanBLL;
+import com.certification_exam.bll.impl.EnglishLevelBLL;
+import com.certification_exam.bll.impl.ExamCourseBLL;
+import com.certification_exam.bll.impl.ExamRoomBLL;
 import com.certification_exam.bll.impl.GiaTourBLL;
 import com.certification_exam.bll.impl.KhachHangBLL;
 import com.certification_exam.bll.impl.TinhBLL;
@@ -28,6 +34,8 @@ import com.certification_exam.bll.impl.VaiTroBLL;
 import com.certification_exam.dto.DiaDiemDTO;
 import com.certification_exam.dto.DiaDiemDTO;
 import com.certification_exam.dto.DoanDTO;
+import com.certification_exam.dto.ExamCourse;
+import com.certification_exam.dto.ExamRoom;
 import com.certification_exam.dto.GiaTourDTO;
 import com.certification_exam.dto.KhachHangDTO;
 import com.certification_exam.dto.NhanVienDTO;
@@ -56,7 +64,9 @@ import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -80,8 +90,11 @@ public class PopUpPhongThiGUI extends javax.swing.JFrame {
     private File selectedImg = null;
     private String action;
     private DoanDTO doan = null;
+    private ExamRoom room = null;
     private IDoanBLL doanBLL;
     private ITourBLL tourBLL;
+    private IExamCourseBLL examCourseBLL;
+    private IExamRoomBLL examRoomBLL;
     private IGiaTourBLL giaTourBLL;
     private ArrayList<KhachHangDTO> listKhach = null;
     private ArrayList<NhanVienDTO> listNhanVien = null;
@@ -96,114 +109,120 @@ public class PopUpPhongThiGUI extends javax.swing.JFrame {
         this.action = action;    
         doanBLL = new DoanBLL();
         tourBLL = new TourBLL();
+        examCourseBLL = new ExamCourseBLL();
+        examRoomBLL = new ExamRoomBLL();
         giaTourBLL = new GiaTourBLL();        
         CustomWindow();
-       // setComboBox(comboBoxKhoaThi, getTourItems());
+        setComboBox(comboBoxKhoaThi, getKhoaThiItems());
         comboBoxKhoaThi = myComboBox(comboBoxKhoaThi, new Color(14,142,233));
         disableEditorDateChooser();
         this.setVisible(true);    
     }
     
-    public PopUpPhongThiGUI(String action, DoanDTO doan) {
+    public PopUpPhongThiGUI(String action, ExamRoom room) {
         initComponents();
         this.action = action;  
-        this.doan = doan;
-        doanBLL = new DoanBLL();
-        tourBLL = new TourBLL();
-        giaTourBLL = new GiaTourBLL();
+        this.room = room;
+       
+        examCourseBLL = new ExamCourseBLL();
+        examRoomBLL = new ExamRoomBLL();
+        
         CustomWindow();
-        setComboBox(comboBoxKhoaThi, getTourItems());
+        setComboBox(comboBoxKhoaThi, getKhoaThiItems());
         comboBoxKhoaThi = myComboBox(comboBoxKhoaThi, new Color(14,142,233));
-        setLabelText(doan);
+        setLabelText(room);
+        comboBoxKhoaThi.disable();
         String selectedTour = comboBoxKhoaThi.getSelectedItem().toString();
         Long idTour = Long.parseLong(selectedTour.substring(0, selectedTour.indexOf(" - ")));     
         disableEditorDateChooser();
         this.setVisible(true);    
     }
      
-    public void setLabelText(DoanDTO doan)
+    public void setLabelText(ExamRoom examRoom)
     {
-        txtTenPhongThi.setText(doan.getTenDoan());
-        DCNgayThi.setDate(doan.getNgayKhoiHanh());
-        
+        txtTenPhongThi.setText(examRoom.getName());
+        dateTimePicker.setDateTimePermissive( new java.sql.Timestamp(
+        examRoom.getExamDate().getTime()).toLocalDateTime());
+        comboBoxKhoaThi.setSelectedItem(getKhoaThiItemName(examCourseBLL.findById(room.getExamCourseId())));
     }
     
     
     
     public void disableEditorDateChooser()
     {
-        DCNgayThi.getComponentDateTextField().setEditable(false);
-       
+        dateTimePicker.getDatePicker().getComponentDateTextField().setEditable(false);
+        dateTimePicker.getTimePicker().getComponentTimeTextField().setEditable(false);
     }
     
     
      public boolean validateForm() 
     {   
         
-        boolean TenDoan, StartDate, EndDate, GiaTour = false; 
-        ImageIcon iconCheck = new ImageIcon(getClass().getResource("/com/tourdulich/img/check.png"));
-        ImageIcon iconError = new ImageIcon(getClass().getResource("/com/tourdulich/img/error.png"));
+        boolean NgayThi, GioThi; 
+        ImageIcon iconCheck = new ImageIcon(getClass().getResource("/com/certification_exam/img/check.png"));
+        ImageIcon iconError = new ImageIcon(getClass().getResource("/com/certification_exam/img/error.png"));
         
-        if (InputValidatorUtil.isValidPattern(txtTenPhongThi.getText(), "[^A-Za-z0-9\\-\\s]", "Tên đoàn không hợp lệ").isEmpty())  
-        {
-            TenDoan = true;
-            lblValidateTenPhongThi.setIcon(iconCheck);
-            lblValidateTenPhongThi.setToolTipText(null);
-        } else {
-            TenDoan = false;
-            lblValidateTenPhongThi.setIcon(iconError);
-            lblValidateTenPhongThi.setToolTipText(InputValidatorUtil.isValidPattern(txtTenPhongThi.getText(), "[^A-Za-z0-9\\-\\s]", "Tên đoàn không hợp lệ"));
-        }
         
-        if (InputValidatorUtil.isValidStartDate(DCNgayThi.getDate()).isEmpty())  
+        
+        if (InputValidatorUtil.isValidStartDate(dateTimePicker.getDatePicker().getDate(), "Ngày thi không hợp lệ").isEmpty())  
         {
-            StartDate = true;
+            String selectedCourse = comboBoxKhoaThi.getSelectedItem().toString();
+            Long idCourse = Long.parseLong(selectedCourse.substring(0, selectedCourse.indexOf(" - ")));
+            examCourseBLL.findById(idCourse);
+            NgayThi = true;
             lblValidateNgayThi.setIcon(iconCheck);
             lblValidateNgayThi.setToolTipText(null);
         } else {
-            StartDate = false;
+            NgayThi = false;
             lblValidateNgayThi.setIcon(iconError);
-            lblValidateNgayThi.setToolTipText(InputValidatorUtil.isValidStartDate(DCNgayThi.getDate()));
+            lblValidateNgayThi.setToolTipText(InputValidatorUtil.isValidStartDate(dateTimePicker.getDatePicker().getDate(), "Ngày thi không hợp lệ"));
         }
         
       
-        if (TenDoan && StartDate)
+//        if (TenDoan && StartDate)
+//        return true;
+//        else return false;
+        
         return true;
-        else return false;
        
     }
     
-    private DoanDTO getFormInfo() throws IOException {
-        DoanDTO doan = new DoanDTO();
-        if(this.doan != null) {
-            doan.setId(this.doan.getId());
+    private ExamRoom getFormInfo() throws IOException {
+        ExamRoom room = new ExamRoom();
+        
+        room.setExamDate(java.sql.Timestamp.valueOf( dateTimePicker.getDateTimePermissive() ));
+        String selectedCourse = comboBoxKhoaThi.getSelectedItem().toString();
+        Long idCourse = Long.parseLong(selectedCourse.substring(0, selectedCourse.indexOf(" - ")));
+        room.setExamCourseId(idCourse);
+        
+        if(this.room != null) {
+            room.setId(this.room.getId());
+            room.setName(this.room.getName());
+            room.setProctorId(this.room.getProctorId() == 0 ? null : this.room.getProctorId());
+            room.setExaminerId(this.room.getExaminerId() == 0 ? null : this.room.getExaminerId());
+            room.setExamCourseId(this.room.getExamCourseId());
         }
-        doan.setTenDoan(txtTenPhongThi.getText().trim());
-        doan.setNgayKhoiHanh(DCNgayThi.getDate());
- 
-        String selectedTour = comboBoxKhoaThi.getSelectedItem().toString();
-        Long idTour = Long.parseLong(selectedTour.substring(0, selectedTour.indexOf(" - ")));
-        doan.setIdTour(idTour);
-        return doan;
+        
+        return room;
     }
     
     public void setComboBox(JComboBox<String> comboBox, String[] listItems) {
         comboBox.setModel(new DefaultComboBoxModel<>(listItems));
     } 
     
-    public String[] getTourItems() {
-        List<TourDTO> tourLists = tourBLL.findAll();
-        String[] tourItems = new String[tourLists.size()];
+    public String[] getKhoaThiItems() {
+        List<ExamCourse> examCourseLists = examCourseBLL.findAll();
+        String[] examCourseItems = new String[examCourseLists.size()];
         int index = 0;
-        for(TourDTO vt : tourLists) {
-            tourItems[index] = vt.getId() + " - " + vt.getTenTour();
+        for(ExamCourse vt : examCourseLists) {
+            examCourseItems[index] = vt.getId() + " - " + vt.getName();
             ++ index;
         }
-        return tourItems;
+        return examCourseItems;
     }
     
-    public String getTourItemName(TourDTO tour) {
-        return tour.getId() + " - " + tour.getTenTour();
+    public String getKhoaThiItemName(ExamCourse examCourse) {
+        return examCourse.getId() + " - " + examCourse.getName();
     }
     
     
@@ -308,10 +327,8 @@ public class PopUpPhongThiGUI extends javax.swing.JFrame {
         btnHuy = new javax.swing.JButton();
         lblValidateNgayThi = new javax.swing.JLabel();
         lblValidateTenPhongThi = new javax.swing.JLabel();
-        DCNgayThi = new com.github.lgooddatepicker.components.DatePicker();
         lblNgayThi = new javax.swing.JLabel();
-        lblSoLuong = new javax.swing.JLabel();
-        txtSoLuong = new javax.swing.JTextField();
+        dateTimePicker = new com.github.lgooddatepicker.components.DateTimePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -349,7 +366,7 @@ public class PopUpPhongThiGUI extends javax.swing.JFrame {
         panelHeaderLayout.setHorizontalGroup(
             panelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHeaderLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(243, Short.MAX_VALUE)
                 .addComponent(lblMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(lblExit, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -362,6 +379,7 @@ public class PopUpPhongThiGUI extends javax.swing.JFrame {
 
         pnlBody.setBackground(new java.awt.Color(255, 255, 255));
 
+        txtTenPhongThi.setEditable(false);
         txtTenPhongThi.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(204, 204, 204)));
         txtTenPhongThi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtTenPhongThi.addActionListener(new java.awt.event.ActionListener() {
@@ -414,42 +432,8 @@ public class PopUpPhongThiGUI extends javax.swing.JFrame {
             }
         });
 
-        DCNgayThi.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                DCNgayThiFocusLost(evt);
-            }
-        });
-        DCNgayThi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                DCNgayThiMouseExited(evt);
-            }
-        });
-        DCNgayThi.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                DCNgayThiInputMethodTextChanged(evt);
-            }
-        });
-        DCNgayThi.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                DCNgayThiPropertyChange(evt);
-            }
-        });
-
         lblNgayThi.setText("Ngày Thi:");
         lblNgayThi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
-        lblSoLuong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblSoLuong.setText("Số lượng:");
-
-        txtSoLuong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtSoLuong.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(204, 204, 204)));
-        txtSoLuong.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSoLuongActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout pnlBodyLayout = new javax.swing.GroupLayout(pnlBody);
         pnlBody.setLayout(pnlBodyLayout);
@@ -458,33 +442,26 @@ public class PopUpPhongThiGUI extends javax.swing.JFrame {
             .addGroup(pnlBodyLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dateTimePicker, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlBodyLayout.createSequentialGroup()
-                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblSoLuong)
-                            .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(40, 40, 40)
+                        .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTenPhongThi)
+                    .addComponent(comboBoxKhoaThi, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlBodyLayout.createSequentialGroup()
                         .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlBodyLayout.createSequentialGroup()
                                 .addComponent(lblNgayThi)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblValidateNgayThi, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(188, 188, 188)
+                                .addComponent(lblValidateNgayThi, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlBodyLayout.createSequentialGroup()
-                                .addComponent(DCNgayThi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(29, 29, 29))))
-                    .addGroup(pnlBodyLayout.createSequentialGroup()
-                        .addComponent(lblTenPhongThi)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblValidateTenPhongThi, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtTenPhongThi, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(comboBoxKhoaThi, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBodyLayout.createSequentialGroup()
-                            .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
-                            .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(lblChonKhoaThi, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24))
+                                .addComponent(lblTenPhongThi)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblValidateTenPhongThi, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblChonKhoaThi, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(20, 20, 20))
         );
         pnlBodyLayout.setVerticalGroup(
             pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -505,29 +482,26 @@ public class PopUpPhongThiGUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBodyLayout.createSequentialGroup()
-                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblSoLuong)
-                            .addComponent(lblNgayThi, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(DCNgayThi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblNgayThi, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlBodyLayout.createSequentialGroup()
                         .addComponent(lblValidateNgayThi, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dateTimePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
+                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
-            .addComponent(pnlBody, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+            .addComponent(pnlBody, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -552,22 +526,6 @@ public class PopUpPhongThiGUI extends javax.swing.JFrame {
         setLocation (evt.getXOnScreen()-(getWidth()/2),evt.getYOnScreen()-10);
     }//GEN-LAST:event_panelHeaderMouseDragged
 
-    private void DCNgayThiPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_DCNgayThiPropertyChange
-
-    }//GEN-LAST:event_DCNgayThiPropertyChange
-
-    private void DCNgayThiInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_DCNgayThiInputMethodTextChanged
-
-    }//GEN-LAST:event_DCNgayThiInputMethodTextChanged
-
-    private void DCNgayThiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DCNgayThiMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DCNgayThiMouseExited
-
-    private void DCNgayThiFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DCNgayThiFocusLost
-
-    }//GEN-LAST:event_DCNgayThiFocusLost
-
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnHuyActionPerformed
@@ -575,16 +533,16 @@ public class PopUpPhongThiGUI extends javax.swing.JFrame {
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         if (validateForm())
         {
-            DoanDTO newDoan = null;
+            ExamRoom newRoom = null;
             try {
-                newDoan = getFormInfo();
+                newRoom = getFormInfo();
             } catch (IOException ex) {
                 Logger.getLogger(PopUpPhongThiGUI.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             if(this.action.equals("POST")) {
-                Long newDoanId = doanBLL.save(newDoan);
-                if(newDoanId != null) {
+                Long newRoomId = examRoomBLL.save(newRoom);
+                if(newRoomId != null) {
 
                     JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                     dispose();
@@ -594,7 +552,8 @@ public class PopUpPhongThiGUI extends javax.swing.JFrame {
                 }
             } else if(this.action.equals("PUT")) {
                 try {
-                    doanBLL.update(newDoan);
+                    examRoomBLL.update(newRoom);
+                    System.out.println(newRoom);
                     JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                     dispose();
                 } catch(Exception e) {
@@ -606,19 +565,31 @@ public class PopUpPhongThiGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLuuActionPerformed
 
     private void comboBoxKhoaThiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxKhoaThiActionPerformed
-        resetGiaTour();
-        DCNgayThi.setDate(null);
+        IExamRoomBLL examRoomBLL = new ExamRoomBLL();
+        IExamCourseBLL examCourseBLL = new ExamCourseBLL();
+        IEnglishLevelBLL englishLevelBLL = new EnglishLevelBLL();
+        Long selectedCourseId = Long.parseLong(comboBoxKhoaThi.getSelectedItem().toString().substring(0,1));
+        Long selectedCourseEnglishLevelId = examCourseBLL.findById(selectedCourseId).getEnglishLevelId();
+        String selectedCourseEnglishLevelName = englishLevelBLL.findById(selectedCourseEnglishLevelId).getName();
+        String stt = examRoomBLL.getGreatestOrdinalNumber(selectedCourseEnglishLevelName);
+        
+        String name = selectedCourseEnglishLevelName + "P" + "01";
        
+        if (stt != null) {
+            Integer nextNumber = Integer.valueOf(stt) + 1;
+            String strNumber = nextNumber > 9 ? String.valueOf(nextNumber) : "0" + nextNumber;
+            name = selectedCourseEnglishLevelName + "P" + strNumber;
+        }
+        
+        txtTenPhongThi.setText(name);
+        
+        
 
     }//GEN-LAST:event_comboBoxKhoaThiActionPerformed
 
     private void txtTenPhongThiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenPhongThiActionPerformed
 
     }//GEN-LAST:event_txtTenPhongThiActionPerformed
-
-    private void txtSoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoLuongActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSoLuongActionPerformed
     
     /**
      * @param args the command line arguments
@@ -687,22 +658,20 @@ public class PopUpPhongThiGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.github.lgooddatepicker.components.DatePicker DCNgayThi;
     private javax.swing.ButtonGroup btnGroupGioiTinh;
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnLuu;
     private javax.swing.JComboBox<String> comboBoxKhoaThi;
+    private com.github.lgooddatepicker.components.DateTimePicker dateTimePicker;
     private javax.swing.JLabel lblChonKhoaThi;
     private javax.swing.JLabel lblExit;
     private javax.swing.JLabel lblMinimize;
     private javax.swing.JLabel lblNgayThi;
-    private javax.swing.JLabel lblSoLuong;
     private javax.swing.JLabel lblTenPhongThi;
     private javax.swing.JLabel lblValidateNgayThi;
     private javax.swing.JLabel lblValidateTenPhongThi;
     private javax.swing.JPanel panelHeader;
     private javax.swing.JPanel pnlBody;
-    private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenPhongThi;
     // End of variables declaration//GEN-END:variables
 }

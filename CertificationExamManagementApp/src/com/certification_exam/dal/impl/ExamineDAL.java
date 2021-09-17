@@ -40,11 +40,18 @@ public class ExamineDAL extends AbstractDAL<Examine> implements IExamineDAL {
     }
 
     @Override
+    public Examine findByPhone(String phone) {
+        String sql = "SELECT * FROM examine WHERE phone = ?";
+        List<Examine> examine = query(sql, new ExamineMapper(), phone);
+        return examine.isEmpty() ? null : examine.get(0);
+    }
+
+    @Override
     public String getGreatestOrdinalNumber(String englishLevelName) {
-        String sql = "SELECT * \n" +
-                        "FROM exam_room\n" +
-                        "WHERE examine_id LIKE CONCAT(?,'%')\n" +
-                        "ORDER BY name DESC\n" +
+        String sql = "SELECT * " +
+                        "FROM examine " +
+                        "WHERE examine_id LIKE CONCAT(?,'%') " +
+                        "ORDER BY examine_id DESC " +
                         "LIMIT 1;";
         List<Examine> examRooms = query(sql, new ExamineMapper(), englishLevelName);
         Examine examRoom = examRooms.isEmpty() ? null : examRooms.get(0);

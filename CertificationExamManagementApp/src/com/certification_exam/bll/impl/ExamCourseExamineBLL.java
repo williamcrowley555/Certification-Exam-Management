@@ -39,8 +39,11 @@ public class ExamCourseExamineBLL implements IExamCourseExamineBLL {
     }
 
     @Override
-    public Long save(ExamCourseExamine examCourseExamine) {
-        return examCourseExamineDAL.save(examCourseExamine);
+    public void save(ExamCourseExamine examCourseExamine) {
+        ExamCourseExamine existedExamCourseExamine = findByExamCourseIdAndExamineId(examCourseExamine.getExamCourseId(), examCourseExamine.getExamineId());
+        if (existedExamCourseExamine == null) {
+            examCourseExamineDAL.save(examCourseExamine);
+        }
     }
 
     @Override

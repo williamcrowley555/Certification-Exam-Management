@@ -5,9 +5,11 @@
  */
 package com.certification_exam.bll.impl;
 
+import com.certification_exam.bll.IEnglishLevelBLL;
 import com.certification_exam.bll.IExamineBLL;
 import com.certification_exam.dal.IExamineDAL;
 import com.certification_exam.dal.impl.ExamineDAL;
+import com.certification_exam.dto.EnglishLevel;
 import com.certification_exam.dto.Examine;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +21,11 @@ import java.util.List;
 public class ExamineBLL implements IExamineBLL {
     
     private IExamineDAL examineDAL;
+    private IEnglishLevelBLL englishLevelBLL;
 
     public ExamineBLL() {
         this.examineDAL = new ExamineDAL();
+        this.englishLevelBLL = new EnglishLevelBLL();
     }
 
     @Override
@@ -51,18 +55,44 @@ public class ExamineBLL implements IExamineBLL {
     }
 
     @Override
+    public Examine findByPhone(String phone) {
+        return examineDAL.findByPhone(phone);
+    }
+
+    @Override
     public String getGreatestOrdinalNumber(String englishLevelName) {
         return examineDAL.getGreatestOrdinalNumber(englishLevelName);
     }
 
     @Override
     public Long save(Examine examine) {
+        Examine existedExamine = findByPhone(examine.getPhone());
+        
+        if (existedExamine != null) {
+            return null;
+        }
+        
         return examineDAL.save(examine);
     }
 
     @Override
     public void update(Examine examine) {
+        Examine existedExamine = findByPhone(examine.getPhone());
+        
+        if (existedExamine != null && existedExamine.getId() != examine.getId()) {
+            System.out.println("Phone number already exists");
+            return;
+        }
+        
         examineDAL.update(examine);
+    }
+
+    @Override
+    public void updateExamineId(Examine examine, Long englishLevelId) {
+        EnglishLevel englishLevel = englishLevelBLL.findById(englishLevelId);
+        String newExamineId = generateExamineId(englishLevel.getName());
+        examine.setExamineId(newExamineId);
+        update(examine);
     }
 
     @Override

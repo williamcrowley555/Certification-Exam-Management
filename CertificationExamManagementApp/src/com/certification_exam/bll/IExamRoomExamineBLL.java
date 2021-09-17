@@ -15,6 +15,7 @@ import java.util.List;
 public interface IExamRoomExamineBLL {
     List<ExamRoomExamine> findAll();
     ExamRoomExamine findByExamRoomIdAndExamineId(Long examRoomId, Long examineId);
-    Long save(ExamRoomExamine examRoomExamine);
+    void save(ExamRoomExamine examRoomExamine);
+    void save(List<ExamRoomExamine> examRoomExamines);
     void deleteByExamRoomIdAndExamineId(Long examRoomId, Long examineId);
 }

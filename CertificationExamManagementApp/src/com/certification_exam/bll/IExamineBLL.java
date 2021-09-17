@@ -17,8 +17,10 @@ public interface IExamineBLL {
     List<Examine> findByIds(List<Long> ids);
     List<Examine> findByExamCourseIdNotInExamRoomId(Long examCourseId, Long examRoomId);
     Examine findById(Long id);
+    Examine findByPhone(String phone);
     String getGreatestOrdinalNumber(String englishLevelName);
     Long save(Examine examine);
     void update(Examine examine);
+    void updateExamineId(Examine examine, Long englishLevelId);
     void delete(Long id);
 }

@@ -30,9 +30,9 @@ public class ExamRoomExamineDAL extends AbstractDAL<ExamRoomExamine> implements 
     }
 
     @Override
-    public Long save(ExamRoomExamine examRoomExamine) {
+    public void save(ExamRoomExamine examRoomExamine) {
         String sql = "INSERT INTO exam_room_examine(exam_room_id, examine_id) VALUES(?, ?)";
-        return insert(sql, examRoomExamine.getExamRoomId(), examRoomExamine.getExamineId());
+        insert(sql, examRoomExamine.getExamRoomId(), examRoomExamine.getExamineId());
     }
 
     @Override

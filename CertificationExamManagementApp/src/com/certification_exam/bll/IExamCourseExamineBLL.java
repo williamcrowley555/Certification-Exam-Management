@@ -16,6 +16,6 @@ public interface IExamCourseExamineBLL {
     List<ExamCourseExamine> findAll();
     List<ExamCourseExamine> findByExamCourseId(Long examCourseId);
     ExamCourseExamine findByExamCourseIdAndExamineId(Long examCourseId, Long examineId);
-    Long save(ExamCourseExamine examCourseExamine);
+    void save(ExamCourseExamine examCourseExamine);
     void deleteByExamCourseIdAndExamineId(Long examCourseId, Long examineId);
 }

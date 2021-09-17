@@ -67,13 +67,15 @@ public class UserBLL implements IUserBLL {
     public void update(User user) {
         User existedUser = findByPhone(user.getPhone());
         
-        if (existedUser != null && existedUser.getId() == user.getId()) {
+        if (existedUser != null && existedUser.getId() != user.getId()) {
+            System.out.println("Phone number already exists");
             return;
         }
         
         existedUser = findByEmail(user.getEmail());
         
-        if (existedUser != null && existedUser.getId() == user.getId()) {
+        if (existedUser != null && existedUser.getId() != user.getId()) {
+            System.out.println("Email number already exists");
             return;
         }
         

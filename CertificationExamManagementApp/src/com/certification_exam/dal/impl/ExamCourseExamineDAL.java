@@ -24,6 +24,12 @@ public class ExamCourseExamineDAL extends AbstractDAL<ExamCourseExamine> impleme
     }
 
     @Override
+    public List<ExamCourseExamine> findByExamCourseId(Long examCourseId) {
+        String sql = "SELECT * FROM exam_course_examine WHERE exam_course_id = ?";
+        return query(sql, new ExamCourseExamineMapper(), examCourseId);
+    }
+
+    @Override
     public ExamCourseExamine findByExamCourseIdAndExamineId(Long examCourseId, Long examineId) {
         String sql = "SELECT * FROM exam_course_examine WHERE exam_course_id = ? AND examine_id = ?";
         List<ExamCourseExamine> examCourseExamine = query(sql, new ExamCourseExamineMapper(), examCourseId, examineId);
@@ -41,7 +47,4 @@ public class ExamCourseExamineDAL extends AbstractDAL<ExamCourseExamine> impleme
         String sql = "DELETE FROM exam_course_examine WHERE exam_course_id = ? AND examine_id = ?";
         update(sql, examCourseId, examineId);
     }
-
-   
-    
 }

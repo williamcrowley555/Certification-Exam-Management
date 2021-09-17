@@ -29,6 +29,11 @@ public class ExamCourseExamineBLL implements IExamCourseExamineBLL {
     }
 
     @Override
+    public List<ExamCourseExamine> findByExamCourseId(Long examCourseId) {
+        return examCourseExamineDAL.findByExamCourseId(examCourseId);
+    }
+
+    @Override
     public ExamCourseExamine findByExamCourseIdAndExamineId(Long examCourseId, Long examineId) {
         return examCourseExamineDAL.findByExamCourseIdAndExamineId(examCourseId, examineId);
     }

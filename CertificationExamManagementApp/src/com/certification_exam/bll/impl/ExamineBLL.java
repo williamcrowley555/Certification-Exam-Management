@@ -9,6 +9,7 @@ import com.certification_exam.bll.IExamineBLL;
 import com.certification_exam.dal.IExamineDAL;
 import com.certification_exam.dal.impl.ExamineDAL;
 import com.certification_exam.dto.Examine;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,6 +27,17 @@ public class ExamineBLL implements IExamineBLL {
     @Override
     public List<Examine> findAll() {
         return examineDAL.findAll();
+    }
+
+    @Override
+    public List<Examine> findByIds(List<Long> ids) {
+        List<Examine> examineList = new ArrayList<>();
+        for (Long id : ids) {
+            Examine examine = findById(id);
+            examineList.add(examine);
+        }
+        
+        return examineList;
     }
 
     @Override

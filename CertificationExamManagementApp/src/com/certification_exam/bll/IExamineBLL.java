@@ -14,6 +14,7 @@ import java.util.List;
  */
 public interface IExamineBLL {
     List<Examine> findAll();
+    List<Examine> findByIds(List<Long> ids);
     Examine findById(Long id);
     String getGreatestOrdinalNumber(String englishLevelName);
     Long save(Examine examine);

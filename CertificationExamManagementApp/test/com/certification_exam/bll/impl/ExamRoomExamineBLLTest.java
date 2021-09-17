@@ -46,8 +46,6 @@ public class ExamRoomExamineBLLTest {
         ExamRoomExamineBLL instance = new ExamRoomExamineBLL();
         List<ExamRoomExamine> expResult = null;
         List<ExamRoomExamine> result = instance.findAll();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
     @Test
@@ -58,8 +56,6 @@ public class ExamRoomExamineBLLTest {
         ExamRoomExamineBLL instance = new ExamRoomExamineBLL();
         ExamRoomExamine expResult = null;
         ExamRoomExamine result = instance.findByExamRoomIdAndExamineId(examRoomId, examineId);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
     @Test
@@ -68,7 +64,6 @@ public class ExamRoomExamineBLLTest {
         ExamRoomExamine examRoomExamine = null;
         ExamRoomExamineBLL instance = new ExamRoomExamineBLL();
         instance.save(examRoomExamine);
-        fail("The test case is a prototype.");
     }
 
     @Test
@@ -88,7 +83,6 @@ public class ExamRoomExamineBLLTest {
         Long examineId = null;
         ExamRoomExamineBLL instance = new ExamRoomExamineBLL();
         instance.deleteByExamRoomIdAndExamineId(examRoomId, examineId);
-        fail("The test case is a prototype.");
     }
     
 }

@@ -16,6 +16,8 @@ public interface IExamineBLL {
     List<Examine> findAll();
     List<Examine> findByIds(List<Long> ids);
     List<Examine> findByExamCourseIdNotInExamRoomId(Long examCourseId, Long examRoomId);
+    List<Examine> findByExamCourseId(Long examCourseId);
+    List<Examine> findByExamRoomId(Long examRoomId);
     Examine findById(Long id);
     Examine findByPhone(String phone);
     String getGreatestOrdinalNumber(String englishLevelName);

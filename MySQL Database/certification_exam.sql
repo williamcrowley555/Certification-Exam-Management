@@ -125,7 +125,7 @@ CREATE TABLE `exam_course_examine` (
 
 LOCK TABLES `exam_course_examine` WRITE;
 /*!40000 ALTER TABLE `exam_course_examine` DISABLE KEYS */;
-INSERT INTO `exam_course_examine` VALUES (2,1);
+INSERT INTO `exam_course_examine` VALUES (2,1),(2,2),(2,3),(2,4);
 /*!40000 ALTER TABLE `exam_course_examine` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,7 +161,7 @@ CREATE TABLE `exam_room` (
 
 LOCK TABLES `exam_room` WRITE;
 /*!40000 ALTER TABLE `exam_room` DISABLE KEYS */;
-INSERT INTO `exam_room` VALUES (2,'2021-11-15 07:30:00','A2P01',0,1,3,2),(3,'2021-11-15 09:30:00','A2P02',0,1,2,3),(6,'2021-11-15 09:30:00','B1P01',0,2,2,3),(10,'2021-10-15 09:30:00','B1P02',0,2,2,3);
+INSERT INTO `exam_room` VALUES (2,'2021-11-15 07:30:00','A2P01',0,1,3,2),(3,'2021-11-15 09:30:00','A2P02',0,1,2,3),(6,'2021-11-15 09:30:00','B1P01',0,2,2,3),(10,'2021-10-15 00:00:00','B1P02',3,2,2,3);
 /*!40000 ALTER TABLE `exam_room` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -188,6 +188,7 @@ CREATE TABLE `exam_room_examine` (
 
 LOCK TABLES `exam_room_examine` WRITE;
 /*!40000 ALTER TABLE `exam_room_examine` DISABLE KEYS */;
+INSERT INTO `exam_room_examine` VALUES (10,1),(10,2),(10,3);
 /*!40000 ALTER TABLE `exam_room_examine` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -211,7 +212,7 @@ CREATE TABLE `examine` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `examine_phone_unique` (`phone`),
   UNIQUE KEY `examine_examine_id_unique` (`examine_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -220,7 +221,7 @@ CREATE TABLE `examine` (
 
 LOCK TABLES `examine` WRITE;
 /*!40000 ALTER TABLE `examine` DISABLE KEYS */;
-INSERT INTO `examine` VALUES (1,'Nha Trang','2001-06-14',NULL,'Quốc Tuấn',1,'Trần','0776521474',1);
+INSERT INTO `examine` VALUES (1,'Nha Trang','2001-06-14','B1003','Quốc Tuấn',1,'Trần','0776521474',1),(2,'Nha Trang','2000-09-11','B1001','Thị Thúy',2,'Lê','0906521766',1),(3,'Vũng Tàu','2000-09-06','B1002','Bảo Châu',2,'Lê','0904522158',1),(4,'TP.HCM','2000-09-06',NULL,'Hoàng Minh',1,'Nguyễn','0908822128',1);
 /*!40000 ALTER TABLE `examine` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -321,4 +322,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-16 23:33:39
+-- Dump completed on 2021-09-17 17:05:35

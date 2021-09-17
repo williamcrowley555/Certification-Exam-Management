@@ -23,6 +23,11 @@ public class Exam {
     @Column(name = "writing_grade")
     private int writingGrade;
 
+//    1: has been graded
+//    2: not graded yet
+    @Column(name = "status", nullable = false)
+    private Integer status = 1;
+
     @ManyToOne
     @JoinColumn(name = "examine_id")
     @Valid
@@ -36,12 +41,13 @@ public class Exam {
     public Exam() {
     }
 
-    public Exam(Long id, int listeningGrade, int speakingGrade, int readingGrade, int writingGrade, Examine examine, ExamRoom examRoom) {
+    public Exam(Long id, int listeningGrade, int speakingGrade, int readingGrade, int writingGrade, Integer status, Examine examine, ExamRoom examRoom) {
         this.id = id;
         this.listeningGrade = listeningGrade;
         this.speakingGrade = speakingGrade;
         this.readingGrade = readingGrade;
         this.writingGrade = writingGrade;
+        this.status = status;
         this.examine = examine;
         this.examRoom = examRoom;
     }
@@ -86,6 +92,14 @@ public class Exam {
         this.writingGrade = writingGrade;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     public Examine getExamine() {
         return examine;
     }
@@ -110,6 +124,7 @@ public class Exam {
                 ", speakingGrade=" + speakingGrade +
                 ", readingGrade=" + readingGrade +
                 ", writingGrade=" + writingGrade +
+                ", status=" + status +
                 ", examine=" + examine +
                 ", examRoom=" + examRoom +
                 '}';

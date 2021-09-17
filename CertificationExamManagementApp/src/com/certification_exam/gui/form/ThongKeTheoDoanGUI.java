@@ -112,7 +112,7 @@ public class ThongKeTheoDoanGUI extends javax.swing.JPanel {
         table.setFont(new Font("Tahoma", Font.PLAIN, 16));
     }
     
-     public String[] getTourItems() {
+    public String[] getTourItems() {
         List<TourDTO> tourLists = tourBLL.findAll();
         String[] tourItems = new String[tourLists.size()];
         int index = 0;

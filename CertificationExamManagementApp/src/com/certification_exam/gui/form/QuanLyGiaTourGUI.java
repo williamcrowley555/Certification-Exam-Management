@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import com.certification_exam.gui.menu.MyScrollBarUI;
 import com.certification_exam.gui.popup.PopUpGiaTourGUI;
-import com.certification_exam.util.GiaTourTableLoaderUtil;
+import com.certification_exam.util.KhoaThiTableLoaderUtil;
 import com.certification_exam.util.LoaiDuLichTableLoaderUtil;
 import com.certification_exam.util.TableSetupUtil;
 import java.util.List;
@@ -77,7 +77,7 @@ public class QuanLyGiaTourGUI extends javax.swing.JPanel {
     public void loadTableData() {
         String selectedTour = comboBoxTour.getSelectedItem().toString();        
         Long idTour = Long.parseLong(selectedTour.substring(0, selectedTour.indexOf(" - ")));
-        tblGiaTour.setModel(new GiaTourTableLoaderUtil().setTable(giaTourBLL.findByIdTour(idTour), this.columnNames)) ; 
+       // tblGiaTour.setModel(new KhoaThiTableLoaderUtil().setTable(giaTourBLL.findByIdTour(idTour), this.columnNames)) ; 
         this.rowSorter = TableSetupUtil.setTableFilter(tblGiaTour, txtTimKiem);
         headerColor(14,142,233,tblGiaTour);
     }

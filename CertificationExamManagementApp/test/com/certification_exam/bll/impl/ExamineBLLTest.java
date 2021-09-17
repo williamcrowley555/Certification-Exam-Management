@@ -47,10 +47,14 @@ public class ExamineBLLTest {
     public void testFindAll() {
         System.out.println("findAll");
         ExamineBLL instance = new ExamineBLL();
-        List<Examine> expResult = null;
-        List<Examine> result = instance.findAll();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        List<Examine> examines = instance.findByExamRoomId(10L);
+        for (Examine ex : examines) {
+            System.out.println(ex);
+        }
+//        List<Examine> expResult = null;
+//        List<Examine> result = instance.findAll();
+//        assertEquals(expResult, result);
+//        fail("The test case is a prototype.");
     }
 
     @Test

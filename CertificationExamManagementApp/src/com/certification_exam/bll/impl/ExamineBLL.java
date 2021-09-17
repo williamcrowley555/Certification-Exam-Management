@@ -32,8 +32,6 @@ public class ExamineBLL implements IExamineBLL {
     public ExamineBLL() {
         this.examineDAL = new ExamineDAL();
         this.englishLevelBLL = new EnglishLevelBLL();
-        this.examCourseExamineBLL = new ExamCourseExamineBLL();
-        this.examRoomExamineBLL = new ExamRoomExamineBLL();
     }
 
     @Override
@@ -59,6 +57,8 @@ public class ExamineBLL implements IExamineBLL {
 
     @Override
     public List<Examine> findByExamCourseId(Long examCourseId) {
+        this.examCourseExamineBLL = new ExamCourseExamineBLL();
+        
         List<Examine> examines = new ArrayList<>();
         List<ExamCourseExamine> examCourseExamines = examCourseExamineBLL.findByExamCourseId(examCourseId);
         
@@ -74,6 +74,8 @@ public class ExamineBLL implements IExamineBLL {
     
     @Override
     public List<Examine> findByExamRoomId(Long examRoomId) {
+        this.examRoomExamineBLL = new ExamRoomExamineBLL();
+        
         List<Examine> examines = new ArrayList<>();
         List<ExamRoomExamine> examRoomExamines = examRoomExamineBLL.findByExamRoomId(examRoomId);
         

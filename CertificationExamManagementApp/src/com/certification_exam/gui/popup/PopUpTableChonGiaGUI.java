@@ -26,7 +26,7 @@ import com.certification_exam.dto.TinhDTO;
 import com.certification_exam.gui.menu.MyComboBoxEditor;
 import com.certification_exam.gui.menu.MyComboBoxRenderer;
 import com.certification_exam.util.DiaDiemTableLoaderUtil;
-import com.certification_exam.util.GiaTourTableLoaderUtil;
+import com.certification_exam.util.KhoaThiTableLoaderUtil;
 import com.certification_exam.util.ThiSinhTableLoaderUtil;
 import com.certification_exam.util.NhanVienTableLoaderUtil;
 import java.awt.Color;
@@ -105,7 +105,7 @@ public class PopUpTableChonGiaGUI extends javax.swing.JFrame {
 
     public void loadTableGiaTour()
     {      
-        tblGiaTour.setModel(new GiaTourTableLoaderUtil().setTable(giaTourBLL.findByIdTourAndDatesBetween(idTour, startDate, endDate), columnNames));
+//        tblGiaTour.setModel(new KhoaThiTableLoaderUtil().setTable(giaTourBLL.findByIdTourAndDatesBetween(idTour, startDate, endDate), columnNames));
         headerColor(14,142,233,tblGiaTour);
     }
     

@@ -20,8 +20,10 @@ import com.certification_exam.bll.IKhachHangBLL;
 import com.certification_exam.bll.impl.ExamineBLL;
 import com.certification_exam.bll.impl.KhachHangBLL;
 import com.certification_exam.bll.impl.NhanVienBLL;
+import com.certification_exam.gui.popup.PopUpTableChonKhoaThiGUI;
 import com.certification_exam.util.ThiSinhTableLoaderUtil;
 import com.certification_exam.util.TableSetupUtil;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -49,6 +51,7 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
     private IKhachHangBLL khachHangBLL;
     private IExamineBLL examineBLL;
     private PopUpThiSinhGUI popUp = null;
+    private PopUpTableChonKhoaThiGUI popUpKhoaThi = null;
     TableRowSorter<TableModel> rowSorter = null;
     
     public QuanLyThiSinhGUI() {
@@ -308,18 +311,20 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemMousePressed
 
     private void itemDangKyKhoaThiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemDangKyKhoaThiActionPerformed
-       int rowindex = tblThiSinh.getSelectedRow();
+        LocalDate today = LocalDate.now();
+        int rowindex = tblThiSinh.getSelectedRow();
         Long id = Long.parseLong(tblThiSinh.getValueAt(rowindex,0).toString());
-        if (this.popUp == null) {
-        popUp = new PopUpThiSinhGUI("PUT", examineBLL.findById(id));
+        if (this.popUpKhoaThi == null) {
+        popUpKhoaThi = new PopUpTableChonKhoaThiGUI(id, today.getMonthValue(), today.getYear());
+        popUpKhoaThi.show();
         } else {
-            this.popUp.toFront();
-            this.popUp.center();
+            this.popUpKhoaThi.toFront();
+            this.popUpKhoaThi.center();
         }
-        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
+        popUpKhoaThi.addWindowListener(new java.awt.event.WindowAdapter() {
         @Override
         public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-            popUp = null;
+            popUpKhoaThi = null;
             loadTableData();
         }
     });

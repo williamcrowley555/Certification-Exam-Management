@@ -14,7 +14,7 @@ import java.sql.SQLException;
  *
  * @author kossp
  */
-public class Examine_idMapper implements RowMapper<Long> {
+public class ExamineIdMapper implements RowMapper<Long> {
     @Override
         public Long mapRow(ResultSet rs) {
             try {

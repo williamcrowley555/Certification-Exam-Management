@@ -12,19 +12,19 @@ public class Exam {
     private Long id;
 
     @Column(name = "listening_grade")
-    private int listeningGrade;
+    private int listeningGrade = 0;
 
     @Column(name = "speaking_grade")
-    private int speakingGrade;
+    private int speakingGrade = 0;
 
     @Column(name = "reading_grade")
-    private int readingGrade;
+    private int readingGrade = 0;
 
     @Column(name = "writing_grade")
-    private int writingGrade;
+    private int writingGrade = 0;
 
-//    1: has been graded
-//    2: not graded yet
+//    1: not graded yet
+//    2: has been graded
     @Column(name = "status", nullable = false)
     private Integer status = 1;
 

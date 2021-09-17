@@ -15,7 +15,10 @@ import java.util.List;
 public interface IExamBLL {
     List<Exam> findAll();
     Exam findById(Long id);
+    Exam findByExamineIdAndExamRoomId(Long examineId, Long examRoomId);
     Long save(Exam exam);
     void update(Exam exam);
     void delete(Long id);
+    Exam getAndCreate(Long examineId, Long examRoomId);
+    void grade(Exam exam);
 }

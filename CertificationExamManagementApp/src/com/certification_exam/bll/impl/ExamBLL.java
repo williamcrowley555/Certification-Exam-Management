@@ -34,6 +34,11 @@ public class ExamBLL implements IExamBLL {
     }
 
     @Override
+    public Exam findByExamineIdAndExamRoomId(Long examineId, Long examRoomId) {
+        return examDAL.findByExamineIdAndExamRoomId(examineId, examRoomId);
+    }
+
+    @Override
     public Long save(Exam exam) {
         return examDAL.save(exam);
     }
@@ -47,4 +52,29 @@ public class ExamBLL implements IExamBLL {
     public void delete(Long id) {
         examDAL.delete(id);
     } 
+
+    // Get exam if it already exists and create if it does not exist
+    @Override
+    public Exam getAndCreate(Long examineId, Long examRoomId) {
+        Exam exam = findByExamineIdAndExamRoomId(examineId, examRoomId);
+        
+        if (exam == null) {
+            Exam newExam = new Exam();
+            newExam.setExamineId(examineId);
+            newExam.setExamineId(examRoomId);
+            Long savedId = save(exam);
+            exam = findById(savedId);
+        }
+        
+        return exam;
+    }
+
+    @Override
+    public void grade(Exam exam) {
+        if (exam.getStatus() == 1) {
+            exam.setStatus(2);
+        }
+        
+        update(exam);
+    }
 }

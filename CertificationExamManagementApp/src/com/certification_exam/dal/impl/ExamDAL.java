@@ -30,15 +30,22 @@ public class ExamDAL extends AbstractDAL<Exam> implements IExamDAL{
     }
 
     @Override
+    public Exam findByExamineIdAndExamRoomId(Long examineId, Long examRoomId) {
+        String sql = "SELECT * FROM exam WHERE examine_id = ? AND exam_room_id = ?";
+        List<Exam> exam = query(sql, new ExamMapper(), examineId, examRoomId);
+        return exam.isEmpty() ? null : exam.get(0);
+    }
+
+    @Override
     public Long save(Exam exam) {
-        String sql = "INSERT INTO exam(listening_grade, speaking_grade, writing_grade, reading_grade, examine_id, exam_room_id) VALUES(?, ?, ?, ?, ?, ?)";
-        return insert(sql, exam.getListeningGrade(), exam.getSpeakingGrade(), exam.getWritingGrade(), exam.getReadingGrade(), exam.getExamineId(), exam.getExamRoomId());
+        String sql = "INSERT INTO exam(listening_grade, speaking_grade, writing_grade, reading_grade, status, examine_id, exam_room_id) VALUES(?, ?, ?, ?, ?, ?, ?)";
+        return insert(sql, exam.getListeningGrade(), exam.getSpeakingGrade(), exam.getWritingGrade(), exam.getReadingGrade(), exam.getStatus(), exam.getExamineId(), exam.getExamRoomId());
     }
 
     @Override
     public void update(Exam exam) {
-        String sql = "UPDATE exam SET listening_grade = ?, speaking_grade = ?, writing_grade = ?, reading_grade = ?, examine_id = ?, exam_room_id = ? WHERE id = ?";
-        update(sql, exam.getListeningGrade(), exam.getSpeakingGrade(), exam.getWritingGrade(), exam.getReadingGrade(), exam.getExamineId(), exam.getExamRoomId(), exam.getId());
+        String sql = "UPDATE exam SET listening_grade = ?, speaking_grade = ?, writing_grade = ?, reading_grade = ?, status = ?, examine_id = ?, exam_room_id = ? WHERE id = ?";
+        update(sql, exam.getListeningGrade(), exam.getSpeakingGrade(), exam.getWritingGrade(), exam.getReadingGrade(), exam.getStatus(), exam.getExamineId(), exam.getExamRoomId(), exam.getId());
     }
 
     @Override

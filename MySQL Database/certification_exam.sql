@@ -55,6 +55,7 @@ CREATE TABLE `exam` (
   `writing_grade` int(11) DEFAULT NULL,
   `exam_room_id` bigint(20) DEFAULT NULL,
   `examine_id` bigint(20) DEFAULT NULL,
+  `status` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK2lntfak7rdl0c30rtdhwfalaj` (`exam_room_id`),
   KEY `FKjpsaveugt9xnhphp7x0xj96yr` (`examine_id`),
@@ -322,4 +323,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-17 17:05:35
+-- Dump completed on 2021-09-17 23:39:25

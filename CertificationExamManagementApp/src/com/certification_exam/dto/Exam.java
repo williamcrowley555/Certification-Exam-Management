@@ -11,22 +11,24 @@ package com.certification_exam.dto;
  */
 public class Exam {
     private Long id;
-    private int listeningGrade;
-    private int speakingGrade;
-    private int readingGrade;
-    private int writingGrade;
+    private int listeningGrade = 0;
+    private int speakingGrade = 0;
+    private int readingGrade = 0;
+    private int writingGrade = 0;
+    private Integer status = 1;
     private Long examineId;
     private Long examRoomId;
 
     public Exam() {
     }
 
-    public Exam(Long id, int listeningGrade, int speakingGrade, int readingGrade, int writingGrade, Long examineId, Long examRoomId) {
+    public Exam(Long id, int listeningGrade, int speakingGrade, int readingGrade, int writingGrade, Integer status, Long examineId, Long examRoomId) {
         this.id = id;
         this.listeningGrade = listeningGrade;
         this.speakingGrade = speakingGrade;
         this.readingGrade = readingGrade;
         this.writingGrade = writingGrade;
+        this.status = status;
         this.examineId = examineId;
         this.examRoomId = examRoomId;
     }
@@ -71,6 +73,14 @@ public class Exam {
         this.writingGrade = writingGrade;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     public Long getExamineId() {
         return examineId;
     }
@@ -89,8 +99,6 @@ public class Exam {
 
     @Override
     public String toString() {
-        return "Exam{" + "id=" + id + ", listeningGrade=" + listeningGrade + ", speakingGrade=" + speakingGrade + ", readingGrade=" + readingGrade + ", writingGrade=" + writingGrade + ", examineId=" + examineId + ", examRoomId=" + examRoomId + '}';
+        return "Exam{" + "id=" + id + ", listeningGrade=" + listeningGrade + ", speakingGrade=" + speakingGrade + ", readingGrade=" + readingGrade + ", writingGrade=" + writingGrade + ", status=" + status + ", examineId=" + examineId + ", examRoomId=" + examRoomId + '}';
     }
-    
-    
 }

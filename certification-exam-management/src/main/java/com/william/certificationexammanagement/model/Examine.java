@@ -39,6 +39,8 @@ public class Examine {
     @Age
     private LocalDate dob;
 
+//    1: male
+//    2: female
     @Column(name = "gender", nullable = false)
     @NotNull(message = "Hãy chọn giới tính")
     @Min(value = 0)

@@ -21,12 +21,13 @@ public class ExamMapper implements RowMapper<Exam>{
         try {
             Exam exam = new Exam();
             exam.setId(rs.getLong("id"));
-            exam.setExamRoomId(rs.getLong("exam_room_id"));
-            exam.setExamineId(rs.getLong("examine_id"));
             exam.setListeningGrade(rs.getInt("listening_grade"));
             exam.setReadingGrade(rs.getInt("reading_grade"));
             exam.setWritingGrade(rs.getInt("writing_grade")); 
             exam.setSpeakingGrade(rs.getInt("speaking_grade"));
+            exam.setStatus(rs.getInt("status"));
+            exam.setExamineId(rs.getLong("examine_id"));
+            exam.setExamRoomId(rs.getLong("exam_room_id"));
             return exam;
         } catch(SQLException e) {
             System.out.println(e.getMessage());

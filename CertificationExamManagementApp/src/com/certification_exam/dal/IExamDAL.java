@@ -14,6 +14,7 @@ import java.util.List;
 public interface IExamDAL extends GenericDAL<Exam> {
     List<Exam> findAll();
     Exam findById(Long id);
+    Exam findByExamineIdAndExamRoomId(Long examineId, Long examRoomId);
     Long save(Exam exam);
     void update(Exam exam);
     void delete(Long id);

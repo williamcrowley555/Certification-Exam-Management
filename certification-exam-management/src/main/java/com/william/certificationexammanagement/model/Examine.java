@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity(name = "Examine")
 @Table(name = "examine",
@@ -145,6 +146,14 @@ public class Examine {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Examine examine = (Examine) o;
+        return Objects.equals(id, examine.id) && Objects.equals(firstName, examine.firstName) && Objects.equals(lastName, examine.lastName) && Objects.equals(dob, examine.dob) && Objects.equals(gender, examine.gender) && Objects.equals(address, examine.address) && Objects.equals(phone, examine.phone);
     }
 
     @Override

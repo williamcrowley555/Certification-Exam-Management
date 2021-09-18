@@ -33,8 +33,31 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public Role getRoleByName(String name) {
+        Role role = null;
+        Optional<Role> optional = roleRepository.findByName(name);
+
+        if (optional.isPresent()) {
+            role = optional.get();
+        } else {
+            throw new RuntimeException("Role name : " + name + " does not exist");
+        }
+
+        return role;
+    }
+
+    @Override
     public Role getRoleByNormalizedName(String normalizedName) {
-        return roleRepository.findByNormalizedName(normalizedName);
+        Role role = null;
+        Optional<Role> optional = roleRepository.findByNormalizedName(normalizedName);
+
+        if (optional.isPresent()) {
+            role = optional.get();
+        } else {
+            throw new RuntimeException("Role normalize name : " + normalizedName + " does not exist");
+        }
+
+        return role;
     }
 
     @Override

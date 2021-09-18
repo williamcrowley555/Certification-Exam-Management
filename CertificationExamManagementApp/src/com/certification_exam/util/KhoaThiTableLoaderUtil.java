@@ -32,15 +32,18 @@ public class KhoaThiTableLoaderUtil implements ITableLoaderUtil<ExamCourse>{
         DefaultTableModel model = new DefaultTableModel(header, 0);
         
         Vector row = null;
-        for(ExamCourse course : listItems) {
-            row = new Vector();
-            row.add(course.getId());
-            row.add(course.getName());
-            row.add(course.getMonth());
-            row.add(course.getYear());
-            row.add(englishLevelBLL.findById(course.getEnglishLevelId()).getName());
-           
-            model.addRow(row);
+        if (listItems != null)
+        {
+            for(ExamCourse course : listItems) {
+                row = new Vector();
+                row.add(course.getId());
+                row.add(course.getName());
+                row.add(course.getMonth());
+                row.add(course.getYear());
+                row.add(englishLevelBLL.findById(course.getEnglishLevelId()).getName());
+
+                model.addRow(row);
+            }
         }
         
         return model;

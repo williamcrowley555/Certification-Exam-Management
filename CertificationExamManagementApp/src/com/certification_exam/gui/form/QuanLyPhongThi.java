@@ -911,32 +911,36 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
        int rowindex = tblThiSinhChuaXepPhong.getSelectedRow();
        if (rowindex >=0)
        {
-        Long id = Long.parseLong(tblThiSinhChuaXepPhong.getValueAt(rowindex,0).toString());
-        Examine selected = examineBLL.findById(id);
-        boolean duplicate = false;
-        for (Examine examine : DsThiSinhDaXepPhong)
+           
+        if(Integer.parseInt(lblSoLuong.getText()) < 35)
         {
-            if (examine.getId().equals(selected.getId()))
-            duplicate = true;
-        }
+            Long id = Long.parseLong(tblThiSinhChuaXepPhong.getValueAt(rowindex,0).toString());
+            Examine selected = examineBLL.findById(id);
+            boolean duplicate = false;
+            for (Examine examine : DsThiSinhDaXepPhong)
+            {
+                if (examine.getId().equals(selected.getId()))
+                duplicate = true;
+            }
 
-         if (!duplicate)
-         {
-             DsThiSinhDaXepPhong.add(selected);
-             lblSoLuong.setText(String.valueOf(DsThiSinhDaXepPhong.size()));
-             model = new DefaultTableModel(thiSinhColumnNames,0);
-             for (int i = 0; i < DsThiSinhDaXepPhong.size(); i++) {
-             model.addRow(new Object[]    {      
-                                              String.valueOf(DsThiSinhDaXepPhong.get(i).getId()),
-                                              String.valueOf(DsThiSinhDaXepPhong.get(i).getLastName()),
-                                              String.valueOf(DsThiSinhDaXepPhong.get(i).getFirstName()),
-                                              String.valueOf(DsThiSinhDaXepPhong.get(i).getGender() == 1 ? "Nam" : "Nữ"),
-                                              String.valueOf(DsThiSinhDaXepPhong.get(i).getDob()),
-                                          });
-             tblThiSinhDaXepPhong.setModel(model);
-             }  
-         }
-         headerColor(14,142,233,tblThiSinhDaXepPhong);
+             if (!duplicate)
+             {
+                 DsThiSinhDaXepPhong.add(selected);
+                 lblSoLuong.setText(String.valueOf(DsThiSinhDaXepPhong.size()));
+                 model = new DefaultTableModel(thiSinhColumnNames,0);
+                 for (int i = 0; i < DsThiSinhDaXepPhong.size(); i++) {
+                 model.addRow(new Object[]    {      
+                                                  String.valueOf(DsThiSinhDaXepPhong.get(i).getId()),
+                                                  String.valueOf(DsThiSinhDaXepPhong.get(i).getLastName()),
+                                                  String.valueOf(DsThiSinhDaXepPhong.get(i).getFirstName()),
+                                                  String.valueOf(DsThiSinhDaXepPhong.get(i).getGender() == 1 ? "Nam" : "Nữ"),
+                                                  String.valueOf(DsThiSinhDaXepPhong.get(i).getDob()),
+                                              });
+                 tblThiSinhDaXepPhong.setModel(model);
+                 }  
+             }
+             headerColor(14,142,233,tblThiSinhDaXepPhong);
+        } else JOptionPane.showMessageDialog(this, "Phòng đã đầy", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
        } else JOptionPane.showMessageDialog(this, "Hãy chọn 1 thí sinh để thêm", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnThemVaoPhongThiActionPerformed
 

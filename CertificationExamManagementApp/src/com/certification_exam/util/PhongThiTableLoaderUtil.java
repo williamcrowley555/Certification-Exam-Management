@@ -34,37 +34,37 @@ public class PhongThiTableLoaderUtil implements ITableLoaderUtil<ExamRoom> {
         }
         
         DefaultTableModel model = new DefaultTableModel(header, 0);
-        
-        Vector row = null;
-        for(ExamRoom examRoom : listItems) {
-            row = new Vector();
-            row.add(examRoom.getId());
-            row.add(examRoom.getName());
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            row.add(formatter.format(examRoom.getExamDate()));
-            row.add(examCourseBLL.findById(examRoom.getExamCourseId()).getName());
-            row.add(examRoom.getQuantity());
-            if ( userBLL.findById(examRoom.getExaminerId()) == null)
-            row.add("Trống");
-            else{
-                row.add(
-                        userBLL.findById(examRoom.getExaminerId()).getLastName() + " " +
-                        userBLL.findById(examRoom.getExaminerId()).getFirstName()
-                );
+        if (listItems != null){
+            Vector row = null;
+            for(ExamRoom examRoom : listItems) {
+                row = new Vector();
+                row.add(examRoom.getId());
+                row.add(examRoom.getName());
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                row.add(formatter.format(examRoom.getExamDate()));
+                row.add(examCourseBLL.findById(examRoom.getExamCourseId()).getName());
+                row.add(examRoom.getQuantity());
+                if ( userBLL.findById(examRoom.getExaminerId()) == null)
+                row.add("Trống");
+                else{
+                    row.add(
+                            userBLL.findById(examRoom.getExaminerId()).getLastName() + " " +
+                            userBLL.findById(examRoom.getExaminerId()).getFirstName()
+                    );
+                }
+
+                if (userBLL.findById(examRoom.getProctorId()) == null){
+                row.add("Trống");
+                } else {
+                    row.add(
+                            userBLL.findById(examRoom.getProctorId()).getLastName() + " " +
+                            userBLL.findById(examRoom.getProctorId()).getFirstName()
+                    );
+                }
+
+                model.addRow(row);
             }
-            
-            if (userBLL.findById(examRoom.getProctorId()) == null){
-            row.add("Trống");
-            } else {
-                row.add(
-                        userBLL.findById(examRoom.getProctorId()).getLastName() + " " +
-                        userBLL.findById(examRoom.getProctorId()).getFirstName()
-                );
-            }
-          
-            model.addRow(row);
         }
-        
         return model;
     }    
 }

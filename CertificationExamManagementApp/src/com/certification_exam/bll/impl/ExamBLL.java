@@ -61,8 +61,8 @@ public class ExamBLL implements IExamBLL {
         if (exam == null) {
             Exam newExam = new Exam();
             newExam.setExamineId(examineId);
-            newExam.setExamineId(examRoomId);
-            Long savedId = save(exam);
+            newExam.setExamRoomId(examRoomId);
+            Long savedId = save(newExam);
             exam = findById(savedId);
         }
         

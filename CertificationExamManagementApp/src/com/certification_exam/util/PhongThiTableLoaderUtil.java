@@ -44,15 +44,18 @@ public class PhongThiTableLoaderUtil implements ITableLoaderUtil<ExamRoom> {
             row.add(formatter.format(examRoom.getExamDate()));
             row.add(examCourseBLL.findById(examRoom.getExamCourseId()).getName());
             row.add(examRoom.getQuantity());
-            if ( userBLL.findById(examRoom.getExaminerId()) == null &&  userBLL.findById(examRoom.getProctorId()) == null){
-            row.add("Chưa có Giám khảo");
-            row.add("Chưa có Giám thị");
-            } else {
+            if ( userBLL.findById(examRoom.getExaminerId()) == null)
+            row.add("Trống");
+            else{
                 row.add(
                         userBLL.findById(examRoom.getExaminerId()).getLastName() + " " +
                         userBLL.findById(examRoom.getExaminerId()).getFirstName()
                 );
-
+            }
+            
+            if (userBLL.findById(examRoom.getProctorId()) == null){
+            row.add("Trống");
+            } else {
                 row.add(
                         userBLL.findById(examRoom.getProctorId()).getLastName() + " " +
                         userBLL.findById(examRoom.getProctorId()).getFirstName()

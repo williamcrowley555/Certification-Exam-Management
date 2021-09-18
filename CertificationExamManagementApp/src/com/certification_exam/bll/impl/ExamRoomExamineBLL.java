@@ -79,5 +79,9 @@ public class ExamRoomExamineBLL implements IExamRoomExamineBLL {
     @Override
     public void deleteByExamRoomIdAndExamineId(Long examRoomId, Long examineId) {
         examRoomExamineDAL.deleteByExamRoomIdAndExamineId(examRoomId, examineId);
+        
+        ExamRoom examRoom = examRoomBLL.findById(examRoomId);
+        examRoom.setQuantity(examRoom.getQuantity() - 1);
+        examRoomBLL.update(examRoom);
     }
 }

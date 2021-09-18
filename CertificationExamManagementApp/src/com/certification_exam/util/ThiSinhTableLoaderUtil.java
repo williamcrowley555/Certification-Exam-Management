@@ -27,23 +27,27 @@ public class ThiSinhTableLoaderUtil implements ITableLoaderUtil<Examine>{
         
         DefaultTableModel model = new DefaultTableModel(header, 0);
         
-        Vector row = null;
-        for(Examine examine : listItems) {
-            row = new Vector();
-            row.add(examine.getId());
-            row.add(examine.getLastName());
-            row.add(examine.getFirstName());
-            
-            if (examine.getGender() == 1) row.add("Nam");
-            else if (examine.getGender() == 2) row.add("Nữ");
-            else row.add("Không xác định");
-            
-            row.add(examine.getExamineId());
-            row.add(examine.getDob());
-            row.add(examine.getAddress());
-            row.add(examine.getPhone());
-            row.add(examine.getStatus() ? "Kích hoạt" : "Vô hiệu");
-            model.addRow(row);
+        
+        if(listItems != null)
+        {   
+            Vector row = null;
+            for(Examine examine : listItems) {
+                row = new Vector();
+                row.add(examine.getId());
+                row.add(examine.getLastName());
+                row.add(examine.getFirstName());
+
+                if (examine.getGender() == 1) row.add("Nam");
+                else if (examine.getGender() == 2) row.add("Nữ");
+                else row.add("Không xác định");
+
+                row.add(examine.getExamineId());
+                row.add(examine.getDob());
+                row.add(examine.getAddress());
+                row.add(examine.getPhone());
+                row.add(examine.getStatus() ? "Kích hoạt" : "Vô hiệu");
+                model.addRow(row);
+            }
         }
         
         return model;

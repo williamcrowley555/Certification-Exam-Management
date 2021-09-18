@@ -1,5 +1,6 @@
 package com.william.certificationexammanagement.service.impl;
 
+import com.william.certificationexammanagement.model.EnglishLevel;
 import com.william.certificationexammanagement.model.ExamCourse;
 import com.william.certificationexammanagement.repository.ExamCourseRepository;
 import com.william.certificationexammanagement.service.ExamCourseService;
@@ -18,6 +19,17 @@ public class ExamCourseServiceImpl implements ExamCourseService {
     @Override
     public List<ExamCourse> getExamCourses() {
         return examCourseRepository.findAll();
+    }
+
+    @Override
+    public List<ExamCourse> getExamCourseByEnglishLevelAndMonthStartOn(EnglishLevel englishLevel, Integer month, Integer year) {
+        List<ExamCourse> examCourses = (List<ExamCourse>) examCourseRepository.findByEnglishLevelAndMonthGreaterThanEqualAndYearGreaterThanEqual(englishLevel, month, year);
+
+        if (examCourses.isEmpty() || examCourses == null) {
+            return null;
+        }
+
+        return examCourses;
     }
 
     @Override

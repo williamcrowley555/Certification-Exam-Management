@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
 
+import java.util.List;
 import java.util.Optional;
 
 @DataJpaTest
@@ -26,9 +27,7 @@ public class ExamRoomRepositoryTest {
     @Test
     public void testFindByExamines() {
         Examine examine = entityManager.find(Examine.class, 4L);
-        Optional<ExamRoom> optional = examRoomRepository.findByExamines(examine);
-        if (optional.isPresent()) {
-            System.out.println(optional.get());
-        }
+        List<ExamRoom> examines = (List<ExamRoom>) examRoomRepository.findByExamines(examine);
+        examines.forEach(System.out::println);
     }
 }

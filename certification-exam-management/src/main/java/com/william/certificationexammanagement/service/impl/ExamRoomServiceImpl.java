@@ -26,21 +26,19 @@ public class ExamRoomServiceImpl implements ExamRoomService {
     }
 
     @Override
-    public ExamRoom getExamRoomByExamineFullNameAndExaminePhone(String examineFullName, String examinePhone) {
-        ExamRoom examRoom = null;
+    public List<ExamRoom> getExamRoomByExamineFullNameAndExaminePhone(String examineFullName, String examinePhone) {
+        List<ExamRoom> examRooms = null;
         Examine examine = null;
 
         if (examineFullName != null && examinePhone != null) {
             examine = examineService.getExamineByFullNameAndPhone(examineFullName, examinePhone);
         }
 
-        Optional<ExamRoom> optional = examRoomRepository.findByExamines(examine);
-
-        if (optional.isPresent()) {
-            examRoom = optional.get();
+        if (examine != null) {
+            examRooms = (List<ExamRoom>) examRoomRepository.findByExamines(examine);
         }
 
-        return examRoom;
+        return examRooms;
     }
 
     @Override

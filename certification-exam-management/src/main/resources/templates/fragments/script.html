@@ -14,5 +14,12 @@
         <script th:src="@{/js/custom.js}"></script>
     </th:block>
 
+    <!--    Extra Scripts-->
+    <th:block th:fragment="extra_scripts">
+        <!-- Paganition table-->
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.2/datatables.min.js"></script>
+        <script type="text/javascript"  th:src="@{/js/pagination.js}"></script>
+    </th:block>
+
 </body>
 </html>

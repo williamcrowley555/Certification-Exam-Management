@@ -3,6 +3,8 @@ package com.william.certificationexammanagement.model;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -95,6 +97,16 @@ public class ExamRoom {
 
     public void setExamDate(Date examDate) {
         this.examDate = examDate;
+    }
+
+    public String examDateFormat() {
+        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        return formatter.format(examDate);
+    }
+
+    public String examTimeFormat() {
+        DateFormat formatter = new SimpleDateFormat("HH:mm");
+        return formatter.format(examDate);
     }
 
     public User getProctor() {

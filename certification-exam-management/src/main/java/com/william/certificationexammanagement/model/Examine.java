@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 @Entity(name = "Examine")
@@ -108,12 +109,21 @@ public class Examine {
         this.lastName = lastName;
     }
 
+    public String getFullName() {
+        return lastName + " " + firstName;
+    }
+
     public LocalDate getDob() {
         return dob;
     }
 
     public void setDob(LocalDate dob) {
         this.dob = dob;
+    }
+
+    public String getDobFormat() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return dob.format(formatter);
     }
 
     public Integer getGender() {

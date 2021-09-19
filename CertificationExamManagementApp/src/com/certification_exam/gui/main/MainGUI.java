@@ -5,22 +5,9 @@
  */
 package com.certification_exam.gui.main;
 
-import com.certification_exam.bll.INhanVienBLL;
-import com.certification_exam.bll.impl.NhanVienBLL;
-import com.certification_exam.dto.NhanVienDTO;
-import com.certification_exam.gui.form.QuanLyBaiThiGUI;
-import com.certification_exam.gui.others.ComponentResizer;
-import com.certification_exam.gui.form.QuanLyDiaDiemGUI;
-import com.certification_exam.gui.form.QuanLyDichVuGUI;
 import com.certification_exam.gui.form.QuanLyPhongThi;
-import com.certification_exam.gui.form.QuanLyGiaTourGUI;
 import com.certification_exam.gui.form.QuanLyThiSinhGUI;
-import com.certification_exam.gui.form.QuanLyTrinhDo;
-import com.certification_exam.gui.form.QuanLyGiaoVienGUI;
-import com.certification_exam.gui.form.QuanLyKhoaThi;
-import com.certification_exam.gui.form.QuanLyVaiTroGUI;
-import com.certification_exam.gui.form.ThongKeTheoDoanGUI;
-import com.certification_exam.gui.form.ThongKeTheoTourGUI;
+import com.certification_exam.gui.others.ComponentResizer;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -74,53 +61,7 @@ public class MainGUI extends javax.swing.JFrame {
    
         
        
-        MenuItem menuTrinhDo = new MenuItem(iconTrinhDo, "Quản Lý Trình Độ", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {     
-                panelBody.removeAll();
-                panelBody.add(new QuanLyTrinhDo());
-                panelBody.repaint();
-                panelBody.revalidate();
-                Selected(menuTrinhDo);
-            }
-        });
-        
-//        //--submenu gia tour--
-//                MenuItem menuGiaTour = new MenuItem(iconGiaTour, "Quản Lý Giá Tour", new ActionListener() {
-//                    @Override
-//                    public void actionPerformed(ActionEvent ae) {     
-//                        panelBody.removeAll();
-////                        panelBody.add(new QuanLyGiaTourGUI());
-//                        panelBody.repaint();
-//                        panelBody.revalidate();
-//                        Selected(menuKhoaThi);
-//                    }
-//                });
-        
-//        MenuItem menuKhoaThi = new MenuItem(iconTour, "Quản Lý Khóa Thi", new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent ae) {     
-//                panelBody.removeAll();
-//                panelBody.add(new QuanLyKhoaThi());
-//                panelBody.repaint();
-//                panelBody.revalidate();
-//              
-//                Selected(menuKhoaThi);
-//            }
-//        }, menuTrinhDo, menuGiaTour);
-     
-        
-        //--submenu doan--
-                MenuItem menuChiPhi = new MenuItem(iconChiPhi, "Quản Lý Chi Phí", new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent ae) {     
-                        panelBody.removeAll();
-                        panelBody.add(new QuanLyBaiThiGUI());
-                        panelBody.repaint();
-                        panelBody.revalidate();
-                        Selected(menuPhongThi);
-                    }
-                });
+      
                 
         MenuItem menuPhongThi = new MenuItem(iconDoan, "Quản Lý Phòng Thi", new ActionListener() {
             @Override
@@ -131,31 +72,10 @@ public class MainGUI extends javax.swing.JFrame {
                 panelBody.revalidate();
                 Selected(menuPhongThi);
             }
-        }, menuChiPhi);
+        });
              
         
-        MenuItem menuDichVu = new MenuItem(iconDichVu, "Quản Lý Dịch Vụ", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                panelBody.removeAll();
-               // panelBody.add(new QuanLyDichVuGUI());
-                panelBody.repaint();
-                panelBody.revalidate();
-              
-                Selected(menuDichVu);
-            }
-        });
         
-        MenuItem menuDiaDiem = new MenuItem(iconDiaDiem, "Quản Lý Địa Điểm", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                panelBody.removeAll();
-               // panelBody.add(new QuanLyDiaDiemGUI());
-                panelBody.repaint();
-                panelBody.revalidate();
-                Selected(menuDiaDiem);
-            }
-        });
         
         MenuItem menuThiSinh = new MenuItem(iconThiSinh, "Quản Lý Thí Sinh", new ActionListener() {
             @Override
@@ -169,63 +89,9 @@ public class MainGUI extends javax.swing.JFrame {
         });
         
         
-        //----Sub menu vai tro -----
-                MenuItem menuVaiTro = new MenuItem(iconVaiTro, "Quản Lý Vai Trò", new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent ae) {
-                        panelBody.removeAll();
-                        panelBody.add(new QuanLyVaiTroGUI());
-                        panelBody.repaint();
-                        panelBody.revalidate();
-                        Selected(menuGiaoVien);
-                    }
-                });
         
-        MenuItem menuGiaoVien = new MenuItem(iconGiaoVien, "Quản Lý Giáo Viên", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                panelBody.removeAll();
-                panelBody.add(new QuanLyGiaoVienGUI());
-                panelBody.repaint();
-                panelBody.revalidate();
-                
-                
-                Selected(menuGiaoVien);
-            }
-        }, menuVaiTro);
         
        
-        //----Sub menu TK -----
-                MenuItem menuTkTheoTour= new MenuItem(iconTour, "Theo Tour",new ActionListener() {
-                  @Override
-                    public void actionPerformed(ActionEvent ae) {
-                    panelBody.removeAll();
-                   // panelBody.add(new ThongKeTheoTourGUI());
-                    panelBody.repaint();
-                    panelBody.revalidate();
-                    Selected(menuThongKe);
-                    }
-                });
-                
-                MenuItem menuTkTheoDoan= new MenuItem(iconDoan, "Theo Đoàn",new ActionListener() {
-                  @Override
-                    public void actionPerformed(ActionEvent ae) {
-                    panelBody.removeAll();
-                   // panelBody.add(new ThongKeTheoDoanGUI());
-                    panelBody.repaint();
-                    panelBody.revalidate();
-                    Selected(menuThongKe);
-                    }
-                });
-                
-       MenuItem menuThongKe = new MenuItem(iconThongKe, "Thống Kê",new ActionListener() {
-       @Override
-            public void actionPerformed(ActionEvent ae) {
-              
-                
-                Selected(menuThongKe);
-            }
-        }, menuTkTheoTour,menuTkTheoDoan);
          
     public MainGUI() {
         initComponents();
@@ -235,27 +101,9 @@ public class MainGUI extends javax.swing.JFrame {
         panelBody.repaint();
         panelBody.revalidate();
         CustomWindow();
-        addMenu(menuPhongThi, menuTrinhDo,menuThiSinh,menuGiaoVien);
+        addMenu(menuPhongThi, menuThiSinh);
         Selected(menuPhongThi);
-        
-//        TESTING
-//        INhanVienBLL nhanVienBLL = new NhanVienBLL();
-//        NhanVienDTO nhanVien = new NhanVienDTO();
-//INSERT DATA
-//        vaiTro.setTenVaiTro("Bảo vệ");
-//        vaiTroBLL.save(vaiTro);
-////UPDATE DATA
-//        vaiTro.setId(6L);
-//        vaiTro.setTenVaiTro("Tai xe");
-//        vaiTroBLL.update(vaiTro);
-//DELETE DATA
-//        vaiTroBLL.delete(7L);
 
-//DISPLAY DATA
-//        List<NhanVienDTO> list = nhanVienBLL.findAll();
-//        for(NhanVienDTO vt : list) {
-//            System.out.println(vt.toString() + "\n");
-//        }
     }
     
     public void invisibleMenuScrollBar(int speed)
@@ -314,10 +162,8 @@ public class MainGUI extends javax.swing.JFrame {
     public void resetSelect()
     {
        Color lightGray = new Color(240,240,240);
-       menuTrinhDo.setColor(lightGray);
        menuPhongThi.setColor(lightGray);
        menuThiSinh.setColor(lightGray);
-       menuGiaoVien.setColor(lightGray);
     }
    
     public void Selected(MenuItem item)

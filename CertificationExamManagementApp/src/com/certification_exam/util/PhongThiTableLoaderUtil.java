@@ -6,12 +6,9 @@
 package com.certification_exam.util;
 
 import com.certification_exam.bll.IExamCourseBLL;
-import com.certification_exam.bll.ITourBLL;
 import com.certification_exam.bll.IUserBLL;
 import com.certification_exam.bll.impl.ExamCourseBLL;
-import com.certification_exam.bll.impl.TourBLL;
 import com.certification_exam.bll.impl.UserBLL;
-import com.certification_exam.dto.DoanDTO;
 import com.certification_exam.dto.ExamRoom;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -23,7 +20,6 @@ import javax.swing.table.DefaultTableModel;
  * @author kossp
  */
 public class PhongThiTableLoaderUtil implements ITableLoaderUtil<ExamRoom> {
-    private ITourBLL vaiTroBLL = new TourBLL();
     private IExamCourseBLL examCourseBLL = new ExamCourseBLL();
     private IUserBLL userBLL = new UserBLL();
     @Override

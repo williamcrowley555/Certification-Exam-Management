@@ -5,17 +5,12 @@
  */
 package com.certification_exam.gui.popup;
 
-import com.certification_exam.bll.IDichVuBLL;
 import com.certification_exam.bll.IExamBLL;
 import com.certification_exam.bll.IExamineBLL;
-import com.certification_exam.bll.impl.DichVuBLL;
 import com.certification_exam.bll.impl.ExamBLL;
 import com.certification_exam.bll.impl.ExamineBLL;
-import com.certification_exam.bll.impl.VaiTroBLL;
-import com.certification_exam.dto.DichVuDTO;
 import com.certification_exam.dto.Exam;
 import com.certification_exam.dto.Examine;
-import com.certification_exam.dto.VaiTroDTO;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;

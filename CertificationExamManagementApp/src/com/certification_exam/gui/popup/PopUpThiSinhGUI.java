@@ -6,12 +6,8 @@
 package com.certification_exam.gui.popup;
 
 import com.certification_exam.bll.IExamineBLL;
-import com.toedter.calendar.JTextFieldDateEditor;
-import com.certification_exam.bll.IKhachHangBLL;
 import com.certification_exam.bll.impl.ExamineBLL;
-import com.certification_exam.bll.impl.KhachHangBLL;
 import com.certification_exam.dto.Examine;
-import com.certification_exam.dto.KhachHangDTO;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -44,7 +40,6 @@ import javax.swing.JTextField;
  */
 public class PopUpThiSinhGUI extends javax.swing.JFrame {
     private String action;
-    private KhachHangDTO khachHang = null;
     private Examine examine = null;
     private IExamineBLL examineBLL;
     

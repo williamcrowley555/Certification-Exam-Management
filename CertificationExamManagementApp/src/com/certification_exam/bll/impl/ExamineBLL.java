@@ -161,7 +161,15 @@ public class ExamineBLL implements IExamineBLL {
         String number = getGreatestOrdinalNumber(englishLevelName);
         if (number != null) {
             Integer nextNumber = Integer.valueOf(number) + 1;
-            String strNumber = nextNumber > 99 ? String.valueOf(nextNumber) : "00" + nextNumber;
+            String strNumber = "";
+            if (nextNumber > 9)
+            {
+                strNumber ="0" + nextNumber;
+            } else if (nextNumber > 99)
+            {
+                strNumber = "00" + nextNumber;
+            } 
+            
             name = englishLevelName + strNumber;
         }
         return name;

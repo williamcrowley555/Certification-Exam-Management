@@ -12,8 +12,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -31,5 +33,16 @@ public class ExamCourseRepositoryTest {
         EnglishLevel englishLevel = entityManager.find(EnglishLevel.class, 1L);
         List<ExamCourse> examCourses = (List<ExamCourse>) examCourseRepository.findByEnglishLevelAndMonthGreaterThanEqualAndYearGreaterThanEqual(englishLevel, 10, 2021);
         examCourses.forEach(System.out::println);
+    }
+
+    @Test
+    public void testModule() {
+        Examine examine = entityManager.find(Examine.class, 1L);
+        Set<Examine> examines = new HashSet<>();
+        examines.add(examine);
+        examine.setFirstName("Minh L");
+        examines.add(examine);
+
+        examines.forEach(System.out::println);
     }
 }

@@ -3,47 +3,10 @@
 <head th:replace="fragments/header :: html_head(headTitle = 'Trang chủ')"></head>
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 
-<!-- PRE LOADER -->
-<!--<section class="preloader">-->
-<!--    <div class="spinner">-->
-
-<!--        <span class="spinner-rotate"></span>-->
-
-<!--    </div>-->
-<!--</section>-->
+<th:block th:replace="fragments/header :: preloader"></th:block>
 
 
-<!-- MENU -->
-<section class="navbar custom-navbar navbar-fixed-top" role="navigation">
-    <div class="container">
-
-        <div class="navbar-header">
-            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon icon-bar"></span>
-                <span class="icon icon-bar"></span>
-                <span class="icon icon-bar"></span>
-            </button>
-
-            <!-- lOGO TEXT HERE -->
-            <a href="#" class="navbar-brand">Lucifer</a>
-        </div>
-
-        <!-- MENU LINKS -->
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-nav-first">
-                <li><a href="#" class="smoothScroll">Trang chủ</a></li>
-                <li><a href="#" class="smoothScroll">About</a></li>
-                <li><a href="#" class="smoothScroll">Our Teachers</a></li>
-                <li><a href="#" class="smoothScroll">Courses</a></li>
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><i class="fa fa-phone"></i> +84 28 3835 4409</a></li>
-            </ul>
-        </div>
-
-    </div>
-</section>
+<div th:replace="fragments/header :: navbar"></div>
 
 
 <!-- HOME -->
@@ -57,7 +20,7 @@
                         <div class="col-md-6 col-sm-12">
                             <h1>Đăng ký thi trực tuyến</h1>
                             <h3>Hoàn thành kì thi để có cơ hội nhận được chứng chỉ Tiếng Anh A2, B1.</h3>
-                            <a href="#" class="section-btn btn btn-default smoothScroll">Tham gia ngay</a>
+                            <a th:href="@{/exam-courses}" class="section-btn btn btn-default smoothScroll">Tham gia ngay</a>
                         </div>
                     </div>
                 </div>
@@ -191,81 +154,38 @@
 
             <div class="col-md-12 col-sm-12">
                 <div class="section-title">
-                    <h2>Các khóa thi có thể đăng ký <small>Tham gia các khóa thi đang mở</small></h2>
+                    <h2>Các khóa thi có thể đăng ký <small>Tham gia ngay các khóa thi đang mở</small></h2>
                 </div>
 
                 <div class="owl-carousel owl-theme owl-courses">
-                    <div class="col-md-4 col-sm-4">
-                        <div class="item">
-                            <div class="courses-thumb">
-                                <div class="courses-top">
-                                    <div class="courses-image">
-                                        <img th:src="@{/images/courses-image1.jpg}" class="img-responsive" alt="">
-                                    </div>
-                                    <div class="courses-date">
-                                        <span><i class="fa fa-calendar"></i> 12 / 7 / 2018</span>
-                                    </div>
-                                </div>
 
-                                <div class="courses-detail">
-                                    <h3><a href="#">Khoá thi A2K092021</a></h3>
-                                    <p>Khoá thi tháng 9 / 2021. Có thể nhận chứng chỉ trình độ A2 khi bài thi đạt đủ chỉ tiêu</p>
-                                </div>
+                    <th:block th:if="${examCourses != null}">
+                        <th:block th:each="course : ${examCourses}">
+                            <div class="col-md-4 col-sm-4">
+                                <div class="item">
+                                    <div class="courses-thumb">
+                                        <div class="courses-top">
+                                            <div class="courses-image">
+                                                <img th:src="@{/images/course-image.jpg}" class="img-responsive" alt="">
+                                            </div>
+                                            <div class="courses-date">
+                                                <span><i class="fa fa-calendar"></i> 1 / [[${course.month}]] / [[${course.year}]]</span>
+                                            </div>
+                                        </div>
 
-                                <div class="courses-info text-right">
-                                    <a href="#" class="btn btn-success courses-enroll-btn"><span>Đăng ký</span></a>
+                                        <div class="courses-detail">
+                                            <h3><a href="#">Khoá thi [[${course.name}]]</a></h3>
+                                            <p>Khoá thi tháng [[${course.month}]] / [[${course.year}]]. Có thể nhận chứng chỉ trình độ [[${course.englishLevel.name}]] khi bài thi đạt đủ chỉ tiêu</p>
+                                        </div>
+
+                                        <div class="courses-info text-right">
+                                            <a th:href="@{|/exam-courses/enroll/${course.id}|}" class="btn btn-success courses-enroll-btn"><span>Đăng ký</span></a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-4">
-                        <div class="item">
-                            <div class="courses-thumb">
-                                <div class="courses-top">
-                                    <div class="courses-image">
-                                        <img th:src="@{/images/courses-image2.jpg}" class="img-responsive" alt="">
-                                    </div>
-                                    <div class="courses-date">
-                                        <span><i class="fa fa-calendar"></i> 20 / 7 / 2018</span>
-                                    </div>
-                                </div>
-
-                                <div class="courses-detail">
-                                    <h3><a href="#">Graphic & Web Design</a></h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                </div>
-
-                                <div class="courses-info text-right">
-                                    <a href="#" class="btn btn-success courses-enroll-btn"><span>Đăng ký</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-4">
-                        <div class="item">
-                            <div class="courses-thumb">
-                                <div class="courses-top">
-                                    <div class="courses-image">
-                                        <img th:src="@{/images/courses-image3.jpg}" class="img-responsive" alt="">
-                                    </div>
-                                    <div class="courses-date">
-                                        <span><i class="fa fa-calendar"></i> 15 / 8 / 2018</span>
-                                    </div>
-                                </div>
-
-                                <div class="courses-detail">
-                                    <h3><a href="#">Marketing Communication</a></h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                </div>
-
-                                <div class="courses-info text-right">
-                                    <a href="#" class="btn btn-success courses-enroll-btn"><span>Đăng ký</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        </th:block>
+                    </th:block>
 
                 </div>
 
@@ -274,59 +194,7 @@
     </div>
 </section>
 
-<!-- FOOTER -->
-<footer id="footer">
-    <div class="container">
-        <div class="row">
-
-            <div class="col-sm-6">
-                <div class="footer-info">
-                    <div class="section-title">
-                        <h2>Trụ sở chính</h2>
-                    </div>
-                    <address>
-                        <p>273 An Dương Vương, <br> Phường 3, Quận 5, Thành phố Hồ Chí Minh 700000</p>
-                    </address>
-
-                    <ul class="social-icon">
-                        <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
-                        <li><a href="#" class="fa fa-twitter"></a></li>
-                        <li><a href="#" class="fa fa-instagram"></a></li>
-                    </ul>
-
-                    <div class="copyright-text">
-                        <p>Copyright &copy; 2021 Lucifer</p>
-
-                        <p>Design: William Crowley</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6">
-                <div class="footer-info">
-                    <div class="section-title">
-                        <h2>Thông tin liên lạc</h2>
-                    </div>
-                    <address>
-                        <p>+84 28 3835 4409</p>
-                        <p><a href="mailto:youremail.co">sdh@sgu.edu.vn</a></p>
-                    </address>
-
-                    <div class="footer_menu">
-                        <h2>Liên kết nhanh</h2>
-                        <ul>
-                            <li><a href="#">Career</a></li>
-                            <li><a href="#">Investor</a></li>
-                            <li><a href="#">Terms & Conditions</a></li>
-                            <li><a href="#">Refund Policy</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</footer>
+<th:block th:replace="fragments/footer :: footer"></th:block>
 
 
 <!-- SCRIPTS -->

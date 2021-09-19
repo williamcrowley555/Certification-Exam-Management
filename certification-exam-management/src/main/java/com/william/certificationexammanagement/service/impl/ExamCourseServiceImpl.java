@@ -22,6 +22,17 @@ public class ExamCourseServiceImpl implements ExamCourseService {
     }
 
     @Override
+    public List<ExamCourse> getExamCourseByMonthStartOn(Integer month, Integer year) {
+        List<ExamCourse> examCourses = (List<ExamCourse>) examCourseRepository.findByMonthGreaterThanEqualAndYearGreaterThanEqual(month, year);
+
+        if (examCourses.isEmpty() || examCourses == null) {
+            return null;
+        }
+
+        return examCourses;
+    }
+
+    @Override
     public List<ExamCourse> getExamCourseByEnglishLevelAndMonthStartOn(EnglishLevel englishLevel, Integer month, Integer year) {
         List<ExamCourse> examCourses = (List<ExamCourse>) examCourseRepository.findByEnglishLevelAndMonthGreaterThanEqualAndYearGreaterThanEqual(englishLevel, month, year);
 

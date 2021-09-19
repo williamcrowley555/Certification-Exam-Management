@@ -9,5 +9,6 @@ import java.util.Collection;
 
 @Repository
 public interface ExamCourseRepository extends JpaRepository<ExamCourse, Long> {
+    Collection<ExamCourse> findByMonthGreaterThanEqualAndYearGreaterThanEqual(Integer month, Integer year);
     Collection<ExamCourse> findByEnglishLevelAndMonthGreaterThanEqualAndYearGreaterThanEqual(EnglishLevel englishLevel, Integer month, Integer year);
 }

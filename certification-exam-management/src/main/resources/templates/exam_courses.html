@@ -13,7 +13,7 @@
     <div class="form-group">
         <label for="englishLevelSelect">Chọn chứng chỉ trình độ bạn muốn đăng ký thi</label>
         <select class="form-control" id="englishLevelSelect" style="width: 100px">
-            <th:block th:if="${englishLevels != null}">
+            <th:block th:if="${examCourses != null}">
                 <th:block th:each="englishLevel : ${englishLevels}">
                     <option th:value="@{|/exam-courses/english-level/${englishLevel.id}|}"
                             th:selected="${currentEnglishLevel.id == englishLevel.id ? 'true' : 'false'}">[[${englishLevel.name}]]</option>
@@ -66,11 +66,8 @@
 <th:block th:replace="fragments/script :: scripts"></th:block>
 
 <script type="text/javascript">
-    var urlMenu = document.getElementById("englishLevelSelect");
-    urlMenu.onchange = function() {
-        var option = this.options[this.selectedIndex];
-        window.location.href = option.value;
-    }
+    var englishLevelSelect = document.getElementById("englishLevelSelect");
+    selectOptionLink(englishLevelSelect);
 </script>
 </body>
 </html>

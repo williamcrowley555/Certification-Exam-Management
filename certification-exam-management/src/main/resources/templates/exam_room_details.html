@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: html_head(headTitle = 'Phòng thi')"></head>
+<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+<th:block th:replace="fragments/header :: preloader"></th:block>
+
+
+<div th:replace="fragments/header :: navbar"></div>
+
+
+<div class="container"style="padding: 50px 10px;">
+    <h2 style="margin-left: 25px;">Danh sách dự thi</h2>
+    <div class="row">
+        <div class="col-12 col-sm-4">
+            <form class="form" style="padding: 0 25px">
+
+                <div class="form-group">
+                    <label for="examCourseSelect">Khóa thi</label>
+                    <select class="form-control" id="examCourseSelect">
+                        <option value="nothing" th:selected="${currentExamCourse == null ? 'true' : 'false'}">Chọn khóa thi</option>
+                        <th:block th:if="${examCourses != null}">
+                            <th:block th:each="examCourse : ${examCourses}">
+                                <option th:value="@{|/exam-rooms/details?examCourseId=${examCourse.id}|}"
+                                        th:selected="${currentExamCourse == examCourse ? 'true' : 'false'}">[[${examCourse.name}]]</option>
+                            </th:block>
+                        </th:block>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="examRoomSelect">Phòng thi</label>
+                    <select class="form-control" id="examRoomSelect">
+                        <option value="nothing" th:selected="${currentExamRoom == null ? 'true' : 'false'}">Chọn phòng thi</option>
+                        <th:block th:if="${examRooms != null}">
+                            <th:block th:each="examRoom : ${examRooms}">
+                                <option th:value="@{|/exam-rooms/details?examRoomId=${examRoom.id}|}"
+                                        th:selected="${currentExamRoom == examRoom ? 'true' : 'false'}">[[${examRoom.name}]]</option>
+                            </th:block>
+                        </th:block>
+                    </select>
+                </div>
+
+            </form>
+
+            <th:block th:if="${currentExamRoom != null}">
+                <hr />
+                <div style="margin-left: 25px;">
+                    <h4>Thông tin phòng thi</h4>
+                    <p style="font-size: 15px">
+                        <span class="font-weight-bold">Tên phòng thi: </span> [[${currentExamRoom.name}]]
+                    </p>
+                    <p style="font-size: 15px">
+                        <span class="font-weight-bold">Chứng chỉ trình độ: </span> [[${currentExamRoom.examCourse.englishLevel.name}]]
+                    </p>
+                    <p style="font-size: 15px">
+                        <span class="font-weight-bold">Ngày thi: </span> [[${currentExamRoom.examDateFormat}]]
+                    </p>
+                    <p style="font-size: 15px">
+                        <span class="font-weight-bold">Giờ thi: </span> [[${currentExamRoom.examTimeFormat}]]
+                    </p>
+                    <p style="font-size: 15px">
+                        <span class="font-weight-bold">Số lượng thí sinh: </span> [[${currentExamRoom.quantity}]]
+                    </p>
+                </div>
+            </th:block>
+        </div>
+
+        <div class="col-12 col-sm-8">
+            <table class="table table-fluid table-pagination">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Số báo danh</th>
+                    <th scope="col">Họ và tên</th>
+                    <th scope="col">Giới tính</th>
+                    <th scope="col">Ngày sinh</th>
+                    <th scope="col">Số điện thoại</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <th:block th:if="${examines != null}">
+                    <th:block th:each="examine, iterStat : ${examines}">
+                        <tr>
+                            <td th:text="${iterStat.index + 1}"></td>
+                            <td th:text="${examine.examineId}"></td>
+                            <td th:text="${examine.fullName}"></td>
+                            <th:block th:switch="${examine.gender}">
+                                <td th:case="1">Nam</td>
+                                <td th:case="2">Nữ</td>
+                            </th:block>
+                            <td th:text="${examine.dobFormat}"></td>
+                            <td th:text="${examine.phone}"></td>
+                        </tr>
+                    </th:block>
+                </th:block>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<th:block th:replace="fragments/footer :: footer"></th:block>
+
+
+<!-- SCRIPTS -->
+<th:block th:replace="fragments/script :: scripts"></th:block>
+<th:block th:replace="fragments/script :: extra_scripts"></th:block>
+
+<script type="text/javascript">
+    var examCourseSelect = document.getElementById("examCourseSelect");
+    var examRoomSelect = document.getElementById("examRoomSelect");
+
+    selectOptionLink(examCourseSelect);
+    selectOptionLink(examRoomSelect);
+</script>
+
+</body>
+</html>

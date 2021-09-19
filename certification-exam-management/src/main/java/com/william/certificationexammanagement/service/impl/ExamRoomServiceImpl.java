@@ -1,5 +1,6 @@
 package com.william.certificationexammanagement.service.impl;
 
+import com.william.certificationexammanagement.model.ExamCourse;
 import com.william.certificationexammanagement.model.ExamRoom;
 import com.william.certificationexammanagement.model.Examine;
 import com.william.certificationexammanagement.repository.ExamRoomRepository;
@@ -39,6 +40,11 @@ public class ExamRoomServiceImpl implements ExamRoomService {
         }
 
         return examRooms;
+    }
+
+    @Override
+    public List<ExamRoom> getExamRoomByExamCourse(ExamCourse examCourse) {
+        return (List<ExamRoom>) examRoomRepository.findExamRoomByExamCourse(examCourse);
     }
 
     @Override

@@ -50,8 +50,9 @@
                 </div>
             </th:block>
         </div>
+
         <div class="col-12 col-sm-8">
-            <table class="table table-fluid table-pagination" id="taskTable">
+            <table class="table table-fluid table-pagination">
                 <thead class="thead-light">
                 <tr>
                     <th scope="col">Phòng thi</th>
@@ -67,7 +68,7 @@
                 <th:block th:if="${examRooms != null}">
                     <th:block th:each="examRoom : ${examRooms}">
                         <tr>
-                            <th th:text="${examRoom.name}" scope="row"></th>
+                            <td th:text="${examRoom.name}" scope="row"></td>
                             <td th:text="${examRoom.examCourse.englishLevel.name}"></td>
                             <td th:text="${examRoom.examCourse.name}"></td>
                             <td th:text="${examRoom.quantity}"></td>

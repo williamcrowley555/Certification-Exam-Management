@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: html_head(headTitle = 'Trang chủ')"></head>
+<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+<th:block th:replace="fragments/header :: preloader"></th:block>
+
+
+<div th:replace="fragments/header :: navbar"></div>
+
+
+
+
+
+<th:block th:replace="fragments/footer :: footer"></th:block>
+
+
+<!-- SCRIPTS -->
+<th:block th:replace="fragments/script :: scripts"></th:block>
+
+</body>
+</html>

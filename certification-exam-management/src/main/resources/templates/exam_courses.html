@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: html_head(headTitle = 'Khóa thi')"></head>
+<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+<th:block th:replace="fragments/header :: preloader"></th:block>
+
+
+<div th:replace="fragments/header :: navbar"></div>
+
+<div class="container" style="padding: 50px 20px;">
+    <h2>Danh sách các khóa thi</h2>
+    <div class="form-group">
+        <label for="englishLevelSelect">Chọn chứng chỉ trình độ bạn muốn đăng ký thi</label>
+        <select class="form-control" id="englishLevelSelect" style="width: 100px">
+            <th:block th:if="${englishLevels != null}">
+                <th:block th:each="englishLevel : ${englishLevels}">
+                    <option th:value="@{|/exam-courses/english-level/${englishLevel.id}|}"
+                            th:selected="${currentEnglishLevel.id == englishLevel.id ? 'true' : 'false'}">[[${englishLevel.name}]]</option>
+                </th:block>
+            </th:block>
+
+            <th:block th:unless="${englishLevels != null}">
+                <option>Hiện tại không có trình độ nào</option>
+            </th:block>
+        </select>
+    </div>
+
+    <div class="row">
+        <th:block th:if="${examCourses != null}">
+            <th:block th:each="course : ${examCourses}">
+                <div class="col-md-4 col-sm-4" style="margin: 20px 0;">
+                    <div class="item">
+                        <div class="courses-thumb">
+                            <div class="courses-top">
+                                <div class="courses-image">
+                                    <img th:src="@{/images/course-image.jpg}" class="img-responsive" alt="">
+                                </div>
+                                <div class="courses-date">
+                                    <span><i class="fa fa-calendar"></i> 1 / [[${course.month}]] / [[${course.year}]]</span>
+                                </div>
+                            </div>
+
+                            <div class="courses-detail">
+                                <h3><a href="#">Khoá thi [[${course.name}]]</a></h3>
+                                <p>Khoá thi tháng [[${course.month}]] / [[${course.year}]]. Có thể nhận chứng chỉ trình độ [[${course.englishLevel.name}]] khi bài thi đạt đủ chỉ tiêu</p>
+                            </div>
+
+                            <div class="courses-info text-right">
+                                <a th:href="@{|/exam-courses/enroll/${course.id}|}" class="btn btn-success courses-enroll-btn"><span>Đăng ký</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+        </th:block>
+    </div>
+</div>
+
+
+
+<th:block th:replace="fragments/footer :: footer"></th:block>
+
+
+<!-- SCRIPTS -->
+<th:block th:replace="fragments/script :: scripts"></th:block>
+
+<script type="text/javascript">
+    var urlMenu = document.getElementById("englishLevelSelect");
+    urlMenu.onchange = function() {
+        var option = this.options[this.selectedIndex];
+        window.location.href = option.value;
+    }
+</script>
+</body>
+</html>

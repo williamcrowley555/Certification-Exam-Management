@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: html_head(headTitle = 'Trang chủ')"></head>
+<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+<th:block th:replace="fragments/header :: preloader"></th:block>
+
+
+<div th:replace="fragments/header :: navbar"></div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-6" style="margin-bottom: 50px">
+                <span class="anchor" id="formEnroll"></span>
+                <hr class="mb-5">
+                <!-- form card register -->
+                <div class="card card-outline-secondary">
+                    <div class="card-header">
+                        <h3 class="mb-0">Đăng ký khóa thi</h3>
+                    </div>
+                    <div class="card-body">
+                        <div th:if="${param.success}" class="col-sm-12 alert alert-success" role="alert">Đăng ký thành công</div>
+                        <form th:action="@{|/exam-courses/enroll/${examCourseId}|}" th:object="${examine}" method="POST" autocomplete="off" class="form" role="form">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                                         class="alert alert-danger" role="alert">Error Message
+                                    </div>
+                                    <input type="text" th:field="*{lastName}" class="form-control" id="exampleLastName"
+                                           placeholder="Họ" required>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
+                                         class="alert alert-danger" role="alert">Error Message
+                                    </div>
+                                    <input type="text" th:field="*{firstName}" class="form-control" id="exampleFirstName"
+                                           placeholder="Tên" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12 mb-3 mb-sm-0">
+                                    <div th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}"
+                                         class="alert alert-danger" role="alert">Error Message
+                                    </div>
+
+                                    <label class="mb-2 ml-2">Ngày sinh: </label>
+                                    <input type="date" th:field="*{dob}" class="form-control" onkeydown="return false" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"
+                                     class="col-sm-12 alert alert-danger" role="alert">Error Message
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div>
+                                        <label style="margin-right: 1rem">Giới tính: </label>
+
+                                        <input type="radio" th:field="*{gender}" th:value="1" id="male">
+                                        <label class="mr-2" for="male">Nam</label>
+
+                                        <input type="radio" th:field="*{gender}" th:value="2" id="female" style="margin-left: 0.75rem">
+                                        <label for="female">Nữ</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}"
+                                     class="alert alert-danger" role="alert">Error Message
+                                </div>
+
+                                <input type="text" th:field="*{address}" class="form-control" id="exampleInputAddress"
+                                       aria-describedby="addressHelp" placeholder="Address" required>
+                            </div>
+
+                            <div class="form-group">
+                                <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"
+                                     class="alert alert-danger" role="alert">Error Message
+                                </div>
+
+                                <input type="text" th:field="*{phone}" class="form-control" id="exampleInputPhone"
+                                       aria-describedby="phoneHelp" placeholder="Phone number" required>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-success btn-lg float-right" type="submit">Enroll</button>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- /form card register -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<th:block th:replace="fragments/footer :: footer"></th:block>
+
+
+<!-- SCRIPTS -->
+<th:block th:replace="fragments/script :: scripts"></th:block>
+
+</body>
+</html>

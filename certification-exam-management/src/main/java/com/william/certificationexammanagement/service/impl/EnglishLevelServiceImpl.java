@@ -31,6 +31,6 @@ public class EnglishLevelServiceImpl implements EnglishLevelService {
             throw new RuntimeException("English Level ID: " + id + " does not exist");
         }
 
-        return null;
+        return englishLevel;
     }
 }

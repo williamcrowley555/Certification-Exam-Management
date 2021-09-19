@@ -18,7 +18,7 @@
     <link rel="stylesheet" th:href="@{/css/templatemo-style.css}">
 
     <!--    Extra HTML head-->
-    <th:block th:if="${headTitle == 'Phòng thi'}">
+    <th:block th:if="${headTitle == 'Phòng thi' || headTitle == 'Điểm thi'}">
         <th:block th:replace="fragments/header :: dataTable"></th:block>
     </th:block>
 </head>
@@ -65,7 +65,7 @@
                         <li><a th:href="@{/exam-courses}" class="smoothScroll">Khóa thi</a></li>
                         <li><a th:href="@{/exam-rooms/examines}" class="smoothScroll">Xem phòng thi</a></li>
                         <li><a th:href="@{/exam-rooms/details}" class="smoothScroll">Xem DS dự thi</a></li>
-                        <li><a href="#" class="smoothScroll">Courses</a></li>
+                        <li><a th:href="@{/exams}" class="smoothScroll">Xem điểm thi</a></li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">

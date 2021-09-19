@@ -11,6 +11,7 @@ public interface ExamineService {
     Examine getExamineByPhone(String phone);
     List<Examine> getExamineByFullName(String fullName);
     Examine getExamineByFullNameAndPhone(String fullName, String phone);
+    Examine getExamineByExamineId(String examineId);
     Examine createExamine(Examine examine);
     Examine updateExamine(Examine examine);
     Examine enroll(Examine examine, ExamCourse examCourse);

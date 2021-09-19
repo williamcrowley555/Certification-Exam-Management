@@ -23,6 +23,11 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
+    public List<Exam> getExamByExamine(Examine examine) {
+        return (List<Exam>) examRepository.findByExamine(examine);
+    }
+
+    @Override
     public Exam getExamById(Long id) {
         Exam exam = null;
         Optional<Exam> optional = examRepository.findById(id);

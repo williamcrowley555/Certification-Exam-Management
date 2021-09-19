@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface ExamService {
     List<Exam> getExams();
+    List<Exam> getExamByExamine(Examine examine);
     Exam getExamById(Long id);
     Exam getExamByExamineAndExamRoom(Examine examine, ExamRoom examRoom);
 }

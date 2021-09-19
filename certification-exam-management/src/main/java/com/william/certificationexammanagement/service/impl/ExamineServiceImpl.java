@@ -74,6 +74,18 @@ public class ExamineServiceImpl implements ExamineService {
     }
 
     @Override
+    public Examine getExamineByExamineId(String examineId) {
+        Examine examine = null;
+        Optional<Examine> optional = examineRepository.findByExamineId(examineId);
+
+        if (optional.isPresent()) {
+            examine = optional.get();
+        }
+
+        return examine;
+    }
+
+    @Override
     public Examine createExamine(Examine examine) {
         Examine existedExamine = getExamineByPhone(examine.getPhone());
         if (existedExamine != null) {

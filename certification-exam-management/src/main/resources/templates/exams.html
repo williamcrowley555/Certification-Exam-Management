@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: html_head(headTitle = 'Điểm thi')"></head>
+<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+<th:block th:replace="fragments/header :: preloader"></th:block>
+
+
+<div th:replace="fragments/header :: navbar"></div>
+
+
+<div class="container"style="padding: 50px 10px;">
+    <h2 style="margin-left: 25px;">Xem điểm thi</h2>
+    <div class="row">
+        <div class="col-12 col-sm-4">
+            <form th:action="@{/exams}" method="GET" class="form" style="padding: 0 25px">
+
+                <div class="form-group">
+                    <label for="exampleExamineId">Nhập số báo danh</label>
+                    <input type="text" th:value="${examineId}" name="examineId" class="form-control" id="exampleExamineId"
+                           aria-describedby="examineIdHelp" required>
+                </div>
+
+                <div class="form-group text-center">
+                    <button class="btn btn-success" type="submit">Xem điểm thi</button>
+                </div>
+            </form>
+
+            <th:block th:if="${currentExamine != null}">
+                <hr />
+                <div style="margin-left: 25px;">
+                    <h4>Thông tin thí sinh</h4>
+                    <p style="font-size: 15px">
+                        <span class="font-weight-bold">Họ tên: </span> [[${currentExamine.fullName}]]
+                    </p>
+                    <p style="font-size: 15px">
+                        <span class="font-weight-bold">Ngày sinh: </span> [[${currentExamine.dobFormat}]]
+                    </p>
+                    <p style="font-size: 15px">
+                        <span class="font-weight-bold">Số điện thoại: </span> [[${currentExamine.phone}]]
+                    </p>
+                    <p style="font-size: 15px">
+                        <span class="font-weight-bold">Số báo danh: </span> [[${currentExamine.examineId != null ? currentExamine.examineId : ''}]]
+                    </p>
+                </div>
+            </th:block>
+        </div>
+
+        <div class="col-12 col-sm-8">
+            <table class="table table-fluid table-pagination">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Nghe</th>
+                    <th scope="col">Nói</th>
+                    <th scope="col">Đọc</th>
+                    <th scope="col">Viết</th>
+                    <th scope="col">Phòng thi</th>
+                    <th scope="col">Chứng chỉ trình độ</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <th:block th:if="${exams != null}">
+                    <th:block th:each="exam, iterStat : ${exams}">
+                        <tr>
+                            <td th:text="${iterStat.index + 1}"></td>
+                            <td th:text="${exam.listeningGrade + ' / 100'}" scope="row"></td>
+                            <td th:text="${exam.speakingGrade + ' / 100'}"></td>
+                            <td th:text="${exam.readingGrade + ' / 100'}"></td>
+                            <td th:text="${exam.writingGrade + ' / 100'}"></td>
+                            <td th:text="${exam.examRoom.name}"></td>
+                            <td th:text="${exam.examRoom.examCourse.englishLevel.name}"></td>
+                        </tr>
+                    </th:block>
+                </th:block>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<th:block th:replace="fragments/footer :: footer"></th:block>
+
+
+<!-- SCRIPTS -->
+<th:block th:replace="fragments/script :: scripts"></th:block>
+<th:block th:replace="fragments/script :: extra_scripts"></th:block>
+
+</body>
+</html>

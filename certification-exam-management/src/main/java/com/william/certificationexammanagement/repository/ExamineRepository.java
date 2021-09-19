@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface ExamineRepository  extends JpaRepository<Examine, Long> {
 
     Optional<Examine> findByPhone(String phone);
+    Optional<Examine> findByExamineId(String examineId);
 
     @Query("SELECT e FROM Examine e WHERE CONCAT(e.firstName, e.lastName) LIKE CONCAT('%', :fullName, '%')")
     Collection<Examine> findByFullName(String fullName);

@@ -255,7 +255,6 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
         if (!deletedExamineList.isEmpty()) {
             for (Examine examine : deletedExamineList) {
                 try {
-                    System.out.println("Delete id: " + examine.getId());
                     examRoomExamineBLL.deleteByExamRoomIdAndExamineId(examRoomId, examine.getId());
                 } catch(Exception e) {
                     e.printStackTrace();
@@ -1025,7 +1024,7 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
 
     private void btnLuuGtGkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuGtGkActionPerformed
         // TODO add your handling code here:
-        System.out.println();
+      
         String selectedGiamKhao;
         String selectedGiamThi;
         Long GiamKhaoId;
@@ -1040,8 +1039,6 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
           {   
               selectedGiamKhao = comboBoxGiamKhao.getSelectedItem().toString();
               selectedGiamThi = comboBoxGiamThi.getSelectedItem().toString();
-              System.out.println(comboBoxGiamKhao.getSelectedItem().toString());
-              System.out.println(comboBoxGiamThi.getSelectedItem().toString());
               if (!selectedGiamKhao.equals("Trống"))
               GiamKhaoId = Long.parseLong(selectedGiamKhao.substring(0, selectedGiamKhao.indexOf(" - ")));
               else GiamKhaoId = null;
@@ -1062,7 +1059,6 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
               }
 
           } else {
-              System.out.println("run");
               GiamKhaoId = null;
               GiamThiId = null;
               ExamRoom room = examRoomBLL.findById(RoomId);

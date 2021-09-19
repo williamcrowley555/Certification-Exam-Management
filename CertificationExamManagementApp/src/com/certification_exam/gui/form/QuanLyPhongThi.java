@@ -991,7 +991,9 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
         Boolean result = save();
                 if(result) {
                     JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    int selectedRow = tblPhongThi.getSelectedRow();
                     loadTableData();
+                    tblPhongThi.changeSelection(selectedRow, 0, true, true);
                 } else {
                     JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
                 }

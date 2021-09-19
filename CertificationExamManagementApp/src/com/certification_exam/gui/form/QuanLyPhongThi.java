@@ -5,47 +5,37 @@
  */
 package com.certification_exam.gui.form;
 
-import com.certification_exam.bll.IDoanBLL;
 import com.certification_exam.bll.IExamCourseBLL;
 import com.certification_exam.bll.IExamRoomBLL;
 import com.certification_exam.bll.IExamRoomExamineBLL;
 import com.certification_exam.bll.IExamineBLL;
-import com.certification_exam.bll.ITourBLL;
 import com.certification_exam.bll.IUserBLL;
-import com.certification_exam.bll.impl.DoanBLL;
 import com.certification_exam.bll.impl.ExamCourseBLL;
 import com.certification_exam.bll.impl.ExamRoomBLL;
 import com.certification_exam.bll.impl.ExamRoomExamineBLL;
 import com.certification_exam.bll.impl.ExamineBLL;
-import com.certification_exam.bll.impl.TourBLL;
 import com.certification_exam.bll.impl.UserBLL;
 import com.certification_exam.dto.ExamCourse;
 import com.certification_exam.dto.ExamRoom;
 import com.certification_exam.dto.ExamRoomExamine;
 import com.certification_exam.dto.Examine;
-import com.certification_exam.dto.TourDTO;
 import com.certification_exam.dto.User;
 import com.certification_exam.gui.menu.MyComboBoxEditor;
 import com.certification_exam.gui.menu.MyComboBoxRenderer;
 import java.awt.Color;
 import java.awt.Font;
-import java.util.Vector;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import com.certification_exam.gui.menu.MyScrollBarUI;
-import com.certification_exam.gui.popup.PopUpCapVaiTroGUI;
 import com.certification_exam.gui.popup.PopUpPhongThiGUI;
-import com.certification_exam.gui.popup.PopUpDsNguoiDiGUI;
 import com.certification_exam.gui.popup.PopUpKhoaThiGUI;
-import com.certification_exam.gui.popup.PopUpTableChonThiSinhChoPhongThiGUI;
 import com.certification_exam.util.PhongThiTableLoaderUtil;
 import com.certification_exam.util.TableSetupUtil;
 import com.certification_exam.util.ThiSinhXepPhongTableLoaderUtil;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import javafx.scene.control.ComboBox;
+import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -67,8 +57,6 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
     /**
      * Creates new form Panel1
      */
-    private PopUpTableChonThiSinhChoPhongThiGUI popUpTableChonThiSinh;
-    private PopUpCapVaiTroGUI popUpCapVaiTro;
     private PopUpPhongThiGUI popUp = null;
     private PopUpKhoaThiGUI popUpKhoaThi = null;
     DefaultTableModel model;   

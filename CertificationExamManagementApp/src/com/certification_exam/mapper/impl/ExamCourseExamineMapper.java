@@ -5,7 +5,6 @@
  */
 package com.certification_exam.mapper.impl;
 
-import com.certification_exam.dto.DsDiaDiemTourDTO;
 import com.certification_exam.dto.ExamCourseExamine;
 import com.certification_exam.mapper.RowMapper;
 import java.sql.ResultSet;

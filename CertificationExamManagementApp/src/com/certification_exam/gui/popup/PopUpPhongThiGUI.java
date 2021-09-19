@@ -5,43 +5,14 @@
  */
 package com.certification_exam.gui.popup;
 
-import com.github.lgooddatepicker.components.DatePicker;
-import com.toedter.calendar.JTextFieldDateEditor;
-import com.certification_exam.bll.IDiaDiemBLL;
-import com.certification_exam.bll.IDiaDiemBLL;
-import com.certification_exam.bll.IDoanBLL;
 import com.certification_exam.bll.IEnglishLevelBLL;
 import com.certification_exam.bll.IExamCourseBLL;
 import com.certification_exam.bll.IExamRoomBLL;
-import com.certification_exam.bll.IGiaTourBLL;
-import com.certification_exam.bll.IKhachHangBLL;
-import com.certification_exam.bll.ITinhBLL;
-import com.certification_exam.bll.ITinhBLL;
-import com.certification_exam.bll.ITourBLL;
-import com.certification_exam.bll.IVaiTroBLL;
-import com.certification_exam.bll.impl.DiaDiemBLL;
-import com.certification_exam.bll.impl.DiaDiemBLL;
-import com.certification_exam.bll.impl.DoanBLL;
 import com.certification_exam.bll.impl.EnglishLevelBLL;
 import com.certification_exam.bll.impl.ExamCourseBLL;
 import com.certification_exam.bll.impl.ExamRoomBLL;
-import com.certification_exam.bll.impl.GiaTourBLL;
-import com.certification_exam.bll.impl.KhachHangBLL;
-import com.certification_exam.bll.impl.TinhBLL;
-import com.certification_exam.bll.impl.TinhBLL;
-import com.certification_exam.bll.impl.TourBLL;
-import com.certification_exam.bll.impl.VaiTroBLL;
-import com.certification_exam.dto.DiaDiemDTO;
-import com.certification_exam.dto.DiaDiemDTO;
-import com.certification_exam.dto.DoanDTO;
 import com.certification_exam.dto.ExamCourse;
 import com.certification_exam.dto.ExamRoom;
-import com.certification_exam.dto.GiaTourDTO;
-import com.certification_exam.dto.KhachHangDTO;
-import com.certification_exam.dto.NhanVienDTO;
-import com.certification_exam.dto.TinhDTO;
-import com.certification_exam.dto.TinhDTO;
-import com.certification_exam.dto.TourDTO;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -56,31 +27,19 @@ import javax.swing.plaf.basic.BasicComboPopup;
 import javax.swing.plaf.basic.ComboPopup;
 import com.certification_exam.gui.menu.MyComboBoxEditor;
 import com.certification_exam.gui.menu.MyComboBoxRenderer;
-import com.certification_exam.gui.others.TableRowTransferHandler;
-import com.certification_exam.util.ImageUtil;
 import com.certification_exam.util.InputValidatorUtil;
-import com.certification_exam.util.ThiSinhTableLoaderUtil;
 import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DropMode;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -89,29 +48,17 @@ import javax.swing.table.DefaultTableModel;
 public class PopUpPhongThiGUI extends javax.swing.JFrame {
     private File selectedImg = null;
     private String action;
-    private DoanDTO doan = null;
     private ExamRoom room = null;
-    private IDoanBLL doanBLL;
-    private ITourBLL tourBLL;
     private IExamCourseBLL examCourseBLL;
     private IExamRoomBLL examRoomBLL;
-    private IGiaTourBLL giaTourBLL;
-    private ArrayList<KhachHangDTO> listKhach = null;
-    private ArrayList<NhanVienDTO> listNhanVien = null;
-    private IVaiTroBLL vaiTroBLL;
-    private PopUpTableChonGiaGUI popUp;
-    private GiaTourDTO giaTour;
     
     
     public PopUpPhongThiGUI(String action) {
         initComponents();
         
         this.action = action;    
-        doanBLL = new DoanBLL();
-        tourBLL = new TourBLL();
         examCourseBLL = new ExamCourseBLL();
-        examRoomBLL = new ExamRoomBLL();
-        giaTourBLL = new GiaTourBLL();        
+        examRoomBLL = new ExamRoomBLL();    
         CustomWindow();
         setComboBox(comboBoxKhoaThi, getKhoaThiItems());
         comboBoxKhoaThi = myComboBox(comboBoxKhoaThi, new Color(14,142,233));
@@ -247,19 +194,8 @@ public class PopUpPhongThiGUI extends javax.swing.JFrame {
         return examCourse.getId() + " - " + examCourse.getName();
     }
     
-    
-    
-    public void  setGiaTour(GiaTourDTO giaTour)
-    {
-        this.giaTour = giaTour;
-       
-    }
-    
-    public void resetGiaTour()
-    {
-        this.giaTour = null;
-       
-    }
+  
+ 
     public PopUpPhongThiGUI() {
         initComponents();
         CustomWindow();

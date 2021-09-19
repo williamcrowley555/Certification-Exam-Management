@@ -64,12 +64,10 @@ public class ExamCourseBLL implements IExamCourseBLL {
         Integer year = examCourse.getYear();
         Long englishLevelId = examCourse.getEnglishLevelId();
         ExamCourse existedExamCourse = findByMonthAndYearAndEnglishLevelId(month, year, englishLevelId);
-        
         if (existedExamCourse == null) {
             EnglishLevel englishLevel = englishLevelBLL.findById(englishLevelId);
             if (englishLevel != null) {
                 String englishLevelName = englishLevel.getName();
-            
                 examCourse.setName(generateName(englishLevelName, month, year));
                 savedExamCourseId = examCourseDAL.save(examCourse);
             }

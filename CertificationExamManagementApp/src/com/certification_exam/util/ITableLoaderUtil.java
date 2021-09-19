@@ -5,7 +5,6 @@
  */
 package com.certification_exam.util;
 
-import com.certification_exam.dto.VaiTroDTO;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 

@@ -5,51 +5,26 @@
  */
 package com.certification_exam.gui.popup;
 
-import com.certification_exam.bll.IDiaDiemBLL;
-import com.certification_exam.bll.IDsDiaDiemTourBLL;
 import com.certification_exam.bll.IEnglishLevelBLL;
 import com.certification_exam.bll.IExamCourseBLL;
 import com.certification_exam.bll.IExamCourseExamineBLL;
-import com.certification_exam.bll.IGiaTourBLL;
-import com.certification_exam.bll.IKhachHangBLL;
-import com.certification_exam.bll.INhanVienBLL;
-import com.certification_exam.bll.ITinhBLL;
-import com.certification_exam.bll.IVaiTroBLL;
-import com.certification_exam.bll.impl.DiaDiemBLL;
-import com.certification_exam.bll.impl.DsDiaDiemTourBLL;
 import com.certification_exam.bll.impl.EnglishLevelBLL;
 import com.certification_exam.bll.impl.ExamCourseBLL;
 import com.certification_exam.bll.impl.ExamCourseExamineBLL;
-import com.certification_exam.bll.impl.GiaTourBLL;
-import com.certification_exam.bll.impl.KhachHangBLL;
-import com.certification_exam.bll.impl.NhanVienBLL;
-import com.certification_exam.bll.impl.TinhBLL;
-import com.certification_exam.dto.DiaDiemDTO;
-import com.certification_exam.dto.DsDiaDiemTourDTO;
 import com.certification_exam.dto.EnglishLevel;
 import com.certification_exam.dto.ExamCourseExamine;
-import com.certification_exam.dto.KhachHangDTO;
-import com.certification_exam.dto.NhanVienDTO;
-import com.certification_exam.dto.TinhDTO;
 import com.certification_exam.gui.menu.MyComboBoxEditor;
 import com.certification_exam.gui.menu.MyComboBoxRenderer;
-import com.certification_exam.util.DiaDiemTableLoaderUtil;
 import com.certification_exam.util.KhoaThiTableLoaderUtil;
-import com.certification_exam.util.ThiSinhTableLoaderUtil;
-import com.certification_exam.util.NhanVienTableLoaderUtil;
 import com.certification_exam.util.TableSetupUtil;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -74,7 +49,6 @@ public class PopUpTableChonKhoaThiGUI extends javax.swing.JFrame {
      */
     
     IExamCourseBLL examCourseBLL = new ExamCourseBLL();
-    List<DiaDiemDTO> diaDiemList = null;
     DefaultTableModel model;
     Long examine_id;
     int month;

@@ -5,7 +5,6 @@
  */
 package com.certification_exam.mapper.impl;
 
-import com.certification_exam.dto.DiaDiemDTO;
 import com.certification_exam.mapper.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;

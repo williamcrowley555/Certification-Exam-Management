@@ -11,37 +11,29 @@ import com.certification_exam.bll.IExamRoomBLL;
 import com.certification_exam.bll.IExamineBLL;
 import java.awt.Color;
 import java.awt.Font;
-import java.util.Vector;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 import com.certification_exam.gui.menu.MyScrollBarUI;
 import com.certification_exam.gui.popup.PopUpThiSinhGUI;
-import com.certification_exam.gui.popup.PopUpGiaoVienGUI;
-import com.certification_exam.bll.IKhachHangBLL;
 import com.certification_exam.bll.impl.ExamBLL;
 import com.certification_exam.bll.impl.ExamCourseBLL;
 import com.certification_exam.bll.impl.ExamRoomBLL;
 import com.certification_exam.bll.impl.ExamineBLL;
-import com.certification_exam.bll.impl.KhachHangBLL;
-import com.certification_exam.bll.impl.NhanVienBLL;
 import com.certification_exam.dto.ExamRoom;
 import com.certification_exam.dto.Examine;
 import com.certification_exam.gui.popup.PopUpChamDiemGUI;
 import com.certification_exam.gui.popup.PopUpTableChonKhoaThiGUI;
-import com.certification_exam.util.InputValidatorUtil;
 import com.certification_exam.util.KhoaThiTableLoaderUtil;
 import com.certification_exam.util.PhongThiTableLoaderUtil;
 import com.certification_exam.util.ThiSinhTableLoaderUtil;
-import com.certification_exam.util.TableSetupUtil;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import static jdk.nashorn.internal.objects.NativeString.substring;
 
 /**
  *
@@ -78,14 +70,13 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
                             "Năm",
                             "Trình Độ"
     };
-    private IKhachHangBLL khachHangBLL;
     private IExamineBLL examineBLL;
     private IExamCourseBLL examCourseBLL;
     private IExamRoomBLL examRoomBLL;
     private IExamBLL examBLL;
+    private PopUpChamDiemGUI popupChamDiem;
     private PopUpThiSinhGUI popUp = null;
     private PopUpTableChonKhoaThiGUI popUpKhoaThi = null;
-    private PopUpChamDiemGUI popupChamDiem = null;
     TableRowSorter<TableModel> rowSorter = null;
     
     public QuanLyThiSinhGUI() {

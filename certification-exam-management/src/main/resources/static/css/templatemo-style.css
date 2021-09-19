@@ -1026,11 +1026,15 @@ https://templatemo.com/tm-516-known
    }
 
   .card-body {
-       -ms-flex: 1 1 auto;
-       flex: 1 1 auto;
-       padding: 1.25rem;
+      -ms-flex: 1 1 auto;
+      flex: 1 1 auto;
+      padding: 1.25rem;
   }
 
   .float-right {
       float: right !important;
+  }
+
+  .font-weight-bold {
+    font-weight: bold;
   }

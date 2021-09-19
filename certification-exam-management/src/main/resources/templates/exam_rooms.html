@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: html_head(headTitle = 'Phòng thi')"></head>
+<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+<th:block th:replace="fragments/header :: preloader"></th:block>
+
+
+<div th:replace="fragments/header :: navbar"></div>
+
+
+<div class="container"style="padding: 50px 10px;">
+    <h2 style="margin-left: 25px;">Danh sách phòng thi</h2>
+    <div class="row">
+        <div class="col-12 col-sm-4">
+            <form th:action="@{/exam-rooms/examines}" th:object="${examine}" method="GET" class="form" style="padding: 0 25px">
+
+                <div class="form-group">
+                    <label for="exampleFullName">Nhập họ tên</label>
+                    <input type="text" th:value="${fullName}" name="fullName" class="form-control" id="exampleFullName"
+                           aria-describedby="fullNameHelp" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPhone">Nhập số điện thoại</label>
+                    <input type="tel" th:value="${phone}" name="phone" class="form-control" id="exampleInputPhone"
+                           aria-describedby="phoneHelp" required>
+                </div>
+                <div class="form-group text-center">
+                    <button class="btn btn-success" type="submit">Xem phòng thi</button>
+                </div>
+            </form>
+
+            <th:block th:if="${examine != null}">
+                <hr />
+                <div style="margin-left: 25px;">
+                    <h4>Thông tin thí sinh</h4>
+                    <p style="font-size: 15px">
+                        <span class="font-weight-bold">Họ tên: </span> [[${examine.fullName}]]
+                    </p>
+                    <p style="font-size: 15px">
+                        <span class="font-weight-bold">Ngày sinh: </span> [[${examine.dobFormat}]]
+                    </p>
+                    <p style="font-size: 15px">
+                        <span class="font-weight-bold">Số điện thoại: </span> [[${examine.phone}]]
+                    </p>
+                    <p style="font-size: 15px">
+                        <span class="font-weight-bold">Số báo danh: </span> [[${examine.examineId != null ? examine.examineId : ''}]]
+                    </p>
+                </div>
+            </th:block>
+        </div>
+        <div class="col-12 col-sm-8">
+            <table class="table table-fluid table-pagination" id="taskTable">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">Phòng thi</th>
+                    <th scope="col">Chứng chỉ trình độ</th>
+                    <th scope="col">Khóa thi</th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">Ngày thi</th>
+                    <th scope="col">Giờ bắt đầu</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <th:block th:if="${examRooms != null}">
+                    <th:block th:each="examRoom : ${examRooms}">
+                        <tr>
+                            <th th:text="${examRoom.name}" scope="row"></th>
+                            <td th:text="${examRoom.examCourse.englishLevel.name}"></td>
+                            <td th:text="${examRoom.examCourse.name}"></td>
+                            <td th:text="${examRoom.quantity}"></td>
+                            <td th:text="${examRoom.examDateFormat}"></td>
+                            <td th:text="${examRoom.examTimeFormat}"></td>
+                        </tr>
+                    </th:block>
+                </th:block>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<th:block th:replace="fragments/footer :: footer"></th:block>
+
+
+<!-- SCRIPTS -->
+<th:block th:replace="fragments/script :: scripts"></th:block>
+<th:block th:replace="fragments/script :: extra_scripts"></th:block>
+
+</body>
+</html>

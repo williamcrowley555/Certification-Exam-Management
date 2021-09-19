@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface ExamRoomService {
     List<ExamRoom> getExamRooms();
-    ExamRoom getExamRoomByExamineFullNameAndExaminePhone(String examineFullName, String examinePhone);
+    List<ExamRoom> getExamRoomByExamineFullNameAndExaminePhone(String examineFullName, String examinePhone);
     ExamRoom getExamRoomById(Long id);
 }

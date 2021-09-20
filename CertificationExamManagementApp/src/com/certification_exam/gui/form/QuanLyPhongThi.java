@@ -67,7 +67,7 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
                             "Ngày Thi",
                             "Khóa Thi",
                             "Số Lượng",
-                            "Giám Khảo",
+                            "Giáo viên chấm điểm",
                             "Giám Thị"
     };
     
@@ -222,8 +222,6 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
        return box;
     }
     
-    
-    
      public void modifyExamineList(List<Examine> originalList, List<Examine> modifiedList, Long examRoomId) {
         List<Examine> newExamineList = new ArrayList<>();
         List<Examine> deletedExamineList = originalList;
@@ -243,12 +241,10 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
         if (!newExamineList.isEmpty()) {
             for (Examine examine : newExamineList) {
                 try {
-                    
-                     examRoomExamineBLL.save(new ExamRoomExamine(examRoomId, examine.getId()));
+                    examRoomExamineBLL.save(new ExamRoomExamine(examRoomId, examine.getId()));
                 } catch(Exception e) {
                     e.printStackTrace();
                 }  
-               
             }
         }
         
@@ -261,8 +257,6 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
                 }  
             }
         }
-        
-        
     }
     
      public void addDeleted(Examine deleted)   //Add deleted examine back to table not in room
@@ -291,8 +285,6 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
     }
      
     public boolean save(){
-       
-       
        int rowindex = tblPhongThi.getSelectedRow();
        Long RoomId = Long.parseLong(tblPhongThi.getValueAt(rowindex,0).toString());
        if (rowindex >=0)
@@ -618,7 +610,7 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
         lblTitleSoLuong1.setText("Giám Thị:");
 
         lblTitleSoLuong2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblTitleSoLuong2.setText("Giám Khảo:");
+        lblTitleSoLuong2.setText("Giáo viên chấm điểm:");
 
         comboBoxGiamThi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         comboBoxGiamThi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
@@ -697,7 +689,7 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
                             .addGroup(pnlBodyLayout.createSequentialGroup()
                                 .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(comboBoxGiamKhao, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblTitleSoLuong2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblTitleSoLuong2, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(22, 22, 22))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBodyLayout.createSequentialGroup()
@@ -828,15 +820,15 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
         headerColor(14,142,233,tblThiSinhDaXepPhong);
         
         comboBoxGiamKhao.setSelectedItem(
-                getUserItemName(userBLL.findById(
-                    examRoomBLL.findById(RoomId).getExaminerId()
-                ))
+            getUserItemName(userBLL.findById(
+                examRoomBLL.findById(RoomId).getExaminerId()
+            ))
         );
         
         comboBoxGiamThi.setSelectedItem(
-                getUserItemName(userBLL.findById(
-                    examRoomBLL.findById(RoomId).getProctorId()
-                ))
+            getUserItemName(userBLL.findById(
+                examRoomBLL.findById(RoomId).getProctorId()
+            ))
         );
         
     }//GEN-LAST:event_tblPhongThiMouseReleased
@@ -958,10 +950,10 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
         for (int i = 0; i < DsThiSinhDaXepPhong.size(); i++) {
         model.addRow(new Object[]   {
                                         String.valueOf(DsThiSinhDaXepPhong.get(i).getId()),
-                                              String.valueOf(DsThiSinhDaXepPhong.get(i).getLastName()),
-                                              String.valueOf(DsThiSinhDaXepPhong.get(i).getFirstName()),
-                                              String.valueOf(DsThiSinhDaXepPhong.get(i).getGender() == 1 ? "Nam" : "Nữ"),
-                                              String.valueOf(DsThiSinhDaXepPhong.get(i).getDob())
+                                        String.valueOf(DsThiSinhDaXepPhong.get(i).getLastName()),
+                                        String.valueOf(DsThiSinhDaXepPhong.get(i).getFirstName()),
+                                        String.valueOf(DsThiSinhDaXepPhong.get(i).getGender() == 1 ? "Nam" : "Nữ"),
+                                        String.valueOf(DsThiSinhDaXepPhong.get(i).getDob())
                                     });
         }
         
@@ -988,14 +980,14 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
     private void btnLưuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLưuActionPerformed
 
         Boolean result = save();
-                if(result) {
-                    JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                    int selectedRow = tblPhongThi.getSelectedRow();
-                    loadTableData();
-                    tblPhongThi.changeSelection(selectedRow, 0, true, true);
-                } else {
-                    JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
-                }
+            if(result) {
+                JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                int selectedRow = tblPhongThi.getSelectedRow();
+                loadTableData();
+                tblPhongThi.changeSelection(selectedRow, 0, true, true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            }
     }//GEN-LAST:event_btnLưuActionPerformed
 
     private void comboBoxGiamThiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboBoxGiamThiItemStateChanged
@@ -1023,8 +1015,6 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
     }//GEN-LAST:event_btnLuuGtGkMouseReleased
 
     private void btnLuuGtGkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuGtGkActionPerformed
-        // TODO add your handling code here:
-      
         String selectedGiamKhao;
         String selectedGiamThi;
         Long GiamKhaoId;
@@ -1055,7 +1045,7 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
                   JOptionPane.showMessageDialog(this, "Lưu thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                   loadTableData();
               } else {
-                  JOptionPane.showMessageDialog(this, "Giám thị và giám khảo trùng nhau", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                  JOptionPane.showMessageDialog(this, "Giáo viên chấm thi và Giám khảo không được trùng nhau", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
               }
 
           } else {
@@ -1070,8 +1060,6 @@ public class QuanLyPhongThi extends javax.swing.JPanel {
           }
          
        } else JOptionPane.showMessageDialog(this, "Hãy chọn 1 phòng để tiếp tục", "Thông báo", JOptionPane.INFORMATION_MESSAGE); 
-        
-        
         
     }//GEN-LAST:event_btnLuuGtGkActionPerformed
 

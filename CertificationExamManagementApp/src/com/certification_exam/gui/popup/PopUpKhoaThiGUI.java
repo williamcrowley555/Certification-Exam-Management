@@ -109,9 +109,6 @@ public class PopUpKhoaThiGUI extends javax.swing.JFrame {
     public String getLoaiDuLichItemName(EnglishLevel level) {
         return level.getId() + " - " + level.getName();
     }
-  
-    
-     
       
     private ExamCourse getFormInfo() throws IOException {
         ExamCourse course = new ExamCourse();
@@ -372,25 +369,24 @@ public class PopUpKhoaThiGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-        
         toNextMonth();
         ExamCourse newCourse = null;
         try {
-                newCourse = getFormInfo();
-            } catch (IOException ex) {
-                Logger.getLogger(PopUpKhoaThiGUI.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            newCourse = getFormInfo();
+        } catch (IOException ex) {
+            Logger.getLogger(PopUpKhoaThiGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         if(this.action.equals("POST_FAST")) {
-                    Long newExamCourseId = examCourseBLL.save(newCourse);
-                    if(newExamCourseId != null) {
+            Long newExamCourseId = examCourseBLL.save(newCourse);
+            if(newExamCourseId != null) {
 
-                            JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                            dispose();
+                    JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
 
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Khóa này đã tồn tại", "Thông báo", JOptionPane.ERROR_MESSAGE);
-                        }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Khóa này đã tồn tại", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                }
         }     
     }//GEN-LAST:event_btnLuuActionPerformed
 

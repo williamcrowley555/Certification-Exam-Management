@@ -53,7 +53,23 @@ public class ExamRoomExamineBLL implements IExamRoomExamineBLL {
 
     @Override
     public void save(ExamRoomExamine examRoomExamine) {
+        ExamRoom currentExamRoom = examRoomBLL.findById(examRoomExamine.getExamRoomId());
+        ExamCourse currentExamCourse = examCourseBLL.findById(currentExamRoom.getExamCourseId());
+        List<ExamRoom> examRooms = examRoomBLL.findByExamCourseId(currentExamCourse.getId());
+        
+        for (ExamRoom room : examRooms) {
+            List<ExamRoomExamine> examRoomExamines = findByExamRoomId(room.getId());
+            for (ExamRoomExamine ere : examRoomExamines) {
+                if (ere.getExamRoomId() != examRoomExamine.getExamRoomId()) {
+                    if (ere.getExamineId() == examRoomExamine.getExamineId()) {
+                        return;
+                    }
+                }
+            }
+        }
+        
         ExamRoomExamine existedExamRoomExamine = findByExamRoomIdAndExamineId(examRoomExamine.getExamRoomId(), examRoomExamine.getExamineId());
+        
         if (existedExamRoomExamine == null) {
             examRoomExamineDAL.save(examRoomExamine);
             

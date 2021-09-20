@@ -124,36 +124,6 @@ public class PopUpThiSinhGUI extends javax.swing.JFrame {
             lblValidateTen.setIcon(iconError);
             lblValidateTen.setToolTipText(InputValidatorUtil.isValidName(txtTen.getText(), true));
         }
-     
-//        if (!InputValidatorUtil.isVailidPhoneNumber(txtSDT.getText()).isEmpty()) {
-//            Sdt = false;
-//            lblValidateSDT.setIcon(iconError);
-//            lblValidateSDT.setToolTipText(InputValidatorUtil.isVailidPhoneNumber(txtSDT.getText()));
-//        } else {
-//            Sdt = true;
-//            lblValidateSDT.setIcon(iconCheck);
-//            lblValidateSDT.setToolTipText(null);
-//            
-//            if (this.action.equals("POST")) {
-//                if (khachHangBLL.findBySdt(txtSDT.getText().trim()) != null) {
-//                    Sdt = false;
-//                    lblValidateSDT.setIcon(iconError);
-//                    lblValidateSDT.setToolTipText("Số điện thoại này đã được sử dụng");
-//                }
-//            } else if (this.action.equals("PUT")) {
-//                KhachHangDTO newKhachHang = khachHangBLL.findBySdt(txtSDT.getText().trim());
-//                if (newKhachHang != null) {
-//                    if (newKhachHang.getId() != this.khachHang.getId()) {  
-//                        Sdt = false;
-//                        lblValidateSDT.setIcon(iconError);
-//                        lblValidateSDT.setToolTipText("Số điện thoại này đã được sử dụng");
-//                    }
-//                }
-//                       
-//            }    
-//        }
-        
-       
         
         if (InputValidatorUtil.isValidBirthDate(DCNgaySinh.getDate(), 1).isEmpty())  
         {
@@ -177,12 +147,9 @@ public class PopUpThiSinhGUI extends javax.swing.JFrame {
            lblValidateDiaChi.setToolTipText(InputValidatorUtil.isValidAddress(txtDiaChi.getText()));
         }
         
-//        if (Ho && Ten && NgaySinh && DiaChi)
-//        return true;
-//        else return false;
         return true;
-       
     }
+    
     private Examine getFormInfo() throws IOException {
         Examine examine = new Examine();
         if(this.examine != null) {

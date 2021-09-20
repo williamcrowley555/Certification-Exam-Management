@@ -441,8 +441,6 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_itemSuaActionPerformed
 
     private void tblThiSinhMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblThiSinhMouseReleased
-        // TODO add your handling code here:
-        // TODO add your handling code here:
         int r = tblThiSinh.rowAtPoint(evt.getPoint());
         if (r >= 0 && r < tblThiSinh.getRowCount()) {
             tblThiSinh.setRowSelectionInterval(r, r);
@@ -451,10 +449,6 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
         }
 
         int rowindex = tblThiSinh.getSelectedRow();
-        
-//        Vector currentRow = new Vector();
-//        for (int i = 0; i < tblThiSinh.getColumnCount(); i++)
-//        currentRow.add(tblThiSinh.getValueAt(rowindex,i).toString());
        
         if (rowindex < 0)
             return;
@@ -473,7 +467,6 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_tblThiSinhMouseReleased
 
     private void btnThemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMousePressed
-        // TODO add your handling code here:
         if (this.popUp == null) {
             this.popUp = new PopUpThiSinhGUI("POST");
             
@@ -538,8 +531,6 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
            lblTableTitle.setText("Danh sách thí sinh khóa " + tblKhoaThi.getValueAt(rowindex,1).toString());
            headerColor(14,142,233,tblPhongThi);
            
-           
-           
            List<Examine> examineListByCourse = examineBLL.findByExamCourseId(CourseId);
            DefaultTableModel modelExamine = new DefaultTableModel(columnNames,0);
            if(examineListByCourse.isEmpty()){
@@ -552,9 +543,8 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_tblKhoaThiMouseReleased
 
     private void tblPhongThiMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPhongThiMouseReleased
-       
-        int rowindex = tblPhongThi.getSelectedRow();
-        int rowindexKhoaThi = tblKhoaThi.getSelectedRow();
+       int rowindex = tblPhongThi.getSelectedRow();
+       int rowindexKhoaThi = tblKhoaThi.getSelectedRow();
        if (rowindex >=0 && rowindexKhoaThi >= 0)
        {
            Long RoomId = Long.parseLong(tblPhongThi.getValueAt(rowindex,0).toString());
@@ -569,9 +559,9 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
            }
            headerColor(14,142,233,tblThiSinh);
            
-           
            lblTableTitle.setText("Danh sách thí sinh khóa "+ tblKhoaThi.getValueAt(rowindexKhoaThi,1).toString()+" phòng "+ tblPhongThi.getValueAt(rowindex,1).toString());
-       } else JOptionPane.showMessageDialog(this, "Hãy chọn 1 khóa để hiển thị", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+       } else 
+           JOptionPane.showMessageDialog(this, "Hãy chọn 1 khóa để hiển thị", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_tblPhongThiMouseReleased
 
     private void btnRefreshMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRefreshMousePressed
@@ -593,7 +583,6 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btnTimKiemMousePressed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        // TODO add your handling code here:
         if(txtTen.getText().isEmpty() && txtSdt.getText().isEmpty())
         {
             JOptionPane.showMessageDialog(this, "Hãy nhập gì đó để tìm kiếm", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
@@ -637,12 +626,10 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_txtSdtActionPerformed
 
     private void itemChamDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemChamDiemActionPerformed
-        // TODO add your handling code here:
-       
         int rowindexThiSinh = tblThiSinh.getSelectedRow();
         int rowindexPhongThi = tblPhongThi.getSelectedRow();
         
-        Long RoomId = Long.parseLong(tblThiSinh.getValueAt(rowindexPhongThi,0).toString());
+        Long RoomId = Long.parseLong(tblPhongThi.getValueAt(rowindexPhongThi,0).toString());
         Long ExamineId = Long.parseLong(tblThiSinh.getValueAt(rowindexThiSinh,0).toString());
 
         if (this.popupChamDiem == null) {
@@ -652,11 +639,12 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
             this.popupChamDiem.toFront();
             this.popupChamDiem.center();
         }
+        
         popupChamDiem.addWindowListener(new java.awt.event.WindowAdapter() {
-        @Override
-        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-            popupChamDiem = null;
-        }
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                popupChamDiem = null;
+            }
         });
         
     }//GEN-LAST:event_itemChamDiemActionPerformed

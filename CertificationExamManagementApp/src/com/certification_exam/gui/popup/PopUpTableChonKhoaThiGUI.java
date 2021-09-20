@@ -97,9 +97,6 @@ public class PopUpTableChonKhoaThiGUI extends javax.swing.JFrame {
         headerColor(14,142,233,tblKhoaThi);
     }
     
-    
-    
-    
     public void setComboBox(JComboBox<String> comboBox, String[] listItems) {
         comboBox.setModel(new DefaultComboBoxModel<>(listItems));
     } 
@@ -114,7 +111,6 @@ public class PopUpTableChonKhoaThiGUI extends javax.swing.JFrame {
         }
         return englishLevelItems;
     }
-    
    
     public JComboBox myComboBox(JComboBox box, Color color)
     {   

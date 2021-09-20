@@ -31,6 +31,7 @@ import com.certification_exam.util.InputValidatorUtil;
 import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -126,34 +127,32 @@ public class PopUpPhongThiGUI extends javax.swing.JFrame {
     
      public boolean validateForm() 
     {   
-        
         boolean NgayThi, GioThi; 
         ImageIcon iconCheck = new ImageIcon(getClass().getResource("/com/certification_exam/img/check.png"));
         ImageIcon iconError = new ImageIcon(getClass().getResource("/com/certification_exam/img/error.png"));
         
-        
-        
         if (InputValidatorUtil.isValidStartDate(dateTimePicker.getDatePicker().getDate(), "Ngày thi không hợp lệ").isEmpty())  
         {
+            LocalDate examDate = dateTimePicker.getDatePicker().getDate();
             String selectedCourse = comboBoxKhoaThi.getSelectedItem().toString();
             Long idCourse = Long.parseLong(selectedCourse.substring(0, selectedCourse.indexOf(" - ")));
-            examCourseBLL.findById(idCourse);
-            NgayThi = true;
-            lblValidateNgayThi.setIcon(iconCheck);
-            lblValidateNgayThi.setToolTipText(null);
+            ExamCourse course = examCourseBLL.findById(idCourse);
+            if (examDate.isEqual(LocalDate.of(course.getYear(), course.getMonth(), 1)) || examDate.isAfter(LocalDate.of(course.getYear(), course.getMonth(), 1))) {
+                NgayThi = true;
+                lblValidateNgayThi.setIcon(iconCheck);
+                lblValidateNgayThi.setToolTipText(null);
+            } else {
+                NgayThi = false;
+                lblValidateNgayThi.setIcon(iconError);
+                lblValidateNgayThi.setToolTipText("Ngày thi không hợp lệ");
+            }
         } else {
             NgayThi = false;
             lblValidateNgayThi.setIcon(iconError);
             lblValidateNgayThi.setToolTipText(InputValidatorUtil.isValidStartDate(dateTimePicker.getDatePicker().getDate(), "Ngày thi không hợp lệ"));
         }
         
-      
-//        if (TenDoan && StartDate)
-//        return true;
-//        else return false;
-        
-        return true;
-       
+        return NgayThi;
     }
     
     private ExamRoom getFormInfo() throws IOException {
@@ -511,7 +510,6 @@ public class PopUpPhongThiGUI extends javax.swing.JFrame {
             } else if(this.action.equals("PUT")) {
                 try {
                     examRoomBLL.update(newRoom);
-                    System.out.println(newRoom);
                     JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                     dispose();
                 } catch(Exception e) {

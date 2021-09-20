@@ -221,7 +221,7 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
         btnRefresh.setBackground(new java.awt.Color(14, 142, 233));
         btnRefresh.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnRefresh.setForeground(new java.awt.Color(255, 255, 255));
-        btnRefresh.setText("refresh");
+        btnRefresh.setText("Refresh");
         btnRefresh.setContentAreaFilled(false);
         btnRefresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRefresh.setOpaque(true);
@@ -243,7 +243,7 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
             .addGroup(pnlHeaderLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 576, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 572, Short.MAX_VALUE)
                 .addComponent(btnRefresh)
                 .addGap(30, 30, 30))
             .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

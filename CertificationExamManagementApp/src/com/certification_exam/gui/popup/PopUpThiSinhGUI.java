@@ -100,7 +100,7 @@ public class PopUpThiSinhGUI extends javax.swing.JFrame {
     public boolean validateForm() 
     {   
         
-        boolean Ho, Ten, Sdt, DiaChi, NgaySinh,CMND; 
+        boolean Ho, Ten, Sdt, DiaChi, NgaySinh; 
         ImageIcon iconCheck = new ImageIcon(getClass().getResource("/com/certification_exam/img/check.png"));
         ImageIcon iconError = new ImageIcon(getClass().getResource("/com/certification_exam/img/error.png"));
         if (InputValidatorUtil.isValidName(txtHo.getText(), false).isEmpty())
@@ -136,6 +136,17 @@ public class PopUpThiSinhGUI extends javax.swing.JFrame {
             lblValidateNgaySinh.setToolTipText(InputValidatorUtil.isValidBirthDate(DCNgaySinh.getDate(),18));
         }
         
+         if (!InputValidatorUtil.isVailidPhoneNumber(txtSDT.getText()).isEmpty()) {
+            Sdt = false;
+            lblValidateSDT.setIcon(iconError);
+            lblValidateSDT.setToolTipText(InputValidatorUtil.isVailidPhoneNumber(txtSDT.getText()));
+        } else {
+            Sdt = true;
+            lblValidateSDT.setIcon(iconCheck);
+            lblValidateSDT.setToolTipText(null);
+           
+        }
+        
         if (InputValidatorUtil.isValidAddress(txtDiaChi.getText()).isEmpty())  
         {
            DiaChi = true;
@@ -147,7 +158,10 @@ public class PopUpThiSinhGUI extends javax.swing.JFrame {
            lblValidateDiaChi.setToolTipText(InputValidatorUtil.isValidAddress(txtDiaChi.getText()));
         }
         
-        return true;
+        if (Ho && Ten && Sdt && NgaySinh && DiaChi)
+            return true;
+        else 
+            return false;
     }
     
     private Examine getFormInfo() throws IOException {

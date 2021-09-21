@@ -14,9 +14,9 @@ public interface ExamineRepository  extends JpaRepository<Examine, Long> {
     Optional<Examine> findByPhone(String phone);
     Optional<Examine> findByExamineId(String examineId);
 
-    @Query("SELECT e FROM Examine e WHERE CONCAT(e.firstName, e.lastName) LIKE CONCAT('%', :fullName, '%')")
+    @Query("SELECT e FROM Examine e WHERE CONCAT(e.lastName, ' ', e.firstName) LIKE CONCAT('%', :fullName, '%')")
     Collection<Examine> findByFullName(String fullName);
 
-    @Query("SELECT e FROM Examine e WHERE CONCAT(e.firstName, e.lastName) LIKE CONCAT('%', :fullName, '%') AND e.phone = :phone")
+    @Query("SELECT e FROM Examine e WHERE CONCAT(e.lastName, ' ', e.firstName) LIKE CONCAT('%', :fullName, '%') AND e.phone = :phone")
     Optional<Examine> findByFullNameAndPhone(String fullName, String phone);
 }

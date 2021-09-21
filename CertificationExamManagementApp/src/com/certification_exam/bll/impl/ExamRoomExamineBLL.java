@@ -80,6 +80,7 @@ public class ExamRoomExamineBLL implements IExamRoomExamineBLL {
                 
                 examineBLL.updateExamineId(examine, examCourse.getEnglishLevelId());
                 examRoom.setQuantity(examRoom.getQuantity() + 1);
+                System.out.println("ADD SL: " + examRoom.getQuantity());
                 examRoomBLL.update(examRoom);
             }
         }
@@ -98,6 +99,7 @@ public class ExamRoomExamineBLL implements IExamRoomExamineBLL {
         
         ExamRoom examRoom = examRoomBLL.findById(examRoomId);
         examRoom.setQuantity(examRoom.getQuantity() - 1);
+        System.out.println("DELETE SL: " + examRoom.getQuantity());
         examRoomBLL.update(examRoom);
     }
 }

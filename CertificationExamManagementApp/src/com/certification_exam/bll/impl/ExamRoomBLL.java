@@ -69,6 +69,10 @@ public class ExamRoomBLL implements IExamRoomBLL {
     @Override
     public void update(ExamRoom examRoom) {
         examRoomDAL.update(examRoom);
+//        System.out.println(examRoom);
+        ExamRoom er = findById(15L);
+        System.out.println(er);
+        System.out.println("UPDATE " + examRoom.getQuantity());
     }
 
     @Override

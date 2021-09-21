@@ -29,6 +29,7 @@ import com.certification_exam.util.PhongThiTableLoaderUtil;
 import com.certification_exam.util.ThiSinhTableLoaderUtil;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JOptionPane;
@@ -632,6 +633,15 @@ public class QuanLyThiSinhGUI extends javax.swing.JPanel {
         Long RoomId = Long.parseLong(tblPhongThi.getValueAt(rowindexPhongThi,0).toString());
         Long ExamineId = Long.parseLong(tblThiSinh.getValueAt(rowindexThiSinh,0).toString());
 
+        Date examDate = examRoomBLL.findById(RoomId).getExamDate();
+        Date today = new Date();
+        System.out.println(today);
+
+        if (!today.after(examDate)) {
+            JOptionPane.showMessageDialog(this, "Thí sinh chưa hoàn thành kỳ thi", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         if (this.popupChamDiem == null) {
         popupChamDiem = new PopUpChamDiemGUI(examBLL.getAndCreate(ExamineId, RoomId));
         popupChamDiem.show();
